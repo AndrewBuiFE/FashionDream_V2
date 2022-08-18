@@ -5,7 +5,7 @@ export const AppColors = {
   orinaryText: '#F5F5F5',
   smallTitleText: '#ABB4BD',
   primaryText: '#F6F6F6',
-  darkText: '#2A2C36',
+  lightDark: '#2A2C36',
   hotRed: '#FF3E3E',
   success: '#55D85A',
   error: '#FF2424',
