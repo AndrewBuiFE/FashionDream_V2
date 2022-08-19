@@ -6,7 +6,7 @@ import {AppIcons} from '../shared/constants/AppIcons';
 
 /**
  * @author hoang
- * @description Text field
+ * @description Search bar
  * @typedef Prop
  * @property {string=} placeholder
  * @property {(string) => string } onSearch

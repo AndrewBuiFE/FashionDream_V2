@@ -5,7 +5,7 @@ import {AppText} from '../shared/constants/AppGlobal';
 
 /**
  * @author hoang
- * @description Text field
+ * @description Tag
  * @typedef Prop
  * @property {'redTag' | 'blackTag' | 'whiteTag'} type
  * @property {'large' | 'medium'} size

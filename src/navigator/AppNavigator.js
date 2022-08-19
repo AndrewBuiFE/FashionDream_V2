@@ -1,19 +1,30 @@
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
+import LoginScreen from '../screens/auth/LoginScreen';
 import {ScreenName} from '../shared/constants/ScreenName';
-import TestComponent from '../tests/TestComponents';
+
+const Tab = createBottomTabNavigator();
 const AppNavigator = () => {
-  const Stack = createNativeStackNavigator();
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      {/* <Stack.Navigator initialRouteName={ScreenName.loginScreen}>
         <Stack.Screen
           name={ScreenName.testComponent}
           component={TestComponent}
           options={{headerShown: false}}
         />
-      </Stack.Navigator>
+        <Stack.Screen
+          name={ScreenName.loginScreen}
+          component={LoginScreen}
+          options={{headerShown: false}}
+        />
+      </Stack.Navigator> */}
+      <Tab.Navigator>
+        <Tab.Screen name={ScreenName.loginScreen} component={LoginScreen} options={{
+          .
+        }}/>
+      </Tab.Navigator>
     </NavigationContainer>
   );
 };
