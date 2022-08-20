@@ -1,6 +1,9 @@
+/* eslint-disable no-unused-vars */
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {combineReducers} from '@reduxjs/toolkit';
 import {PersistConfig, persistReducer} from 'redux-persist';
+import immutableTransform from 'redux-persist-transform-immutable';
+import autoMergeLevel2 from 'redux-persist/es/stateReconciler/autoMergeLevel2';
 import ProductSlice, {
   initialState as initialProductState,
 } from '../slices/ProductSlice';
@@ -38,10 +41,11 @@ const rootReducer = (state, action) => {
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
+  stateReconciler: autoMergeLevel2,
   // blacklist: [''],
-  // transforms:
+  transforms: [immutableTransform()],
 };
-export const fashionDreamRootReducer = persistReducer({
+export const fashionDreamRootReducer = persistReducer(
   persistConfig,
   rootReducer,
-});
+);

@@ -1,6 +1,7 @@
 export const AppIcons = {
   pen: require('../../assets/icons/pen.png'),
   redCross: require('../../assets/icons/red_cross.png'),
+  check: require('../../assets/icons/check.png'),
   search: require('../../assets/icons/search.png'),
   checkbox_red: require('../../assets/icons/checkbox_red.png'),
   checkbox_white: require('../../assets/icons/checkbox_white.png'),
@@ -9,6 +10,9 @@ export const AppIcons = {
   sort: require('../../assets/icons/sort.png'),
   view_module: require('../../assets/icons/view_module.png'),
   back_arrow: require('../../assets/icons/back_arrow.png'),
+  right_arrow: require('../../assets/icons/right_arrow.png'),
+  google: require('../../assets/icons/google.png'),
+  facebook: require('../../assets/icons/facebook.png'),
   // tab-bar
   home_active: require('../../assets/icons/home_active.png'),
   home_inactive: require('../../assets/icons/home_inactive.png'),

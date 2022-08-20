@@ -1,8 +1,8 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
-import {useTranslation} from 'react-i18next';
-import {Image} from 'react-native';
+import {Image, Platform} from 'react-native';
+import {AppColors} from '../shared/constants/AppColors';
 import {AppIcons} from '../shared/constants/AppIcons';
 import {ScreenName} from '../shared/constants/ScreenName';
 import CartNavigator from './CartNavigator';
@@ -30,7 +30,7 @@ const TabIcons = {
   },
 };
 const AppNavigator = () => {
-  const {t, i18n} = useTranslation();
+  // const {t, i18n} = useTranslation('i18n');
 
   return (
     <NavigationContainer>
@@ -48,47 +48,55 @@ const AppNavigator = () => {
               />
             );
           },
+          tabBarStyle: {
+            height: 48,
+            backgroundColor: AppColors.tabBar,
+            borderTopRightRadius: 12,
+            borderTopLeftRadius: 12,
+            elevation: 4,
+            borderColor: AppColors.primaryBackground,
+          },
+          tabBarItemStyle: {
+            backgroundColor: AppColors.primaryBackground,
+          },
+          tabBarHideOnKeyboard: Platform.OS === 'android' ? true : false,
+          tabBarInactiveTintColor: AppColors.smallTitleText,
+          tabBarActiveTintColor: AppColors.primaryRed,
+          headerShown: false,
         })}>
         <Tab.Screen
           name={ScreenName.homeNavigator}
           component={HomeNavigator}
           options={{
-            tabBarLabel: 'aksjfd',
-            title: '',
+            tabBarLabel: 'Home',
           }}
         />
         <Tab.Screen
           name={ScreenName.shopNavigator}
           component={ShopNavigator}
           options={{
-            headerShown: false,
-            tabBarLabel: '',
-            title: '',
+            tabBarLabel: 'Shop',
           }}
         />
         <Tab.Screen
           name={ScreenName.cartNavigator}
           component={CartNavigator}
           options={{
-            headerShown: false,
-            tabBarLabel: '',
-            title: '',
+            tabBarLabel: 'Bag',
           }}
         />
         <Tab.Screen
           name={ScreenName.favoriteNavigator}
           component={FavoriteNavigator}
           options={{
-            tabBarLabel: '',
-            title: '',
+            tabBarLabel: 'Favorites',
           }}
         />
         <Tab.Screen
           name={ScreenName.profileNavigator}
           component={ProfileNavigator}
           options={{
-            tabBarLabel: '',
-            title: '',
+            tabBarLabel: 'Profile',
           }}
         />
       </Tab.Navigator>

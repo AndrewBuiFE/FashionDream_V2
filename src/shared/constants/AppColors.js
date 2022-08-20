@@ -6,6 +6,7 @@ export const AppColors = {
   smallTitleText: '#ABB4BD',
   primaryText: '#F6F6F6',
   lightDark: '#2A2C36',
+  tabBar: '#1E1F28',
   hotRed: '#FF3E3E',
   success: '#55D85A',
   error: '#FF2424',

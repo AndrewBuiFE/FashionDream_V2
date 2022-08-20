@@ -1,4 +1,6 @@
-import {applyMiddleware, compose, configureStore} from '@reduxjs/toolkit';
+import {applyMiddleware, compose, createStore} from '@reduxjs/toolkit';
+import persistStore from 'redux-persist/es/persistStore';
+import thunk from 'redux-thunk';
 import {fashionDreamRootReducer} from './reducers/rootReducer';
 const composeEnhancers =
   (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ &&
@@ -7,7 +9,8 @@ const composeEnhancers =
       traceLimit: 25,
     })) ||
   compose;
-export const store = configureStore({
-  reducer: fashionDreamRootReducer,
-  enhancers: composeEnhancers(applyMiddleware(thunk)),
-});
+export const store = createStore(
+  fashionDreamRootReducer,
+  composeEnhancers(applyMiddleware(thunk)),
+);
+export const persistor = persistStore(store);

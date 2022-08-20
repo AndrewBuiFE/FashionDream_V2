@@ -2,6 +2,7 @@ import React from 'react';
 import {Image, Text, TextInput, View} from 'react-native';
 import {AppColors} from '../shared/constants/AppColors';
 import {AppText} from '../shared/constants/AppGlobal';
+import {AppIcons} from '../shared/constants/AppIcons';
 
 /**
  * @author hoang
@@ -12,9 +13,9 @@ import {AppText} from '../shared/constants/AppGlobal';
  * @property {string=} alertText
  * @property {boolean=} isAlerting
  * @property {boolean=} isShowRightIcon
- * @property {StyleProp<ImageStyle>} rightIcon
  * @property {boolean} isShowLabel
- * @property {StyleProp<ViewStyle>} viewStyle
+ * @property {string} placeholder
+ * @property {import('react-native').StyleProp<import('react-native').ViewStyle>} viewStyle
  * @property {(string)=>string} onTextEdit
  * @param {Prop} props
  */
@@ -23,10 +24,10 @@ export default function EditTextComponent(props) {
     inputText,
     inputLabel,
     alertText,
+    placeholder,
     isAlerting,
     isShowRightIcon,
     isShowLabel,
-    rightIcon,
     viewStyle,
     onTextEdit,
   } = props;
@@ -36,7 +37,6 @@ export default function EditTextComponent(props) {
         style={[
           {
             height: 64,
-            width: 343,
             backgroundColor: AppColors.lightDark,
             paddingLeft: 20,
             flexDirection: 'row',
@@ -59,6 +59,7 @@ export default function EditTextComponent(props) {
           <TextInput
             numberOfLines={1}
             value={inputText}
+            placeholder={placeholder}
             style={[
               AppText.primaryText,
               {
@@ -69,9 +70,9 @@ export default function EditTextComponent(props) {
             onChangeText={onTextEdit}
           />
         </View>
-        {isShowRightIcon && isAlerting ? (
+        {isShowRightIcon ? (
           <View style={{marginRight: 21}}>
-            <Image source={rightIcon} />
+            <Image source={isAlerting ? AppIcons.redCross : AppIcons.check} />
           </View>
         ) : null}
       </View>

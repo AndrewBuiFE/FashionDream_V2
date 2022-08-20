@@ -6,4 +6,6 @@ export const ScreenName = {
   profileNavigator: 'ProfileNavigator',
   testComponent: 'TestComponent',
   loginScreen: 'LoginScreen',
+  signupScreen: 'SignupScreen',
+  forgotPassScreen: 'ForgotPassScreen',
 };

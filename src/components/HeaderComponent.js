@@ -52,7 +52,7 @@ export default function HeaderComponent(props) {
       </TouchableOpacity>
     </View>
   ) : (
-    <View style={{flex: 1, width: '100%'}}>
+    <View style={{height: 96, width: '100%'}}>
       <View
         style={{
           flexDirection: 'row',
