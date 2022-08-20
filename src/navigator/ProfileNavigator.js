@@ -4,7 +4,7 @@ import LoginScreen from '../screens/auth/LoginScreen';
 import {ScreenName} from '../shared/constants/ScreenName';
 
 const Stack = createNativeStackNavigator();
-const HomeNavigator = () => {
+const ProfileNavigator = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -18,4 +18,4 @@ const HomeNavigator = () => {
     </Stack.Navigator>
   );
 };
-export default HomeNavigator;
+export default ProfileNavigator;

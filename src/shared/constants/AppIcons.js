@@ -9,4 +9,16 @@ export const AppIcons = {
   sort: require('../../assets/icons/sort.png'),
   view_module: require('../../assets/icons/view_module.png'),
   back_arrow: require('../../assets/icons/back_arrow.png'),
+  // tab-bar
+  home_active: require('../../assets/icons/home_active.png'),
+  home_inactive: require('../../assets/icons/home_inactive.png'),
+  shop_active: require('../../assets/icons/shop_active.png'),
+  shop_inactive: require('../../assets/icons/shop_inactive.png'),
+  bag_active: require('../../assets/icons/bag_active.png'),
+  bag_inactive: require('../../assets/icons/bag_inactive.png'),
+  heart_active: require('../../assets/icons/heart_active.png'),
+  heart_inactive: require('../../assets/icons/heart_inactive.png'),
+  profile_active: require('../../assets/icons/profile_active.png'),
+  profile_inactive: require('../../assets/icons/profile_inactive.png'),
+  sth_in_bag: require('../../assets/icons/sth_in_bag.png'),
 };

@@ -1,29 +1,96 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
-import LoginScreen from '../screens/auth/LoginScreen';
+import {useTranslation} from 'react-i18next';
+import {Image} from 'react-native';
+import {AppIcons} from '../shared/constants/AppIcons';
 import {ScreenName} from '../shared/constants/ScreenName';
+import CartNavigator from './CartNavigator';
+import FavoriteNavigator from './FavoriteNavigator';
+import HomeNavigator from './HomeNavigator';
+import ProfileNavigator from './ProfileNavigator';
+import ShopNavigator from './ShopNavigator';
 
 const Tab = createBottomTabNavigator();
+const TabIcons = {
+  [ScreenName.homeNavigator]: {
+    icon: [AppIcons.home_active, AppIcons.home_inactive],
+  },
+  [ScreenName.shopNavigator]: {
+    icon: [AppIcons.shop_active, AppIcons.shop_inactive],
+  },
+  [ScreenName.cartNavigator]: {
+    icon: [AppIcons.bag_active, AppIcons.bag_inactive],
+  },
+  [ScreenName.favoriteNavigator]: {
+    icon: [AppIcons.heart_active, AppIcons.heart_inactive],
+  },
+  [ScreenName.profileNavigator]: {
+    icon: [AppIcons.profile_active, AppIcons.profile_inactive],
+  },
+};
 const AppNavigator = () => {
+  const {t, i18n} = useTranslation();
+
   return (
     <NavigationContainer>
-      {/* <Stack.Navigator initialRouteName={ScreenName.loginScreen}>
-        <Stack.Screen
-          name={ScreenName.testComponent}
-          component={TestComponent}
-          options={{headerShown: false}}
+      <Tab.Navigator
+        initialRouteName={ScreenName.homeNavigator}
+        screenOptions={({route}) => ({
+          tabBarIcon: ({focused, color, size}) => {
+            return (
+              <Image
+                source={
+                  focused
+                    ? TabIcons[route.name].icon[0]
+                    : TabIcons[route.name].icon[1]
+                }
+              />
+            );
+          },
+        })}>
+        <Tab.Screen
+          name={ScreenName.homeNavigator}
+          component={HomeNavigator}
+          options={{
+            tabBarLabel: 'aksjfd',
+            title: '',
+          }}
         />
-        <Stack.Screen
-          name={ScreenName.loginScreen}
-          component={LoginScreen}
-          options={{headerShown: false}}
+        <Tab.Screen
+          name={ScreenName.shopNavigator}
+          component={ShopNavigator}
+          options={{
+            headerShown: false,
+            tabBarLabel: '',
+            title: '',
+          }}
         />
-      </Stack.Navigator> */}
-      <Tab.Navigator>
-        <Tab.Screen name={ScreenName.loginScreen} component={LoginScreen} options={{
-          .
-        }}/>
+        <Tab.Screen
+          name={ScreenName.cartNavigator}
+          component={CartNavigator}
+          options={{
+            headerShown: false,
+            tabBarLabel: '',
+            title: '',
+          }}
+        />
+        <Tab.Screen
+          name={ScreenName.favoriteNavigator}
+          component={FavoriteNavigator}
+          options={{
+            tabBarLabel: '',
+            title: '',
+          }}
+        />
+        <Tab.Screen
+          name={ScreenName.profileNavigator}
+          component={ProfileNavigator}
+          options={{
+            tabBarLabel: '',
+            title: '',
+          }}
+        />
       </Tab.Navigator>
     </NavigationContainer>
   );
