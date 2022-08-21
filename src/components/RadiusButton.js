@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  Image,
   StyleProp,
   Text,
   TextStyle,
@@ -7,13 +8,14 @@ import {
   ViewStyle,
 } from 'react-native';
 import {AppColors} from '../shared/constants/AppColors';
-import {AppText} from '../shared/constants/AppGlobal';
+import {AppText, DeviceConstant} from '../shared/constants/AppGlobal';
 /**
  * @author hoang
  * @description Custom radius button for sharing through screens
  * @typedef Prop
  * @property {'redButton' | 'disabledButton' | 'whiteButton'} type
  * @property {string} title
+ * @property {JSX.Element} icon
  * @property {StyleProp<ViewStyle>=} buttonCustomStyle
  * @property {StyleProp<TextStyle>=} titleCustomStyle
  * @property {()=>void=} onButtonPress
@@ -23,6 +25,7 @@ export default function RadiusButton(props) {
   let {
     title,
     type,
+    icon,
     onButtonPress,
     buttonCustomStyle = null,
     titleCustomStyle = null,
@@ -61,16 +64,18 @@ export default function RadiusButton(props) {
     <TouchableOpacity
       style={{
         backgroundColor: buttonBackground,
+        flexDirection: 'row',
         borderRadius: 25,
-        height: 48,
+        height: 0.0591 * DeviceConstant.screenHeight,
         width: '100%',
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'space-evenly',
         borderColor: borderStyle.borderColor,
         borderWidth: borderStyle.borderWidth,
         ...buttonCustomStyle,
       }}
       onPress={onButtonPress}>
+      {icon ? <Image source={icon} /> : null}
       <Text style={[textStyle, titleCustomStyle]}>{title}</Text>
     </TouchableOpacity>
   );
