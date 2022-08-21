@@ -8,4 +8,5 @@ export const ScreenName = {
   loginScreen: 'LoginScreen',
   signupScreen: 'SignupScreen',
   forgotPassScreen: 'ForgotPassScreen',
+  homeScreen: 'HomeScreen',
 };

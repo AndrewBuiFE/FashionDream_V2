@@ -5,6 +5,7 @@ export const AppText = {
   largeTitle: {
     color: AppColors.primaryText,
     fontFamily: 'Metropolis',
+    fontWeight: '800',
     fontSize: 34,
     lineHeight: 34,
   },

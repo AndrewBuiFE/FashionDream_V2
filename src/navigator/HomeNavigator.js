@@ -3,12 +3,13 @@ import React from 'react';
 import ForgotPassScreen from '../screens/auth/ForgotPassScreen';
 import LoginScreen from '../screens/auth/LoginScreen';
 import SignupScreen from '../screens/auth/SignupScreen';
+import HomeScreen from '../screens/mainpage/HomeScreen';
 import {ScreenName} from '../shared/constants/ScreenName';
 
 const Stack = createNativeStackNavigator();
 const HomeNavigator = () => {
   return (
-    <Stack.Navigator initialRouteName={ScreenName.loginScreen}>
+    <Stack.Navigator initialRouteName={ScreenName.homeScreen}>
       <Stack.Screen
         name={ScreenName.loginScreen}
         component={LoginScreen}
@@ -28,6 +29,14 @@ const HomeNavigator = () => {
       <Stack.Screen
         name={ScreenName.forgotPassScreen}
         component={ForgotPassScreen}
+        options={{
+          headerShown: false,
+          title: '',
+        }}
+      />
+      <Stack.Screen
+        name={ScreenName.homeScreen}
+        component={HomeScreen}
         options={{
           headerShown: false,
           title: '',

@@ -1,46 +1,74 @@
+import {useNavigation} from '@react-navigation/native';
+import {Formik} from 'formik';
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
+import * as Yup from 'yup';
 import EditTextComponent from '../../components/EditTextComponent';
 import HeaderComponent from '../../components/HeaderComponent';
 import RadiusButton from '../../components/RadiusButton';
 import {AppColors} from '../../shared/constants/AppColors';
-import {AppText} from '../../shared/constants/AppGlobal';
 import {AppIcons} from '../../shared/constants/AppIcons';
+import {ScreenName} from '../../shared/constants/ScreenName';
 
 const ForgotPassScreen = () => {
+  const navigation = useNavigation();
+  const goBack = navigation.goBack;
   return (
     <View style={styles.container}>
       <HeaderComponent
         type="large"
         leftIcon={AppIcons.back_arrow}
         title="Forgot password"
+        onLeftIconPress={goBack}
       />
-      <View style={{marginTop: 87}}>
-        <Text style={AppText.primaryText}>
-          Please, enter your email address. You will receive a link to create a
-          new password via email.
-        </Text>
-      </View>
-      <View style={styles.inputSection}>
-        <EditTextComponent
-          isShowLabel
-          // isAlerting
-          // isShowRightIcon
-          alertText="Wrong email"
-          inputLabel="Email"
-          onTextEdit={value => {
-            console.log('Value: ', value);
-          }}
-        />
-      </View>
-      <RadiusButton
-        title="SEND"
-        type="redButton"
-        onButtonPress={() => {
-          console.log('Send!');
+      <Formik
+        initialValues={{email: ''}}
+        onSubmit={(value, {resetForm}) => {
+          console.log('Value: ', value);
+          resetForm();
         }}
-        buttonCustomStyle={{marginTop: 55}}
-      />
+        validationSchema={Yup.object({
+          email: Yup.string('email is invalid')
+            .email('email is not valid')
+            .required('email should not be left empty'),
+        })}>
+        {({
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          dirty,
+          isValid,
+          values,
+          errors,
+          touched,
+        }) => {
+          return (
+            <View style={styles.inputSection}>
+              <EditTextComponent
+                isShowLabel
+                isShowRightIcon={!!touched.email}
+                isAlerting={!!errors.email && touched.email}
+                alertText={errors.email}
+                inputLabel="Email"
+                inputText={values.email}
+                onTextEdit={handleChange('email')}
+                onTextBlur={handleBlur('email')}
+              />
+              <RadiusButton
+                title="SEND"
+                type={isValid && dirty ? 'redButton' : 'disabledButton'}
+                onButtonPress={() => {
+                  if (isValid && dirty) {
+                    handleSubmit();
+                    navigation.navigate(ScreenName.loginScreen);
+                  }
+                }}
+                buttonCustomStyle={{marginTop: 30}}
+              />
+            </View>
+          );
+        }}
+      </Formik>
     </View>
   );
 };

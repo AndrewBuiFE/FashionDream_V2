@@ -17,6 +17,7 @@ import {AppIcons} from '../shared/constants/AppIcons';
  * @property {string} placeholder
  * @property {import('react-native').StyleProp<import('react-native').ViewStyle>} viewStyle
  * @property {(string)=>string} onTextEdit
+ * @property {()=>void} onTextBlur
  * @param {Prop} props
  */
 export default function EditTextComponent(props) {
@@ -29,6 +30,7 @@ export default function EditTextComponent(props) {
     isShowRightIcon,
     isShowLabel,
     viewStyle,
+    onTextBlur,
     onTextEdit,
   } = props;
   return (
@@ -68,6 +70,7 @@ export default function EditTextComponent(props) {
               },
             ]}
             onChangeText={onTextEdit}
+            onBlur={onTextBlur}
           />
         </View>
         {isShowRightIcon ? (
