@@ -10,5 +10,5 @@ import {View} from 'react-native';
  */
 export default function DividerComponent(props) {
   let {height} = props;
-  return <View style={{height: height}} />;
+  return <View style={{height: height ? height : 20}} />;
 }

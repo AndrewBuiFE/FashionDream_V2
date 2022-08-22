@@ -6,12 +6,14 @@ import {AppImages} from '../shared/constants/AppImages';
 export const PRODUCT = [
   {
     id: 1,
-    image: AppImages.small_banner,
+    image: AppImages.man_1,
     discountPercent: 10,
     star: 4,
     comment: 6,
-    brand: 'Dorothy',
-    title: 'Evening',
+    brand:
+      'Dorothy sdfas fdjk ajsdjf asfjd jf adjf kajfd jsakj jskdjf ksja jskfdj jdsjf ',
+    title:
+      'Evening adkfj jfk jdjfsk ajd asdkjf ksfj ksjdf skdf jaksdfj js jaksj',
     originalPrice: 15,
     isFavorited: false,
     timeCreated: '12/06/2022',
@@ -19,7 +21,7 @@ export const PRODUCT = [
   },
   {
     id: 2,
-    image: AppImages.small_banner,
+    image: AppImages.man_2,
     discountPercent: 10,
     star: 4,
     comment: 6,
@@ -32,7 +34,7 @@ export const PRODUCT = [
   },
   {
     id: 3,
-    image: AppImages.small_banner,
+    image: AppImages.man_3,
     discountPercent: 10,
     star: 4,
     comment: 6,

@@ -1,5 +1,7 @@
 import React from 'react';
-import {ImageBackground, StyleSheet, Text, View} from 'react-native';
+import {FlatList, ImageBackground, StyleSheet, Text, View} from 'react-native';
+import {PRODUCT, SECTION} from '../../assets/data';
+import ProductItemComponent from '../../components/ProductItemComponent';
 import RadiusButton from '../../components/RadiusButton';
 import ParallaxScrollView from '../../libs/ParallaxScrollView';
 import {AppColors} from '../../shared/constants/AppColors';
@@ -9,6 +11,9 @@ const PARALLAX_HEADER_HEIGHT = 536;
 const STICKY_HEADER_HEIGHT = 196;
 
 const HomeScreen = () => {
+  const renderItem = ({item, index}) => {
+    return <ProductItemComponent product={item} key={index} />;
+  };
   return (
     <ParallaxScrollView
       backgroundColor="black"
@@ -18,6 +23,7 @@ const HomeScreen = () => {
       contentContainerStyle={{
         backgroundColor: 'black',
         flex: 1,
+        marginLeft: 16,
       }}
       renderForeground={() => (
         <View
@@ -70,17 +76,31 @@ const HomeScreen = () => {
           </ImageBackground>
         </View>
       )}>
-      <View>
-        <View style={{height: 500}}>
-          <Text>Scroll me</Text>
-        </View>
-        <View style={{height: 500}}>
-          <Text>End part</Text>
-        </View>
-        <View style={{height: 500}}>
-          <Text>End part</Text>
-        </View>
-      </View>
+      {SECTION.map((section, index) => {
+        return (
+          <View style={{marginTop: 40}} key={index}>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <View style={{flex: 1}}>
+                <Text style={AppText.largeTitle}>{section.title}</Text>
+                <Text style={[AppText.tinyTitle, {marginTop: 4}]}>
+                  {section.description}
+                </Text>
+              </View>
+              <Text style={AppText.tinyTitle}>View all</Text>
+            </View>
+            <View>
+              <FlatList
+                data={PRODUCT}
+                renderItem={renderItem}
+                horizontal
+                ItemSeparatorComponent={() => (
+                  <View style={{height: 20}}></View>
+                )}
+              />
+            </View>
+          </View>
+        );
+      })}
     </ParallaxScrollView>
   );
 };
