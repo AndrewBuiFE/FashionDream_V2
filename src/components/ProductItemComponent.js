@@ -108,7 +108,12 @@ export default function ProductItemComponent(props) {
       />
     </View>
   ) : (
-    <View style={{width: 150, backgroundColor: AppColors.lightDark}}>
+    <View
+      style={{
+        width: 150,
+        backgroundColor: AppColors.lightDark,
+        borderRadius: 8,
+      }}>
       <View>
         <ImageBackground
           source={AppImages.man_4}

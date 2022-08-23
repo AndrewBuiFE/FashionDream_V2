@@ -1,36 +1,46 @@
-import React from 'react';
-import {FlatList, ImageBackground, StyleSheet, Text, View} from 'react-native';
+import React, {useState} from 'react';
+import {
+  FlatList,
+  ImageBackground,
+  RefreshControl,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {PRODUCT, SECTION} from '../../assets/data';
+import DividerComponent from '../../components/DividerComponent';
 import ProductItemComponent from '../../components/ProductItemComponent';
 import RadiusButton from '../../components/RadiusButton';
 import ParallaxScrollView from '../../libs/ParallaxScrollView';
 import {AppColors} from '../../shared/constants/AppColors';
 import {AppText} from '../../shared/constants/AppGlobal';
 import {AppImages} from '../../shared/constants/AppImages';
+import Utils from '../../shared/helpers/Utils';
 const PARALLAX_HEADER_HEIGHT = 536;
 const STICKY_HEADER_HEIGHT = 196;
 
 const HomeScreen = () => {
+  //
+  const [refresh, setRefresh] = useState(true);
+  // rendering function for FlatList
   const renderItem = ({item, index}) => {
     return <ProductItemComponent product={item} key={index} />;
   };
   return (
     <ParallaxScrollView
       backgroundColor="black"
-      contentBackgroundColor="pink"
+      contentBackgroundColor="black"
       parallaxHeaderHeight={PARALLAX_HEADER_HEIGHT}
       stickyHeaderHeight={STICKY_HEADER_HEIGHT}
       contentContainerStyle={{
         backgroundColor: 'black',
         flex: 1,
-        marginLeft: 16,
       }}
       renderForeground={() => (
         <View
           style={{
-            height: 536,
             width: '100%',
-            backgroundColor: 'yellow',
           }}>
           <ImageBackground
             source={AppImages.big_banner}
@@ -64,7 +74,6 @@ const HomeScreen = () => {
           style={{
             height: 196,
             width: '100%',
-            backgroundColor: 'yellow',
           }}>
           <ImageBackground
             source={AppImages.small_banner}
@@ -78,7 +87,7 @@ const HomeScreen = () => {
       )}>
       {SECTION.map((section, index) => {
         return (
-          <View style={{marginTop: 40}} key={index}>
+          <View style={{marginTop: 40, marginLeft: 16}} key={index}>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
               <View style={{flex: 1}}>
                 <Text style={AppText.largeTitle}>{section.title}</Text>
@@ -86,21 +95,56 @@ const HomeScreen = () => {
                   {section.description}
                 </Text>
               </View>
-              <Text style={AppText.tinyTitle}>View all</Text>
+              <TouchableOpacity
+                style={{marginRight: 14}}
+                onPress={() => {
+                  Utils.showConfirmDialog({
+                    title: 'Warning',
+                    message: 'Do you want to delete?',
+                    options: [
+                      {text: 'Cancel', type: 'cancel'},
+                      {
+                        text: 'Confirm',
+                        type: 'destructive',
+                        // onPress: onConfirm,
+                      },
+                    ],
+                  });
+                }}>
+                <Text
+                  style={[AppText.tinyTitle, {color: AppColors.primaryText}]}>
+                  View all
+                </Text>
+              </TouchableOpacity>
             </View>
-            <View>
+            <View style={{marginTop: 22}}>
               <FlatList
                 data={PRODUCT}
                 renderItem={renderItem}
                 horizontal
+                refreshControl={
+                  <RefreshControl
+                    // refreshing
+                    onRefresh={() => {
+                      console.log('Refreshing...');
+                    }}
+                    title="Refresh control"
+                    progressBackgroundColor={AppColors.lightDark}
+                    progressViewOffset={3}
+                    titleColor={AppColors.hotRed}
+                    tintColor={AppColors.hotRed}
+                  />
+                }
+                showsHorizontalScrollIndicator={false}
                 ItemSeparatorComponent={() => (
-                  <View style={{height: 20}}></View>
+                  <View style={{height: 260, width: 16}} />
                 )}
               />
             </View>
           </View>
         );
       })}
+      <DividerComponent height={40} />
     </ParallaxScrollView>
   );
 };

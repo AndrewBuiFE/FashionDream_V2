@@ -2,6 +2,10 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
 import {Image, Platform} from 'react-native';
+import ConfirmDialog, {
+  ConfirmDialogRef,
+} from '../components/dialog/ConfirmDialog';
+import ScaleToast from '../components/toast/ScaleToast';
 import {AppColors} from '../shared/constants/AppColors';
 import {AppIcons} from '../shared/constants/AppIcons';
 import {ScreenName} from '../shared/constants/ScreenName';
@@ -100,6 +104,8 @@ const AppNavigator = () => {
           }}
         />
       </Tab.Navigator>
+      <ScaleToast />
+      <ConfirmDialog dialogRef={ConfirmDialogRef} />
     </NavigationContainer>
   );
 };

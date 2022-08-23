@@ -1,15 +1,15 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
-import LoginScreen from '../screens/auth/LoginScreen';
 import {ScreenName} from '../shared/constants/ScreenName';
+import TestComponent from '../tests/TestComponents';
 
 const Stack = createNativeStackNavigator();
 const ProfileNavigator = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name={ScreenName.loginScreen}
-        component={LoginScreen}
+        name={ScreenName.testComponent}
+        component={TestComponent}
         options={{
           headerShown: false,
           title: '',

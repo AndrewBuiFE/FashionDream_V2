@@ -15,7 +15,15 @@ import {ScreenName} from '../../shared/constants/ScreenName';
 
 const LoginScreen = () => {
   const navigation = useNavigation();
-  const goBack = navigation.goBack;
+  /**
+   * back to previous screen on stack
+   * @param {import('@react-navigation/native').NavigationProp} navigation will use rootNavigation
+   */
+  const goBack = () => {
+    if (navigation.canGoBack()) {
+      navigation.goBack();
+    }
+  };
   return (
     <View style={styles.container}>
       <HeaderComponent
