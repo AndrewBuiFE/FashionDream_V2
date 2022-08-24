@@ -58,7 +58,7 @@ export default function HeaderComponent(props) {
           flexDirection: 'row',
           width: '100%',
           height: 44,
-          paddingLeft: 8,
+          paddingHorizontal: 8,
           alignItems: 'center',
           justifyContent: 'space-between',
         }}>
@@ -71,6 +71,16 @@ export default function HeaderComponent(props) {
             alignItems: 'center',
           }}>
           <Image source={leftIcon} style={{}} />
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={onRightIconPress}
+          style={{
+            width: 24,
+            height: 24,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <Image source={rightIcon} />
         </TouchableOpacity>
       </View>
       <View style={{marginTop: 18, paddingLeft: 14}}>

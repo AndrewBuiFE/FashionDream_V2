@@ -1,4 +1,5 @@
 /* eslint-disable no-shadow */
+import {useNavigation} from '@react-navigation/native';
 import React, {useRef, useState} from 'react';
 import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import Carousel from 'react-native-snap-carousel';
@@ -7,6 +8,7 @@ import {AppColors} from '../../shared/constants/AppColors';
 import {AppText, DeviceConstant} from '../../shared/constants/AppGlobal';
 import {AppIcons} from '../../shared/constants/AppIcons';
 import {AppImages} from '../../shared/constants/AppImages';
+import {ScreenName} from '../../shared/constants/ScreenName';
 
 const TabViewList = [
   {
@@ -40,6 +42,8 @@ const TabViewList = [
   },
 ];
 const CategoriesScreen = () => {
+  const navigation = useNavigation();
+  const goBack = navigation.goBack;
   const [index, setIndex] = useState(0);
   const renderTabView = ({item, index}) => {
     let category = item?.title.map((i, categoryIndex) => {
@@ -65,7 +69,10 @@ const CategoriesScreen = () => {
           </View>
         ) : null}
         {category.map(c => (
-          <View
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate(ScreenName.partialCategoryScreen);
+            }}
             style={{
               width: 343,
               height: 100,
@@ -89,7 +96,7 @@ const CategoriesScreen = () => {
                 }}
               />
             </View>
-          </View>
+          </TouchableOpacity>
         ))}
       </ScrollView>
     );
@@ -102,6 +109,7 @@ const CategoriesScreen = () => {
         leftIcon={AppIcons.back_arrow}
         rightIcon={AppIcons.search}
         title="Categories"
+        onLeftIconPress={goBack}
       />
       <View
         style={{
@@ -110,45 +118,33 @@ const CategoriesScreen = () => {
           height: 44,
           alignItems: 'center',
         }}>
-        <TouchableOpacity
-          onPress={() => {
-            setIndex(0);
-          }}>
-          <Text
-            style={[
-              AppText.smallTitle,
-              {
-                color:
-                  index == 0 ? AppColors.primaryText : AppColors.smallTitleText,
-              },
-            ]}>
-            Women
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Text
-            style={[
-              AppText.smallTitle,
-              {
-                color:
-                  index == 1 ? AppColors.primaryText : AppColors.smallTitleText,
-              },
-            ]}>
-            Men
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Text
-            style={[
-              AppText.smallTitle,
-              {
-                color:
-                  index == 2 ? AppColors.primaryText : AppColors.smallTitleText,
-              },
-            ]}>
-            Kids
-          </Text>
-        </TouchableOpacity>
+        {['Women', 'Men', 'Kids'].map((cate, i) => {
+          return (
+            <TouchableOpacity style={{}}>
+              <Text
+                style={[
+                  AppText.smallTitle,
+                  {
+                    color:
+                      index == i
+                        ? AppColors.primaryText
+                        : AppColors.smallTitleText,
+                    textAlign: 'center',
+                  },
+                ]}>
+                {cate}
+              </Text>
+              <View
+                style={{
+                  height: 3,
+                  width: 125,
+                  backgroundColor:
+                    index == i ? AppColors.primaryRed : 'transparent',
+                }}
+              />
+            </TouchableOpacity>
+          );
+        })}
       </View>
       <Carousel
         ref={swiperRef}
@@ -160,9 +156,11 @@ const CategoriesScreen = () => {
         onSnapToItem={index => setIndex(index)}
         enableSnap
         loop={false}
-        contentContainerCustomStyle={{
-          backgroundColor: 'blue',
-        }}
+        contentContainerCustomStyle={
+          {
+            // backgroundColor: 'blue',
+          }
+        }
       />
     </View>
   );
