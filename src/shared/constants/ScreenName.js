@@ -9,4 +9,7 @@ export const ScreenName = {
   signupScreen: 'SignupScreen',
   forgotPassScreen: 'ForgotPassScreen',
   homeScreen: 'HomeScreen',
+  categoriesScreen: 'CategoriesScreen',
+  partialCategoryScreen: 'PartialCategoryScreen',
+  catalogScreen: 'CatalogScreen',
 };

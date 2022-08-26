@@ -13,6 +13,10 @@ export const AppIcons = {
   right_arrow: require('../../assets/icons/right_arrow.png'),
   google: require('../../assets/icons/google.png'),
   facebook: require('../../assets/icons/facebook.png'),
+  star_active: require('../../assets/icons/star_active.png'),
+  star_inactive: require('../../assets/icons/star_inactive.png'),
+  star_big_active: require('../../assets/icons/star_big_active.png'),
+  star_big_inactive: require('../../assets/icons/star_big_inactive.png'),
   // tab-bar
   home_active: require('../../assets/icons/home_active.png'),
   home_inactive: require('../../assets/icons/home_inactive.png'),
@@ -20,6 +24,7 @@ export const AppIcons = {
   shop_inactive: require('../../assets/icons/shop_inactive.png'),
   bag_active: require('../../assets/icons/bag_active.png'),
   bag_inactive: require('../../assets/icons/bag_inactive.png'),
+  bag_favorite: require('../../assets/icons/bag_favorite.png'),
   heart_active: require('../../assets/icons/heart_active.png'),
   heart_inactive: require('../../assets/icons/heart_inactive.png'),
   profile_active: require('../../assets/icons/profile_active.png'),

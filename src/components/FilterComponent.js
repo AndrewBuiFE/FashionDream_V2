@@ -10,17 +10,19 @@ import {AppIcons} from '../shared/constants/AppIcons';
  * @property {()=> void} onFilterPress
  *  @property {()=> void} onSortPress
  *  @property {()=> void} onViewChange
+ * @property {import('react-native').StyleProp<import('react-native').ViewStyle>} customFilterView
  * @param {Prop} props
  */
 export default function FilterComponent(props) {
-  let {onFilterPress, onSortPress, onViewChange} = props;
+  let {customFilterView, onFilterPress, onSortPress, onViewChange} = props;
   return (
     <View
       style={{
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        width: 343,
+        width: '100%',
+        ...customFilterView,
       }}>
       <TouchableOpacity
         style={{flexDirection: 'row', alignItems: 'center'}}

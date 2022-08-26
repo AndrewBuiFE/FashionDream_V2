@@ -1,6 +1,7 @@
 import {applyMiddleware, compose, createStore} from '@reduxjs/toolkit';
 import persistStore from 'redux-persist/es/persistStore';
 import thunk from 'redux-thunk';
+import Reactotron from '../../ReactotronConfig';
 import {fashionDreamRootReducer} from './reducers/rootReducer';
 const composeEnhancers =
   (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ &&
@@ -11,6 +12,8 @@ const composeEnhancers =
   compose;
 export const store = createStore(
   fashionDreamRootReducer,
-  composeEnhancers(applyMiddleware(thunk)),
+
+  composeEnhancers(applyMiddleware(thunk), Reactotron.createEnhancer()),
 );
+
 export const persistor = persistStore(store);

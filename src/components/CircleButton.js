@@ -11,11 +11,20 @@ import {AppColors} from '../shared/constants/AppColors';
  * @property {boolean} isSocialButton
  * @property {StyleProp<ImageStyle>} icon
  * @property {import('react-native').StyleProp<import('react-native').ViewStyle>} customStyle
+ * @property {import('react-native').StyleProp<import('react-native').ViewStyle>} iconStyle,
  * @property {()=>void=} onButtonPress
  * @param {Prop} props
  */
 export default function CircleButton(props) {
-  let {icon, type, size, isSocialButton, customStyle, onButtonPress} = props;
+  let {
+    icon,
+    type,
+    size,
+    isSocialButton,
+    customStyle,
+    iconStyle,
+    onButtonPress,
+  } = props;
   return (
     <TouchableOpacity
       style={[
@@ -35,7 +44,7 @@ export default function CircleButton(props) {
         customStyle,
       ]}
       onPress={onButtonPress}>
-      <Image source={icon} />
+      <Image source={icon} style={iconStyle} />
     </TouchableOpacity>
   );
 }
