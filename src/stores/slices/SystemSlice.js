@@ -4,6 +4,8 @@ const tag = 'SystemSlice';
 export const initialState = {
   appState: 'idle',
   appFirstLoad: false,
+  language: 'vi',
+  loadingLanguage: false,
 };
 const SystemSlice = createSlice({
   name: tag,
@@ -13,6 +15,24 @@ const SystemSlice = createSlice({
       return {
         ...state,
         appState: action.payload,
+      };
+    },
+    changeLanguage(state, action) {
+      return {
+        ...state,
+        language: action.payload,
+      };
+    },
+    loadLanguageStart(state, action) {
+      return {
+        ...state,
+        loadingLanguage: action.payload,
+      };
+    },
+    loadLanguageSuccess(state, action) {
+      return {
+        ...state,
+        language: action.payload,
       };
     },
   },

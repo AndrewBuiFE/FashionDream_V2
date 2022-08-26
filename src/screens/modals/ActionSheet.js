@@ -44,30 +44,13 @@ export default function ActionSheet() {
   return (
     <RNActionSheet
       ref={rnActionSheetRef}
-      styles={{
-        buttonText: {
-          fontSize: 16,
-          lineHeight: 16,
-          color: '#F6F6F6',
-          textAlign: 'center',
-        },
-        titleText: {
-          fontSize: 18,
-          lineHeight: 22,
-          color: '#F6F6F6',
-          textAlign: 'center',
-        },
-        titleBox: {
-          // backgroundColor: 'yellow',
-          borderTopLeftRadius: 34,
-          borderTopRightRadius: 34,
-          height: 75,
-        },
-        wrapper: {zIndex: 3},
-        buttonBox: {
-          height: 48,
-        },
-      }}
+      userInterfaceStyle="dark"
+      tintColor="#F6F6F6"
+      styles={
+        {
+          // titleText,
+        }
+      }
       // theme="ios"
 
       // userInterfaceStyle=""
