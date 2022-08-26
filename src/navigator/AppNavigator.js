@@ -6,6 +6,7 @@ import ConfirmDialog, {
   ConfirmDialogRef,
 } from '../components/dialog/ConfirmDialog';
 import ScaleToast from '../components/toast/ScaleToast';
+import ActionSheet from '../screens/modals/ActionSheet';
 import {AppColors} from '../shared/constants/AppColors';
 import {AppIcons} from '../shared/constants/AppIcons';
 import {ScreenName} from '../shared/constants/ScreenName';
@@ -105,6 +106,7 @@ const AppNavigator = () => {
         />
       </Tab.Navigator>
       <ScaleToast />
+      <ActionSheet />
       <ConfirmDialog dialogRef={ConfirmDialogRef} />
     </NavigationContainer>
   );

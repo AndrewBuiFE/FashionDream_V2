@@ -12,10 +12,12 @@ import {ScreenName} from '../../shared/constants/ScreenName';
 
 const TabViewList = [
   {
+    id: 1,
     title: ['New', 'Clothes', 'Shoes', 'Accesories'],
     image: [AppImages.man_1, AppImages.man_2, AppImages.man_3, AppImages.man_4],
   },
   {
+    id: 2,
     title: ['1', '2', '3', '4'],
     image: [AppImages.man_1, AppImages.man_2, AppImages.man_3, AppImages.man_4],
     sale: {
@@ -25,6 +27,7 @@ const TabViewList = [
     },
   },
   {
+    id: 3,
     title: ['1', '2', '3', '4', '5', '6'],
     image: [
       AppImages.man_1,

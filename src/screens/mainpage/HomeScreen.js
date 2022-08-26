@@ -98,17 +98,11 @@ const HomeScreen = () => {
               <TouchableOpacity
                 style={{marginRight: 14}}
                 onPress={() => {
-                  Utils.showConfirmDialog({
-                    title: 'Warning',
-                    message: 'Do you want to delete?',
-                    options: [
-                      {text: 'Cancel', type: 'cancel'},
-                      {
-                        text: 'Confirm',
-                        type: 'destructive',
-                        // onPress: onConfirm,
-                      },
-                    ],
+                  Utils.showActionSheet({
+                    options: ['hoang', 'bui', 'viet'],
+                    cancelButtonIndex: 2,
+                    destructiveButtonIndex: 1,
+                    onPress: console.log,
                   });
                 }}>
                 <Text

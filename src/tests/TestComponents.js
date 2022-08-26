@@ -19,6 +19,7 @@ import SearchBar from '../components/SearchBar';
 import StarComponent from '../components/StarComponent';
 import TagComponent from '../components/TagComponent';
 import ScaleToast from '../components/toast/ScaleToast';
+import ActionSheet from '../screens/modals/ActionSheet';
 import {AppColors} from '../shared/constants/AppColors';
 import {DeviceConstant} from '../shared/constants/AppGlobal';
 import {AppIcons} from '../shared/constants/AppIcons';
@@ -147,6 +148,7 @@ const TestComponent = () => {
       <Text>Demo</Text>
       <DividerComponent />
       <DemoComponent />
+      <ActionSheet />
     </ScrollView>
   );
 };

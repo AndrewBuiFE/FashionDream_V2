@@ -12,18 +12,31 @@ import StarComponent from './StarComponent';
  * @description Product component
  * @typedef Prop
  * @property {import("../models/types/index.d").Product} product
+ * @property {'medium' | 'large'} size
  * @property {boolean} isHorizontal
  * @property {boolean} isFavorite
+ * @property {boolean} isBottomRightButtonActive
  * @param {Prop} props
  * @returns {JSX.Element}
  */
 export default function ProductItemComponent(props) {
-  let {product, isHorizontal, isFavorite} = props;
+  let {product, isHorizontal, isFavorite, isBottomRightButtonActive, size} =
+    props;
+  let rightButtonIcon;
+  if (isFavorite && isBottomRightButtonActive) {
+    rightButtonIcon = AppIcons.bag_favorite;
+  } else if (isFavorite) {
+    rightButtonIcon = AppIcons.bag_inactive;
+  } else if (isBottomRightButtonActive) {
+    rightButtonIcon = AppIcons.heart_active;
+  } else {
+    rightButtonIcon = AppIcons.heart_inactive;
+  }
   return isHorizontal ? (
     <View
       style={{
         flexDirection: 'row',
-        width: 343,
+        width: '100%',
         height: 104,
         borderRadius: 8,
         backgroundColor: AppColors.lightDark,
@@ -47,9 +60,7 @@ export default function ProductItemComponent(props) {
         <Text numberOfLines={1} style={[AppText.mediumTitle, {marginTop: 11}]}>
           {product.title}
         </Text>
-        <Text
-          numberOfLines={1}
-          style={[AppText.tinyTitle, {marginTop: 4, backgroundColor: 'red'}]}>
+        <Text numberOfLines={1} style={[AppText.tinyTitle, {marginTop: 4}]}>
           {product.brand}
         </Text>
         <View
@@ -100,9 +111,11 @@ export default function ProductItemComponent(props) {
         </View>
       </View>
       <CircleButton
-        icon={isFavorite ? AppIcons.bag_favorite : AppIcons.heart_inactive}
+        icon={rightButtonIcon}
         size="small"
-        type={isFavorite ? 'redButton' : 'darkButton'}
+        type={
+          isBottomRightButtonActive && isFavorite ? 'redButton' : 'darkButton'
+        }
         iconStyle={{width: 13, height: 12}}
         customStyle={{position: 'absolute', bottom: -18, right: 0}}
       />
@@ -110,18 +123,23 @@ export default function ProductItemComponent(props) {
   ) : (
     <View
       style={{
-        width: 150,
+        width: size == 'large' ? 164 : 150,
         backgroundColor: AppColors.lightDark,
         borderRadius: 8,
       }}>
-      <View>
+      <View
+        style={{
+          borderRadius: 8,
+          width: size == 'large' ? 162 : 148,
+          height: 184,
+          backgroundColor: '#C4C4C4',
+        }}>
         <ImageBackground
           source={AppImages.man_4}
           style={{
-            width: 148,
-            height: 184,
+            width: '100%',
+            height: '100%',
             borderRadius: 8,
-            backgroundColor: '#C4C4C4',
           }}>
           <LabelComponent
             label={`-${product.discountPercent}%`}
@@ -129,9 +147,13 @@ export default function ProductItemComponent(props) {
             labelViewStyle={{marginTop: 8, marginLeft: 9}}
           />
           <CircleButton
-            icon={isFavorite ? AppIcons.bag_favorite : AppIcons.heart_inactive}
+            icon={rightButtonIcon}
             size="small"
-            type={isFavorite ? 'redButton' : 'darkButton'}
+            type={
+              isBottomRightButtonActive && isFavorite
+                ? 'redButton'
+                : 'darkButton'
+            }
             iconStyle={{width: 13, height: 12}}
             customStyle={{position: 'absolute', bottom: -18, right: 0}}
           />

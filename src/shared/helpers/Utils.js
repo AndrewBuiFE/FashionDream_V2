@@ -1,5 +1,6 @@
 import {ConfirmDialogRef} from '../../components/dialog/ConfirmDialog';
 import {ScaleToastRef} from '../../components/toast/ScaleToast';
+import {ActionSheetRef} from '../../screens/modals/ActionSheet';
 
 export default {
   /**
@@ -16,8 +17,11 @@ export default {
   showConfirmDialog(props) {
     ConfirmDialogRef.current?.show(props);
   },
-  // /**
-  //  * @description show confirm dialog
-  //  * @param {import('react-native').ActionSheetIOSOptions | import('@alessiocancian/react-native-actionsheet').ActionSheetProps} props
-  //  */
+  /**
+   * @description show confirm dialog
+   * @param {import('react-native').ActionSheetIOSOptions | import('@alessiocancian/react-native-actionsheet').ActionSheetProps} props
+   */
+  showActionSheet(props) {
+    ActionSheetRef.current?.show(props);
+  },
 };

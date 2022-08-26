@@ -21,7 +21,7 @@ export default function FilterComponent(props) {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        width: 343,
+        width: '100%',
         ...customFilterView,
       }}>
       <TouchableOpacity
