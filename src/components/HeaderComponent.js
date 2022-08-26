@@ -10,13 +10,21 @@ import {AppText} from '../shared/constants/AppGlobal';
  * @property {'large' | 'medium'} type
  * @property {import('react-native').StyleProp<import('react-native').ImageStyle>=} leftIcon
  * @property {import('react-native').StyleProp<import('react-native').ImageStyle>=} rightIcon
+ * @property {import('react-native').StyleProp<import('react-native').ViewStyle>=} customViewStyle
  * @property {()=> void=} onLeftIconPress
  * @property {()=> void=} onRightIconPress
  * @param {Prop} props
  */
 export default function HeaderComponent(props) {
-  let {title, type, leftIcon, rightIcon, onLeftIconPress, onRightIconPress} =
-    props;
+  let {
+    title,
+    type,
+    leftIcon,
+    rightIcon,
+    customViewStyle,
+    onLeftIconPress,
+    onRightIconPress,
+  } = props;
   return type == 'medium' ? (
     <View
       style={{
@@ -26,6 +34,7 @@ export default function HeaderComponent(props) {
         paddingHorizontal: 8,
         alignItems: 'center',
         justifyContent: 'space-between',
+        ...customViewStyle,
       }}>
       <TouchableOpacity
         onPress={onLeftIconPress}
@@ -52,7 +61,7 @@ export default function HeaderComponent(props) {
       </TouchableOpacity>
     </View>
   ) : (
-    <View style={{height: 96, width: '100%'}}>
+    <View style={{height: 96, width: '100%', ...customViewStyle}}>
       <View
         style={{
           flexDirection: 'row',

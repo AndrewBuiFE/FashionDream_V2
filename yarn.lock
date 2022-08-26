@@ -3654,7 +3654,7 @@ human-signals@^3.0.1:
   resolved "https://registry.yarnpkg.com/human-signals/-/human-signals-3.0.1.tgz#c740920859dafa50e5a3222da9d3bf4bb0e5eef5"
   integrity sha512-rQLskxnM/5OCldHo+wNXbpVgDn5A17CUoKX+7Sokwaknlq7CdSnphy0W39GU8dw59XiCXmFXDg4fRuckQRKewQ==
 
-husky@^8.0.1:
+husky@^8.0.0:
   version "8.0.1"
   resolved "https://registry.yarnpkg.com/husky/-/husky-8.0.1.tgz#511cb3e57de3e3190514ae49ed50f6bc3f50b3e9"
   integrity sha512-xs7/chUH/CKdOCs7Zy0Aev9e/dKOMZf3K1Az1nar3tzlv0jfqnYtu235bstsWTmXOR0EfINrPa97yy4Lz6RiKw==
@@ -6489,6 +6489,11 @@ rn-host-detect@1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/rn-host-detect/-/rn-host-detect-1.2.0.tgz#8b0396fc05631ec60c1cb8789e5070cdb04d0da0"
   integrity sha512-btNg5kzHcjZZ7t7mvvV/4wNJ9e3MPgrWivkRgWURzXL0JJ0pwWlU4zrbmdlz3HHzHOxhBhHB4D+/dbMFfu4/4A==
+
+rn-range-slider@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/rn-range-slider/-/rn-range-slider-2.1.1.tgz#c469138a3d51a4c79ab53b56d7ba5801e02372b4"
+  integrity sha512-tDfH8G4e/k+waGMMd+HaYTlpOqyh1dd3aWdDmqKo0WGh1BfHB+NXy0X2REyr1ZJDvsrq7WEeFZ+PBTdD6cisbw==
 
 rsvp@^4.8.4:
   version "4.8.5"

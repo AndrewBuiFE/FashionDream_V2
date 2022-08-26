@@ -12,4 +12,5 @@ export const ScreenName = {
   categoriesScreen: 'CategoriesScreen',
   partialCategoryScreen: 'PartialCategoryScreen',
   catalogScreen: 'CatalogScreen',
+  filterModals: 'FilterModals',
 };

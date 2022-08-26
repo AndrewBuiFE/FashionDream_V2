@@ -43,6 +43,7 @@
     "redux-persist-transform-immutable": "^5.0.0",
     "redux-thunk": "^2.4.1",
     "reselect": "^4.1.6",
+    "rn-range-slider": "^2.1.1",
     "yup": "^0.32.11"
   },
   "devDependencies": {
@@ -66,7 +67,10 @@
     "react-devtools-core": "4.14.0"
   },
   "lint-staged": {
-    "*.js": ["eslint --fix", "git add ."]
+    "*.js": [
+      "eslint --fix",
+      "git add ."
+    ]
   },
   "jest": {
     "preset": "react-native",

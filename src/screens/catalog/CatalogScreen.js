@@ -9,6 +9,7 @@ import ProductItemComponent from '../../components/ProductItemComponent';
 import RadiusButton from '../../components/RadiusButton';
 import {AppColors} from '../../shared/constants/AppColors';
 import {AppIcons} from '../../shared/constants/AppIcons';
+import {ScreenName} from '../../shared/constants/ScreenName';
 import Utils from '../../shared/helpers/Utils';
 const TYPE = [
   {
@@ -106,6 +107,9 @@ const CatalogScreen = props => {
       <View style={{marginHorizontal: 16, marginTop: 18}}>
         <FilterComponent
           customFilterView={{}}
+          onFilterPress={() => {
+            navigation.navigate(ScreenName.filterModals);
+          }}
           onViewChange={() => {
             changeLayout(currState => !currState);
           }}
