@@ -13,6 +13,7 @@ import EditTextComponent from '../components/EditTextComponent';
 import FilterComponent from '../components/FilterComponent';
 import HeaderComponent from '../components/HeaderComponent';
 import LabelComponent from '../components/LabelComponent';
+import PickerComponent from '../components/PickerComponent';
 import ProductItemComponent from '../components/ProductItemComponent';
 import RadiusButton from '../components/RadiusButton';
 import SearchBar from '../components/SearchBar';
@@ -147,6 +148,15 @@ const TestComponent = () => {
       <ConfirmDialog dialogRef={ConfirmDialogRef} />
       <Text>Demo</Text>
       <DividerComponent />
+      <Text>Picker</Text>
+      <DividerComponent />
+      <PickerComponent
+        title="dfsdf"
+        description="sdfdf"
+        onPickerPress={() => {
+          console.log('Picker press!');
+        }}
+      />
       <DemoComponent />
       <ActionSheet />
     </ScrollView>

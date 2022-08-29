@@ -7,9 +7,11 @@ import FilterModals from '../screens/modals/FiltersModal';
 import {ScreenName} from '../shared/constants/ScreenName';
 
 const Stack = createNativeStackNavigator();
-const ShopNavigator = () => {
+const ShopNavigator = ({navigation, route}) => {
   return (
-    <Stack.Navigator initialRouteName={ScreenName.filterModals}>
+    <Stack.Navigator
+      initialRouteName={ScreenName.filterModals}
+      screenOptions={{}}>
       <Stack.Screen
         name={ScreenName.categoriesScreen}
         component={CategoriesScreen}

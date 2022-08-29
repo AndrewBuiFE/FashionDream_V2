@@ -1,10 +1,13 @@
+import {useNavigation} from '@react-navigation/native';
 import React, {useCallback, useState} from 'react';
 import {FlatList, ScrollView, StyleSheet, Text, View} from 'react-native';
 import RnRangeSlider from 'rn-range-slider';
 import ColorComponent from '../../components/ColorComponent';
 import DividerComponent from '../../components/DividerComponent';
 import HeaderComponent from '../../components/HeaderComponent';
+import PickerComponent from '../../components/PickerComponent';
 import RadiusButton from '../../components/RadiusButton';
+import TagComponent from '../../components/TagComponent';
 import {AppColors} from '../../shared/constants/AppColors';
 import {AppText} from '../../shared/constants/AppGlobal';
 import {AppIcons} from '../../shared/constants/AppIcons';
@@ -17,6 +20,8 @@ const COLORS = [
   '#91BA4F',
   '#2CB1B1',
 ];
+const SIZE = ['XS', 'S', 'M', 'L', 'XL'];
+const CATEGORY = ['All', 'Women', 'Men', 'Boys', 'Girls'];
 // https://github.com/githuboftigran/rn-widgets-demo/tree/master/src/Slider
 const THUMB_RADIUS = 11;
 
@@ -57,6 +62,8 @@ const FilterModals = () => {
   // common hooks
   const [low, setLow] = useState(0);
   const [high, setHigh] = useState(1000);
+  const navigation = useNavigation();
+  const goBack = navigation.goBack;
   // render function
   const renderThumb = useCallback(() => <Thumb />, []);
   const renderRail = useCallback(() => <Rail />, []);
@@ -82,16 +89,18 @@ const FilterModals = () => {
         type="medium"
         leftIcon={AppIcons.back_arrow}
         title="Filters"
-        customViewStyle={{backgroundColor: 'red'}}
+        onLeftIconPress={goBack}
       />
       <ScrollView
         contentContainerStyle={{paddingHorizontal: 16}}
         showsVerticalScrollIndicator={false}>
-        <FilterTitle title="Price range" customStyle={{marginTop: 0}} />
+        <FilterTitle
+          title="Price range"
+          customStyle={{marginTop: 0, backgroundColor: AppColors.tabBar}}
+        />
         <View
           style={{
             height: 40,
-            backgroundColor: 'red',
           }}>
           <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
             <Text style={AppText.primaryText}>{`$${low}`}</Text>
@@ -110,7 +119,10 @@ const FilterModals = () => {
             onValueChanged={handleValueChange}
           />
         </View>
-        <FilterTitle title="Colors" />
+        <FilterTitle
+          title="Colors"
+          customStyle={{backgroundColor: AppColors.tabBar}}
+        />
         <View style={{height: 44, marginTop: 24}}>
           <FlatList
             data={COLORS}
@@ -120,19 +132,67 @@ const FilterModals = () => {
             ItemSeparatorComponent={renderSeperator}
           />
         </View>
-        <FilterTitle title="Sizes" />
-        <View style={{height: 40, backgroundColor: 'red', marginTop: 24}} />
-        <FilterTitle title="Categories" />
-        <View style={{height: 92, backgroundColor: 'red', marginTop: 24}} />
-        <View style={{height: 58, marginTop: 24}}>
-          <Text>Brands</Text>
+        <FilterTitle
+          title="Sizes"
+          customStyle={{backgroundColor: AppColors.tabBar}}
+        />
+        <View style={{height: 40, marginTop: 24, flexDirection: 'row'}}>
+          {SIZE.map((size, index) => {
+            return (
+              <TagComponent
+                key={index}
+                size="medium"
+                tag={size}
+                shape="square"
+                type="blackTag"
+                hasBorder
+                tagViewStyle={{
+                  marginLeft: index == 0 ? 0 : 16,
+                  backgroundColor: AppColors.primaryBackground,
+                }}
+              />
+            );
+          })}
         </View>
+        <FilterTitle
+          title="Categories"
+          customStyle={{backgroundColor: AppColors.tabBar}}
+        />
+        <View
+          style={{
+            marginTop: 24,
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+          }}>
+          {CATEGORY.map((cate, index) => {
+            return (
+              <TagComponent
+                key={index}
+                size="large"
+                tag={cate}
+                shape="round"
+                type="blackTag"
+                hasBorder
+                tagViewStyle={{
+                  marginLeft: index == 0 || index == 3 ? 0 : 22,
+                  marginTop: index < 3 ? 0 : 12,
+                  backgroundColor: AppColors.primaryBackground,
+                }}
+              />
+            );
+          })}
+        </View>
+        <PickerComponent
+          description="adidas Originals, Jack & Jones, s.Oliver"
+          title="Brand"
+          customStyle={{marginTop: 24}}
+        />
         <View
           style={{
             flex: 1,
             flexDirection: 'row',
             justifyContent: 'space-around',
-            marginTop: 6,
+            marginTop: 10,
           }}>
           <RadiusButton
             type="disabledButton"

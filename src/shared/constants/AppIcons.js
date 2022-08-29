@@ -11,6 +11,7 @@ export const AppIcons = {
   view_module: require('../../assets/icons/view_module.png'),
   back_arrow: require('../../assets/icons/back_arrow.png'),
   right_arrow: require('../../assets/icons/right_arrow.png'),
+  right_arrow_normal: require('../../assets/icons/normal_right_arrow.png'),
   google: require('../../assets/icons/google.png'),
   facebook: require('../../assets/icons/facebook.png'),
   star_active: require('../../assets/icons/star_active.png'),
