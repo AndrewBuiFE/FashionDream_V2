@@ -69,14 +69,16 @@ const CatalogScreen = props => {
   };
   const renderHeader = () => <DividerComponent height={26} />;
   const renderFooter = () => <DividerComponent height={30} />;
-  const renderProduct = ({item, index}) => {
+  /**
+   * @type {import('react-native').ListRenderItem<import('../../models/types/index.d').Product>}
+   */
+  const renderProduct = ({item}) => {
     return (
       <ProductItemComponent
         isHorizontal={layout}
         product={item}
         size={'large'}
-        // isFavorite
-        isBottomRightButtonActive
+        isBottomRightButtonActive={item.isFavorited}
       />
     );
   };

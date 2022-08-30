@@ -11,6 +11,7 @@ import TagComponent from '../../components/TagComponent';
 import {AppColors} from '../../shared/constants/AppColors';
 import {AppText} from '../../shared/constants/AppGlobal';
 import {AppIcons} from '../../shared/constants/AppIcons';
+import {ScreenName} from '../../shared/constants/ScreenName';
 
 const COLORS = [
   '#020202',
@@ -185,6 +186,9 @@ const FilterModals = () => {
         <PickerComponent
           description="adidas Originals, Jack & Jones, s.Oliver"
           title="Brand"
+          onPickerPress={() => {
+            navigation.navigate(ScreenName.brandModals);
+          }}
           customStyle={{marginTop: 24}}
         />
         <View

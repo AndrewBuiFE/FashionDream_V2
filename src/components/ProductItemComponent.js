@@ -1,9 +1,14 @@
 import React from 'react';
-import {Image, ImageBackground, Text, View} from 'react-native';
+import {
+  Image,
+  ImageBackground,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {AppColors} from '../shared/constants/AppColors';
 import {AppText} from '../shared/constants/AppGlobal';
 import {AppIcons} from '../shared/constants/AppIcons';
-import {AppImages} from '../shared/constants/AppImages';
 import CircleButton from './CircleButton';
 import LabelComponent from './LabelComponent';
 import StarComponent from './StarComponent';
@@ -16,12 +21,19 @@ import StarComponent from './StarComponent';
  * @property {boolean} isHorizontal
  * @property {boolean} isFavorite
  * @property {boolean} isBottomRightButtonActive
+ * @property {()=> void} onButtomRightButtonPress
  * @param {Prop} props
  * @returns {JSX.Element}
  */
 export default function ProductItemComponent(props) {
-  let {product, isHorizontal, isFavorite, isBottomRightButtonActive, size} =
-    props;
+  let {
+    product,
+    isHorizontal,
+    isFavorite,
+    isBottomRightButtonActive,
+    onButtomRightButtonPress,
+    size,
+  } = props;
   let rightButtonIcon;
   if (isFavorite && isBottomRightButtonActive) {
     rightButtonIcon = AppIcons.bag_favorite;
@@ -33,7 +45,7 @@ export default function ProductItemComponent(props) {
     rightButtonIcon = AppIcons.heart_inactive;
   }
   return isHorizontal ? (
-    <View
+    <TouchableOpacity
       style={{
         flexDirection: 'row',
         width: '100%',
@@ -117,11 +129,12 @@ export default function ProductItemComponent(props) {
           isBottomRightButtonActive && isFavorite ? 'redButton' : 'darkButton'
         }
         iconStyle={{width: 13, height: 12}}
+        onButtonPress={onButtomRightButtonPress}
         customStyle={{position: 'absolute', bottom: -18, right: 0}}
       />
-    </View>
+    </TouchableOpacity>
   ) : (
-    <View
+    <TouchableOpacity
       style={{
         width: size == 'large' ? 164 : 150,
         backgroundColor: AppColors.lightDark,
@@ -135,10 +148,10 @@ export default function ProductItemComponent(props) {
           backgroundColor: '#C4C4C4',
         }}>
         <ImageBackground
-          source={AppImages.man_4}
+          source={product.image}
           style={{
-            width: '100%',
-            height: '100%',
+            width: 148,
+            height: 184,
             borderRadius: 8,
           }}>
           <LabelComponent
@@ -155,6 +168,7 @@ export default function ProductItemComponent(props) {
                 : 'darkButton'
             }
             iconStyle={{width: 13, height: 12}}
+            onButtonPress={onButtomRightButtonPress}
             customStyle={{position: 'absolute', bottom: -18, right: 0}}
           />
         </ImageBackground>
@@ -211,6 +225,6 @@ export default function ProductItemComponent(props) {
           {`${product.originalPrice * (1 - product.discountPercent / 100)}$`}
         </Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }

@@ -13,4 +13,5 @@ export const ScreenName = {
   partialCategoryScreen: 'PartialCategoryScreen',
   catalogScreen: 'CatalogScreen',
   filterModals: 'FilterModals',
+  brandModals: 'BrandModals',
 };

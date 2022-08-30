@@ -1,3 +1,4 @@
+import {useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {
   FlatList,
@@ -16,16 +17,35 @@ import ParallaxScrollView from '../../libs/ParallaxScrollView';
 import {AppColors} from '../../shared/constants/AppColors';
 import {AppText} from '../../shared/constants/AppGlobal';
 import {AppImages} from '../../shared/constants/AppImages';
+import {ScreenName} from '../../shared/constants/ScreenName';
 import Utils from '../../shared/helpers/Utils';
 const PARALLAX_HEADER_HEIGHT = 536;
 const STICKY_HEADER_HEIGHT = 196;
 
 const HomeScreen = () => {
-  //
+  // common hooks
+  const [productsFavorite, setProductsFavorite] = useState(
+    PRODUCT.map(product => {
+      return product.isFavorited;
+    }),
+  );
+  console.log('productFavorites', productsFavorite);
   const [refresh, setRefresh] = useState(true);
+  const navigation = useNavigation();
   // rendering function for FlatList
   const renderItem = ({item, index}) => {
-    return <ProductItemComponent product={item} key={index} />;
+    return (
+      <ProductItemComponent
+        product={item}
+        key={index}
+        isBottomRightButtonActive={productsFavorite[index]}
+        onButtomRightButtonPress={() => {
+          let tempState = [...productsFavorite];
+          tempState[index] = !tempState[index];
+          setProductsFavorite(tempState);
+        }}
+      />
+    );
   };
   return (
     <ParallaxScrollView
@@ -63,7 +83,7 @@ const HomeScreen = () => {
               type="redButton"
               buttonCustomStyle={{width: 160, marginLeft: 15, marginTop: 18}}
               onButtonPress={() => {
-                console.log('Press');
+                navigation.navigate(ScreenName.categoriesScreen);
               }}
             />
           </ImageBackground>

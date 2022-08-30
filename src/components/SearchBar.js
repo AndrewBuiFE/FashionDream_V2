@@ -18,7 +18,6 @@ export default function SearchBar(props) {
     <TouchableOpacity
       style={{
         backgroundColor: AppColors.lightDark,
-        width: 343,
         height: 40,
         borderRadius: 23,
         shadowColor: ' rgba(0, 0, 0, 0.05)',

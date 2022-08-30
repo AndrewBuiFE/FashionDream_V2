@@ -47,7 +47,7 @@ export const PRODUCT = [
   },
   {
     id: 4,
-    image: AppImages.man_3,
+    image: AppImages.man_4,
     discountPercent: 10,
     star: 4,
     comment: 6,

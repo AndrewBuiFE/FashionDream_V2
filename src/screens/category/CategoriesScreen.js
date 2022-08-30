@@ -3,6 +3,7 @@ import {useNavigation} from '@react-navigation/native';
 import React, {useRef, useState} from 'react';
 import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import Carousel from 'react-native-snap-carousel';
+import DividerComponent from '../../components/DividerComponent';
 import HeaderComponent from '../../components/HeaderComponent';
 import {AppColors} from '../../shared/constants/AppColors';
 import {AppText, DeviceConstant} from '../../shared/constants/AppGlobal';
@@ -45,9 +46,13 @@ const TabViewList = [
   },
 ];
 const CategoriesScreen = () => {
+  // common hooks
   const navigation = useNavigation();
   const goBack = navigation.goBack;
   const [index, setIndex] = useState(0);
+  const swiperRef = useRef();
+
+  // render functions
   const renderTabView = ({item, index}) => {
     let category = item?.title.map((i, categoryIndex) => {
       return {title: i, image: item.image[categoryIndex]};
@@ -71,8 +76,9 @@ const CategoriesScreen = () => {
             <Text style={[AppText.primaryText]}>{item?.sale?.content}</Text>
           </View>
         ) : null}
-        {category.map(c => (
+        {category.map((c, index1) => (
           <TouchableOpacity
+            key={index1}
             onPress={() => {
               navigation.navigate(ScreenName.partialCategoryScreen);
             }}
@@ -101,10 +107,10 @@ const CategoriesScreen = () => {
             </View>
           </TouchableOpacity>
         ))}
+        <DividerComponent height={20} />
       </ScrollView>
     );
   };
-  const swiperRef = useRef();
   return (
     <View style={{flex: 1, backgroundColor: AppColors.primaryBackground}}>
       <HeaderComponent
@@ -123,7 +129,7 @@ const CategoriesScreen = () => {
         }}>
         {['Women', 'Men', 'Kids'].map((cate, i) => {
           return (
-            <TouchableOpacity style={{}}>
+            <TouchableOpacity style={{}} key={i}>
               <Text
                 style={[
                   AppText.smallTitle,
