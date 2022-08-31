@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React from 'react';
 import {Image, Text, TouchableOpacity, View} from 'react-native';
 import {AppColors} from '../shared/constants/AppColors';
@@ -27,9 +28,11 @@ export default function PickerComponent(props) {
         ...customStyle,
       }}
       onPress={onPickerPress}>
-      <View style={{flex: 1}}>
+      <View style={{flex: 1, justifyContent: 'center'}}>
         <Text style={AppText.smallTitle}>{title}</Text>
-        <Text style={[AppText.tinyTitle, {marginTop: 3}]}>{description}</Text>
+        {_.isString(description) && description.length > 0 ? (
+          <Text style={[AppText.tinyTitle, {marginTop: 3}]}>{description}</Text>
+        ) : null}
       </View>
       <View
         style={{

@@ -44,6 +44,9 @@ const HomeScreen = () => {
           tempState[index] = !tempState[index];
           setProductsFavorite(tempState);
         }}
+        onProductPress={() => {
+          navigation.navigate(ScreenName.productCardScreen, {product: item});
+        }}
       />
     );
   };
@@ -152,6 +155,9 @@ const HomeScreen = () => {
                 showsHorizontalScrollIndicator={false}
                 ItemSeparatorComponent={() => (
                   <View style={{height: 260, width: 16}} />
+                )}
+                ListFooterComponent={() => (
+                  <DividerComponent height={260} width={16} />
                 )}
               />
             </View>

@@ -22,6 +22,7 @@ import StarComponent from './StarComponent';
  * @property {boolean} isFavorite
  * @property {boolean} isBottomRightButtonActive
  * @property {()=> void} onButtomRightButtonPress
+ * @property {()=>void} onProductPress
  * @param {Prop} props
  * @returns {JSX.Element}
  */
@@ -32,6 +33,7 @@ export default function ProductItemComponent(props) {
     isFavorite,
     isBottomRightButtonActive,
     onButtomRightButtonPress,
+    onProductPress,
     size,
   } = props;
   let rightButtonIcon;
@@ -52,7 +54,8 @@ export default function ProductItemComponent(props) {
         height: 104,
         borderRadius: 8,
         backgroundColor: AppColors.lightDark,
-      }}>
+      }}
+      onPress={onProductPress}>
       <View
         style={{
           width: 104,
@@ -139,7 +142,8 @@ export default function ProductItemComponent(props) {
         width: size == 'large' ? 164 : 150,
         backgroundColor: AppColors.lightDark,
         borderRadius: 8,
-      }}>
+      }}
+      onPress={onProductPress}>
       <View
         style={{
           borderRadius: 8,
@@ -149,10 +153,10 @@ export default function ProductItemComponent(props) {
         }}>
         <ImageBackground
           source={product.image}
+          imageStyle={{borderRadius: 8}}
           style={{
-            width: 148,
-            height: 184,
-            borderRadius: 8,
+            width: '100%',
+            height: '100%',
           }}>
           <LabelComponent
             label={`-${product.discountPercent}%`}

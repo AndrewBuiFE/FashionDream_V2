@@ -14,4 +14,5 @@ export const ScreenName = {
   catalogScreen: 'CatalogScreen',
   filterModals: 'FilterModals',
   brandModals: 'BrandModals',
+  productCardScreen: 'ProductCardScreen',
 };

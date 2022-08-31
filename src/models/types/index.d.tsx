@@ -1,4 +1,4 @@
-import {ImageStyle} from 'react-native/Libraries/StyleSheet/StyleSheet';
+import { ImageStyle } from 'react-native/Libraries/StyleSheet/StyleSheet';
 
 export type DeliveryName = 'FEDex' | 'USPSCOM' | 'DHL';
 export type ShippingStatus = 'Cancel' | 'Received' | 'Shipping' | 'Delivered';
@@ -7,6 +7,7 @@ export interface Product {
   discountPercent: number;
   star: number;
   comment: number;
+  description: string;
   brand: string;
   title: string;
   originalPrice: number;

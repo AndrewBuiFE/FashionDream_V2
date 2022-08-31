@@ -31,4 +31,7 @@ export const AppIcons = {
   profile_active: require('../../assets/icons/profile_active.png'),
   profile_inactive: require('../../assets/icons/profile_inactive.png'),
   sth_in_bag: require('../../assets/icons/sth_in_bag.png'),
+  // product
+  share: require('../../assets/icons/share.png'),
+  drop_down: require('../../assets/icons/drop_down.png'),
 };

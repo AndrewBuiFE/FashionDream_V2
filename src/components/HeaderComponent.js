@@ -46,8 +46,12 @@ export default function HeaderComponent(props) {
         }}>
         <Image source={leftIcon} style={{}} />
       </TouchableOpacity>
-      <View>
-        <Text style={[AppText.mediumTitle]}>{title}</Text>
+      <View style={{flex: 1, paddingHorizontal: 10}}>
+        <Text
+          style={[AppText.mediumTitle, {textAlign: 'center'}]}
+          numberOfLines={1}>
+          {title}
+        </Text>
       </View>
       <TouchableOpacity
         onPress={onRightIconPress}
@@ -93,7 +97,9 @@ export default function HeaderComponent(props) {
         </TouchableOpacity>
       </View>
       <View style={{marginTop: 18, paddingLeft: 14}}>
-        <Text style={[AppText.largeTitle]}>{title}</Text>
+        <Text style={[AppText.largeTitle]} numberOfLines={1}>
+          {title}
+        </Text>
       </View>
     </View>
   );

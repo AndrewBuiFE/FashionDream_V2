@@ -10,6 +10,8 @@ export const PRODUCT = [
     discountPercent: 10,
     star: 4,
     comment: 6,
+    description:
+      'Short dress in soft cotton jersey with decorative buttons down the front and a wide, frill-trimmed square neckline with concealed elastication. Elasticated seam under the bust and short puff sleeves with a small frill trim.',
     brand:
       'Dorothy sdfas fdjk ajsdjf asfjd jf adjf kajfd jsakj jskdjf ksja jskfdj jdsjf ',
     title:
@@ -25,6 +27,8 @@ export const PRODUCT = [
     discountPercent: 10,
     star: 4,
     comment: 6,
+    description:
+      'Short dress in soft cotton jersey with decorative buttons down the front and a wide, frill-trimmed square neckline with concealed elastication. Elasticated seam under the bust and short puff sleeves with a small frill trim.',
     brand: 'Dorothy peru',
     title: 'Dress',
     originalPrice: 15,
@@ -38,6 +42,8 @@ export const PRODUCT = [
     discountPercent: 10,
     star: 4,
     comment: 6,
+    description:
+      'Short dress in soft cotton jersey with decorative buttons down the front and a wide, frill-trimmed square neckline with concealed elastication. Elasticated seam under the bust and short puff sleeves with a small frill trim.',
     brand: 'Dorothy',
     title: 'Evening dress',
     originalPrice: 15,
@@ -51,6 +57,8 @@ export const PRODUCT = [
     discountPercent: 10,
     star: 4,
     comment: 6,
+    description:
+      'Short dress in soft cotton jersey with decorative buttons down the front and a wide, frill-trimmed square neckline with concealed elastication. Elasticated seam under the bust and short puff sleeves with a small frill trim.',
     brand: 'Dorothy',
     title: 'Evening dress',
     originalPrice: 15,
@@ -64,6 +72,8 @@ export const PRODUCT = [
     discountPercent: 10,
     star: 4,
     comment: 6,
+    description:
+      'Short dress in soft cotton jersey with decorative buttons down the front and a wide, frill-trimmed square neckline with concealed elastication. Elasticated seam under the bust and short puff sleeves with a small frill trim.',
     brand: 'Dorothy',
     title: 'Evening dress',
     originalPrice: 15,
@@ -77,6 +87,8 @@ export const PRODUCT = [
     discountPercent: 10,
     star: 4,
     comment: 6,
+    description:
+      'Short dress in soft cotton jersey with decorative buttons down the front and a wide, frill-trimmed square neckline with concealed elastication. Elasticated seam under the bust and short puff sleeves with a small frill trim.',
     brand: 'Dorothy',
     title: 'Evening dress',
     originalPrice: 15,

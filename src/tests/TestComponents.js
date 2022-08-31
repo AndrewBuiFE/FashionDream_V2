@@ -13,6 +13,7 @@ import EditTextComponent from '../components/EditTextComponent';
 import FilterComponent from '../components/FilterComponent';
 import HeaderComponent from '../components/HeaderComponent';
 import LabelComponent from '../components/LabelComponent';
+import Modalheader from '../components/ModalHeader';
 import PickerComponent from '../components/PickerComponent';
 import ProductItemComponent from '../components/ProductItemComponent';
 import RadiusButton from '../components/RadiusButton';
@@ -157,6 +158,9 @@ const TestComponent = () => {
           console.log('Picker press!');
         }}
       />
+      <Text>Modal Header</Text>
+      <DividerComponent />
+      <Modalheader />
       <DemoComponent />
       <ActionSheet />
     </ScrollView>
