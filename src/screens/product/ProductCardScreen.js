@@ -9,6 +9,7 @@ import {
   View,
 } from 'react-native';
 import ReactNativeModal from 'react-native-modal';
+import Carousel from 'react-native-snap-carousel';
 import {PRODUCT} from '../../assets/data';
 import CircleButton from '../../components/CircleButton';
 import DividerComponent from '../../components/DividerComponent';
@@ -20,18 +21,13 @@ import RadiusButton from '../../components/RadiusButton';
 import StarComponent from '../../components/StarComponent';
 import TagComponent from '../../components/TagComponent';
 import {AppColors} from '../../shared/constants/AppColors';
-import {AppText} from '../../shared/constants/AppGlobal';
+import {AppText, DeviceConstant} from '../../shared/constants/AppGlobal';
 import {AppIcons} from '../../shared/constants/AppIcons';
 import {ScreenName} from '../../shared/constants/ScreenName';
 
-/**
- *
- * @param {string} title
- * @param {import('react-native').StyleProp<import('react-native').ViewStyle>} customStyle
- * @return {JSX.Element}
- */
 const SIZE = ['XS', 'S', 'M', 'L', 'XL'];
-
+const SLIDER_HEIGHT = 413;
+const SLIDER_WIDTH = 275;
 const ProductCardScreen = props => {
   // common hooks
   const navigation = useNavigation();
@@ -110,6 +106,14 @@ const ProductCardScreen = props => {
       <Text>Select size</Text>
     </View>
   );
+  const renderImage = ({item, index}) => {
+    return (
+      <Image
+        source={item}
+        style={{width: SLIDER_WIDTH, height: SLIDER_HEIGHT}}
+      />
+    );
+  };
   return (
     <View style={{flex: 1, backgroundColor: AppColors.primaryBackground}}>
       <ReactNativeModal
@@ -145,7 +149,6 @@ const ProductCardScreen = props => {
               flexWrap: 'wrap',
               marginTop: 24,
               marginHorizontal: 16,
-              backgroundColor: 'red',
             }}>
             {SIZE.map((cate, index) => {
               return (
@@ -157,8 +160,8 @@ const ProductCardScreen = props => {
                   type="blackTag"
                   hasBorder
                   tagViewStyle={{
-                    // marginLeft: index == 0 || index == 3 ? 0 : 22,
-                    // marginTop: index < 3 ? 0 : 16,
+                    marginLeft: index == 0 || index == 3 ? 0 : 30.3,
+                    marginTop: index < 3 ? 0 : 16,
                     backgroundColor: AppColors.primaryBackground,
                   }}
                 />
@@ -190,13 +193,18 @@ const ProductCardScreen = props => {
         onLeftIconPress={goBack}
       />
       <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
-        <View style={{height: 275, width: '100%'}}>
-          <Image
-            source={product?.image}
-            style={{width: '100%', height: '100%'}}
-            resizeMode="stretch"
-          />
-        </View>
+        <Carousel
+          data={product.image}
+          renderItem={renderImage}
+          sliderWidth={DeviceConstant.screenWidth}
+          itemWidth={SLIDER_WIDTH}
+          sliderHeight={SLIDER_HEIGHT}
+          itemHeight={SLIDER_HEIGHT}
+          enableSnap
+          activeSlideAlignment="start"
+          inactiveSlideScale={1}
+          // slideStyle={{marginEnd: 4}}
+        />
         <View
           style={{
             paddingHorizontal: 16,

@@ -1,6 +1,7 @@
 export const AppIcons = {
   pen: require('../../assets/icons/pen.png'),
   redCross: require('../../assets/icons/red_cross.png'),
+  grayCross: require('../../assets/icons/grayCross.png'),
   check: require('../../assets/icons/check.png'),
   search: require('../../assets/icons/search.png'),
   checkbox_red: require('../../assets/icons/checkbox_red.png'),
@@ -9,6 +10,7 @@ export const AppIcons = {
   filter: require('../../assets/icons/filter.png'),
   sort: require('../../assets/icons/sort.png'),
   view_module: require('../../assets/icons/view_module.png'),
+  view_list: require('../../assets/icons/view_list.png'),
   back_arrow: require('../../assets/icons/back_arrow.png'),
   right_arrow: require('../../assets/icons/right_arrow.png'),
   right_arrow_normal: require('../../assets/icons/normal_right_arrow.png'),

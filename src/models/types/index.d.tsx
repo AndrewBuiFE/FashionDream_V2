@@ -3,7 +3,7 @@ import { ImageStyle } from 'react-native/Libraries/StyleSheet/StyleSheet';
 export type DeliveryName = 'FEDex' | 'USPSCOM' | 'DHL';
 export type ShippingStatus = 'Cancel' | 'Received' | 'Shipping' | 'Delivered';
 export interface Product {
-  image: ImageStyle;
+  image: Array<ImageStyle>;
   discountPercent: number;
   star: number;
   comment: number;

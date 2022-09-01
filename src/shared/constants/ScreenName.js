@@ -15,4 +15,5 @@ export const ScreenName = {
   filterModals: 'FilterModals',
   brandModals: 'BrandModals',
   productCardScreen: 'ProductCardScreen',
+  favoriteScreen: 'FavoriteScreen',
 };

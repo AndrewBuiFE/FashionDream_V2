@@ -86,7 +86,7 @@ const CatalogScreen = props => {
     <View style={{flex: 1, backgroundColor: AppColors.primaryBackground}}>
       <HeaderComponent
         title={headerTitle}
-        type="large"
+        type={layout ? 'large' : 'medium'}
         leftIcon={AppIcons.back_arrow}
         rightIcon={AppIcons.search}
         onLeftIconPress={goBack}
@@ -108,6 +108,7 @@ const CatalogScreen = props => {
       </View>
       <View style={{marginHorizontal: 16, marginTop: 18}}>
         <FilterComponent
+          isHorizontal={layout}
           customFilterView={{}}
           onFilterPress={() => {
             navigation.navigate(ScreenName.filterModals);

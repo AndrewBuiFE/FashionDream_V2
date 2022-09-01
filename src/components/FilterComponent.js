@@ -8,13 +8,20 @@ import {AppIcons} from '../shared/constants/AppIcons';
  * @description Filter
  * @typedef Prop
  * @property {()=> void} onFilterPress
+ * @property {boolean} isHorizontal
  *  @property {()=> void} onSortPress
  *  @property {()=> void} onViewChange
  * @property {import('react-native').StyleProp<import('react-native').ViewStyle>} customFilterView
  * @param {Prop} props
  */
 export default function FilterComponent(props) {
-  let {customFilterView, onFilterPress, onSortPress, onViewChange} = props;
+  let {
+    customFilterView,
+    isHorizontal,
+    onFilterPress,
+    onSortPress,
+    onViewChange,
+  } = props;
   return (
     <View
       style={{
@@ -39,7 +46,9 @@ export default function FilterComponent(props) {
         </Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={onViewChange}>
-        <Image source={AppIcons.view_module} />
+        <Image
+          source={isHorizontal ? AppIcons.view_module : AppIcons.view_list}
+        />
       </TouchableOpacity>
     </View>
   );

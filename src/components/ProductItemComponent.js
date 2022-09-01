@@ -21,6 +21,7 @@ import StarComponent from './StarComponent';
  * @property {boolean} isHorizontal
  * @property {boolean} isFavorite
  * @property {boolean} isBottomRightButtonActive
+ * @property {boolean} isProductSoldOut
  * @property {()=> void} onButtomRightButtonPress
  * @property {()=>void} onProductPress
  * @param {Prop} props
@@ -32,6 +33,7 @@ export default function ProductItemComponent(props) {
     isHorizontal,
     isFavorite,
     isBottomRightButtonActive,
+    isProductSoldOut,
     onButtomRightButtonPress,
     onProductPress,
     size,
@@ -54,6 +56,7 @@ export default function ProductItemComponent(props) {
         height: 104,
         borderRadius: 8,
         backgroundColor: AppColors.lightDark,
+        opacity: isProductSoldOut ? 0.5 : 1,
       }}
       onPress={onProductPress}>
       <View
@@ -62,7 +65,7 @@ export default function ProductItemComponent(props) {
           height: 104,
         }}>
         <Image
-          source={product.image}
+          source={product.image[0]}
           style={{
             width: '100%',
             height: '100%',
@@ -152,7 +155,7 @@ export default function ProductItemComponent(props) {
           backgroundColor: '#C4C4C4',
         }}>
         <ImageBackground
-          source={product.image}
+          source={product.image[0]}
           imageStyle={{borderRadius: 8}}
           style={{
             width: '100%',

@@ -32,7 +32,7 @@ export default function CircleButton(props) {
           borderRadius: isSocialButton ? 50 : 24,
           backgroundColor:
             type == 'redButton'
-              ? AppColors.hotRed
+              ? AppColors.primaryRed
               : type == 'darkButton'
               ? AppColors.lightDark
               : AppColors.whiteBackground,
