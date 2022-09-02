@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {ScrollView, Text} from 'react-native';
 import {PRODUCT} from '../assets/data';
+import CartItem from '../components/CartItem';
 import CheckBox from '../components/CheckBox';
 import CircleButton from '../components/CircleButton';
 import ColorComponent from '../components/ColorComponent';
@@ -161,6 +162,9 @@ const TestComponent = () => {
       <Text>Modal Header</Text>
       <DividerComponent />
       <Modalheader />
+      <DividerComponent />
+      <Text>Cart item</Text>
+      <CartItem />
       <DemoComponent />
       <ActionSheet />
     </ScrollView>

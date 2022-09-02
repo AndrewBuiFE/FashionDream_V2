@@ -36,4 +36,8 @@ export const AppIcons = {
   // product
   share: require('../../assets/icons/share.png'),
   drop_down: require('../../assets/icons/drop_down.png'),
+  // cart
+  minus: require('../../assets/icons/minus.png'),
+  plus: require('../../assets/icons/plus.png'),
+  arrow_forward: require('../../assets/icons/arrow_forward.png'),
 };

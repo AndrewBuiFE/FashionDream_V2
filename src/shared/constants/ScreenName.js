@@ -16,4 +16,5 @@ export const ScreenName = {
   brandModals: 'BrandModals',
   productCardScreen: 'ProductCardScreen',
   favoriteScreen: 'FavoriteScreen',
+  cartScreen: 'CartScreen',
 };
