@@ -17,4 +17,6 @@ export const ScreenName = {
   productCardScreen: 'ProductCardScreen',
   favoriteScreen: 'FavoriteScreen',
   cartScreen: 'CartScreen',
+  checkoutScreen: 'CheckoutScreen',
+  paymentCardScreen: 'PaymentCardScreen',
 };

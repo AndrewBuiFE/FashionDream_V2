@@ -112,3 +112,81 @@ export const SECTION = [
     description: 'You’ve never seen it before!',
   },
 ];
+
+/**
+ * @type {Array<import('../models/types/index.d').PromoCode>}
+ */
+export const PROMO_CODE = [
+  {
+    dayRemaining: 6,
+    percent: 10,
+    promoCode: 'mypromocode2020',
+    promoImage: AppImages.man_1,
+    promoName: 'Personal offer',
+  },
+  {
+    dayRemaining: 23,
+    percent: 15,
+    promoCode: 'summer2020',
+    promoImage: AppImages.man_2,
+    promoName: 'Summer sale',
+  },
+  {
+    dayRemaining: 6,
+    percent: 22,
+    promoCode: 'mypromocode2020',
+    promoImage: AppImages.man_3,
+    promoName: 'Personal offer',
+  },
+];
+
+/**
+ * @type {Array<import('../models/types/index.d').Delivery>}
+ */
+export const DELIVERY_METHOD = [
+  {
+    image: AppImages.fedex,
+    name: 'FedEx',
+    price: 15,
+    deliveryTime: '2-3 days',
+  },
+  {
+    image: AppImages.usps,
+    name: 'FedEx',
+    price: 15,
+    deliveryTime: '2-3 days',
+  },
+  {
+    image: AppImages.dhl,
+    name: 'FedEx',
+    price: 15,
+    deliveryTime: '2-3 days',
+  },
+];
+
+/**
+ * @type {Array<import('../models/types/index.d').PaymentMethod>}
+ */
+export const PAYMENT_CARD = [
+  {
+    cardName: 'Bui Viet Hoang',
+    cardNumber: '1238382983283',
+    cvv: 1232,
+    expireDate: '12/06/2022',
+    isDefault: false,
+  },
+  {
+    cardName: 'Bui Viet Hoang',
+    cardNumber: '1238382983283',
+    cvv: 1232,
+    expireDate: '12/06/2022',
+    isDefault: false,
+  },
+  {
+    cardName: 'Bui Viet Hoang',
+    cardNumber: '1238382983283',
+    cvv: 1232,
+    expireDate: '12/06/2022',
+    isDefault: false,
+  },
+];

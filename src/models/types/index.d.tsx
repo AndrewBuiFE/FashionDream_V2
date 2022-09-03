@@ -38,6 +38,7 @@ export interface Delivery {
   name: DeliveryName;
   price: number;
   image: ImageStyle;
+  deliveryTime: string;
 }
 
 export interface PaymentMethod {

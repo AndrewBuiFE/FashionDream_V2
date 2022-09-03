@@ -33,7 +33,7 @@ export default function CheckBox(props) {
       style={{
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-between',
+        // justifyContent: 'space-between',
         ...customStyle,
       }}>
       {hasTextLeft ? (
