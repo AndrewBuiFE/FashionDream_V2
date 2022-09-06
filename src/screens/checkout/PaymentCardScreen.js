@@ -1,19 +1,16 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useCallback, useState} from 'react';
 import {FlatList, Image, Text, View} from 'react-native';
-import ReactNativeModal from 'react-native-modal';
 import {PAYMENT_CARD} from '../../assets/data';
 import CheckBox from '../../components/CheckBox';
 import CircleButton from '../../components/CircleButton';
 import DividerComponent from '../../components/DividerComponent';
-import EditTextComponent from '../../components/EditTextComponent';
 import HeaderComponent from '../../components/HeaderComponent';
-import Modalheader from '../../components/ModalHeader';
-import RadiusButton from '../../components/RadiusButton';
 import {AppColors} from '../../shared/constants/AppColors';
 import {AppText} from '../../shared/constants/AppGlobal';
 import {AppIcons} from '../../shared/constants/AppIcons';
 import {AppImages} from '../../shared/constants/AppImages';
+import PaymentCardModal from '../modals/PaymentCardModal';
 
 /**
  * @author Hoang
@@ -96,66 +93,11 @@ const PaymentCardScreen = () => {
   );
   return (
     <View style={{flex: 1, backgroundColor: AppColors.primaryBackground}}>
-      <ReactNativeModal
-        isVisible={isModalVisible}
-        animationIn="slideInUp"
-        avoidKeyboard
-        backdropColor="rgba(0, 0, 0, 0.3)"
-        hasBackdrop
-        coverScreen
-        statusBarTranslucent={true}
-        backdropTransitionInTiming={200}
-        onBackdropPress={dismissModal}
-        style={{
-          margin: 0,
-          bottom: 0,
-          position: 'absolute',
-          width: '100%',
-        }}>
-        <View
-          style={{
-            backgroundColor: AppColors.tabBar,
-            height: 572,
-            borderTopRightRadius: 34,
-            borderTopLeftRadius: 34,
-            paddingHorizontal: 16,
-          }}>
-          <Modalheader />
-          <Text
-            style={[AppText.mediumTitle, {marginTop: 26, textAlign: 'center'}]}>
-            Add new card
-          </Text>
-          <DividerComponent height={18} />
-          <EditTextComponent placeholder="Name on card" />
-          <DividerComponent height={20} />
-          <EditTextComponent
-            isShowLabel
-            inputLabel="Card number"
-            isShowRightIcon
-            rightIcon={AppImages.mastercard_white}
-          />
-          <DividerComponent height={20} />
-          <EditTextComponent isShowLabel inputLabel="Expire Date" />
-          <DividerComponent height={20} />
-          <EditTextComponent
-            isShowLabel
-            inputLabel="CVV"
-            isShowRightIcon
-            rightIcon={AppIcons.help}
-          />
-          <CheckBox
-            type="whiteCheckbox"
-            hasTextRight
-            textRight="Set as default payment method"
-            customStyle={{marginTop: 29}}
-          />
-          <RadiusButton
-            title="ADD CARD"
-            type="redButton"
-            buttonCustomStyle={{marginTop: 22}}
-          />
-        </View>
-      </ReactNativeModal>
+      <PaymentCardModal
+        dismissModal={dismissModal}
+        isModalVisible={isModalVisible}
+        onAddingCard={() => {}}
+      />
       <HeaderComponent
         type="medium"
         leftIcon={AppIcons.back_arrow}

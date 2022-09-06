@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/native';
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import {
   FlatList,
   Image,
@@ -16,6 +16,8 @@ import {AppColors} from '../../shared/constants/AppColors';
 import {AppText} from '../../shared/constants/AppGlobal';
 import {AppIcons} from '../../shared/constants/AppIcons';
 import {AppImages} from '../../shared/constants/AppImages';
+import {ScreenName} from '../../shared/constants/ScreenName';
+import SuccessModal from '../modals/SuccessModal';
 
 /**
  * @author hoang
@@ -26,7 +28,11 @@ const CheckoutScreen = () => {
   // common hooks
   const navigation = useNavigation();
   const goBack = navigation.goBack;
-
+  const [isModalVisible, showSuccessModal] = useState(false);
+  // utitlity functions
+  const dismissModal = () => {
+    showSuccessModal(false);
+  };
   // rendering functions
   const renderDelivery = useCallback(
     /**
@@ -54,6 +60,14 @@ const CheckoutScreen = () => {
   );
   return (
     <View style={{flex: 1, backgroundColor: AppColors.primaryBackground}}>
+      <SuccessModal
+        dismissModal={dismissModal}
+        isModalVisible={isModalVisible}
+        onContinuePress={() => {
+          // navigation.navigate(ScreenName.categoriesScreen);
+          dismissModal();
+        }}
+      />
       <HeaderComponent
         type="medium"
         title="Checkout"
@@ -81,7 +95,10 @@ const CheckoutScreen = () => {
                 justifyContent: 'space-between',
               }}>
               <Text style={AppText.primaryText}>name</Text>
-              <TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate(ScreenName.shippingAddressScreen);
+                }}>
                 <Text
                   style={[AppText.primaryText, {color: AppColors.primaryRed}]}>
                   Change
@@ -103,7 +120,10 @@ const CheckoutScreen = () => {
               justifyContent: 'space-between',
             }}>
             <Text style={AppText.mediumTitle}>Payment</Text>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate(ScreenName.paymentCardScreen);
+              }}>
               <Text
                 style={[AppText.primaryText, {color: AppColors.primaryRed}]}>
                 Change
@@ -178,7 +198,13 @@ const CheckoutScreen = () => {
           </View>
         </View>
         <DividerComponent height={23} />
-        <RadiusButton title="SUBMIT ORDER" type="redButton" />
+        <RadiusButton
+          title="SUBMIT ORDER"
+          type="redButton"
+          onButtonPress={() => {
+            showSuccessModal(true);
+          }}
+        />
         <DividerComponent height={20} />
       </ScrollView>
     </View>

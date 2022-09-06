@@ -9,7 +9,7 @@ import {ScreenName} from '../shared/constants/ScreenName';
 const Stack = createNativeStackNavigator();
 const CartNavigator = () => {
   return (
-    <Stack.Navigator initialRouteName={ScreenName.shippingAddressScreen}>
+    <Stack.Navigator initialRouteName={ScreenName.cartScreen}>
       <Stack.Screen
         name={ScreenName.cartScreen}
         component={CartScreen}

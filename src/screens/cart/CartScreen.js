@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {useRef, useState} from 'react';
+import {useNavigation} from '@react-navigation/native';
+import React, {useCallback, useRef, useState} from 'react';
 import {
   Animated,
   FlatList,
@@ -9,25 +10,25 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import ReactNativeModal from 'react-native-modal';
 import KeyboardAvoidingView from 'react-native/Libraries/Components/Keyboard/KeyboardAvoidingView';
-import {PRODUCT, PROMO_CODE} from '../../assets/data';
+import {PRODUCT} from '../../assets/data';
 import CartItem from '../../components/CartItem';
 import CircleButton from '../../components/CircleButton';
 import DividerComponent from '../../components/DividerComponent';
 import HeaderComponent from '../../components/HeaderComponent';
-import Modalheader from '../../components/ModalHeader';
-import PromoCode from '../../components/PromoCode';
 import RadiusButton from '../../components/RadiusButton';
 import {AppColors} from '../../shared/constants/AppColors';
 import {AppText} from '../../shared/constants/AppGlobal';
 import {AppIcons} from '../../shared/constants/AppIcons';
+import {ScreenName} from '../../shared/constants/ScreenName';
+import PromoCodeModal from '../modals/PromoCodeModal';
 const CartScreen = () => {
   // common var
   // common hooks
   const [isModalVisible, showPromoModal] = useState(false);
   const [isFocus, setFocus] = useState(false);
   const shift = useRef(new Animated.Value(0)).current;
+  const navigation = useNavigation();
   const [finalCode, setFinalCode] = useState('');
   // common functions
   const dismissModal = () => {
@@ -54,23 +55,18 @@ const CartScreen = () => {
   // }).start();
   // };
   // rendering functions
-  const renderCartItem = ({item, index}) => {
-    return <CartItem product={item} />;
-  };
-  const renderSeparator = () => {
+  const renderCartItem = useCallback(
+    /**
+     * @type {import('react-native').ListRenderItem<import('../../models/types/index.d').Product>}
+     */
+    ({item: productItem, index}) => {
+      return <CartItem product={productItem} />;
+    },
+    [],
+  );
+  const renderSeparator = useCallback(() => {
     return <DividerComponent height={24} />;
-  };
-  const renderPromoCode = ({item, index}) => {
-    return (
-      <PromoCode
-        promo={item}
-        onApply={code => {
-          setFinalCode(code);
-          showPromoModal(false);
-        }}
-      />
-    );
-  };
+  }, []);
   // effect hooks
   // useEffect(() => {
   //   const showKeyboard = Keyboard.addListener('keyboardDidShow', event => {
@@ -89,79 +85,15 @@ const CartScreen = () => {
       behavior={Platform.OS === 'ios' ? 'padding' : null}
       keyboardVerticalOffset={Platform.OS === 'ios' ? 64 : 0}
       style={{flex: 1, backgroundColor: AppColors.primaryBackground}}>
+      <PromoCodeModal
+        dismissModal={dismissModal}
+        isModalVisible={isModalVisible}
+      />
       <HeaderComponent
         type="large"
         title="My Bag"
         rightIcon={AppIcons.search}
       />
-      <ReactNativeModal
-        isVisible={isModalVisible}
-        animationIn="slideInUp"
-        avoidKeyboard
-        backdropColor="rgba(0, 0, 0, 0.3)"
-        hasBackdrop
-        coverScreen
-        statusBarTranslucent={true}
-        backdropTransitionInTiming={200}
-        onBackdropPress={dismissModal}
-        style={{
-          margin: 0,
-          bottom: 0,
-          position: 'absolute',
-          width: '100%',
-        }}>
-        <View
-          style={{
-            backgroundColor: AppColors.tabBar,
-            height: 464,
-            borderTopRightRadius: 34,
-            borderTopLeftRadius: 34,
-            paddingHorizontal: 16,
-          }}>
-          <Modalheader />
-          <View
-            style={{
-              flexDirection: 'row',
-              backgroundColor: AppColors.lightDark,
-              shadowOffset: {width: 0, height: 1},
-              shadowRadius: 8,
-              marginTop: 32,
-              shadowColor: 'rgba(0, 0, 0, 0.05)',
-              borderTopLeftRadius: 8,
-              borderTopRightRadius: 35,
-              borderBottomRightRadius: 35,
-              borderBottomLeftRadius: 8,
-              height: 36,
-              alignItems: 'center',
-            }}>
-            <TextInput
-              placeholder="Enter your promo code"
-              placeholderTextColor={AppColors.smallTitleText}
-              style={{paddingLeft: 20, width: 307}}
-              onSubmitEditing={Keyboard.dismiss}
-            />
-            <CircleButton
-              icon={AppIcons.arrow_forward}
-              size="small"
-              customStyle={{position: 'absolute', right: 0}}
-              onButtonPress={() => {
-                showPromoModal(false);
-              }}
-            />
-          </View>
-          <Text style={[AppText.mediumTitle, {marginTop: 32}]}>
-            Your Promo Codes
-          </Text>
-          <View style={{marginTop: 18}}>
-            <FlatList
-              data={PROMO_CODE}
-              renderItem={renderPromoCode}
-              ItemSeparatorComponent={renderSeparator}
-              showsVerticalScrollIndicator={false}
-            />
-          </View>
-        </View>
-      </ReactNativeModal>
       <View style={{marginHorizontal: 16}}>
         <FlatList
           data={PRODUCT}
@@ -245,7 +177,13 @@ const CartScreen = () => {
           <Text style={AppText.mediumTitle}>123$</Text>
         </View>
         <DividerComponent height={28} />
-        <RadiusButton title="CHECK OUT" type="redButton" />
+        <RadiusButton
+          title="CHECK OUT"
+          type="redButton"
+          onButtonPress={() => {
+            navigation.navigate(ScreenName.checkoutScreen);
+          }}
+        />
       </View>
     </KeyboardAvoidingView>
   );

@@ -8,18 +8,15 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import ReactNativeModal from 'react-native-modal';
 import {SHIPPING_ADDRESS} from '../../assets/data';
 import CheckBox from '../../components/CheckBox';
 import CircleButton from '../../components/CircleButton';
 import DividerComponent from '../../components/DividerComponent';
-import EditTextComponent from '../../components/EditTextComponent';
 import HeaderComponent from '../../components/HeaderComponent';
-import Modalheader from '../../components/ModalHeader';
-import RadiusButton from '../../components/RadiusButton';
 import {AppColors} from '../../shared/constants/AppColors';
 import {AppText} from '../../shared/constants/AppGlobal';
 import {AppIcons} from '../../shared/constants/AppIcons';
+import ShippingAddressModal from '../modals/ShippingAddressModal';
 
 /**
  * @author hoang
@@ -88,71 +85,22 @@ const ShippingAddressScreen = () => {
   );
   return (
     <View style={{flex: 1, backgroundColor: AppColors.primaryBackground}}>
-      <ReactNativeModal
-        isVisible={isModalVisible}
-        animationIn="slideInUp"
-        avoidKeyboard
-        backdropColor="rgba(0, 0, 0, 0.3)"
-        hasBackdrop
-        coverScreen
-        swipeDirection={'down'}
-        onSwipeComplete={dismissModal}
-        deviceHeight={deviceHeight}
-        statusBarTranslucent={true}
-        backdropTransitionInTiming={200}
-        onBackdropPress={dismissModal}
-        style={{
-          margin: 0,
-          width: '100%',
-          position: 'absolute',
-          bottom: 0,
-        }}>
-        <View
-          style={{
-            backgroundColor: AppColors.tabBar,
-            borderTopRightRadius: 34,
-            borderTopLeftRadius: 34,
-            paddingHorizontal: 16,
-            height: '90%',
-          }}>
-          <Modalheader />
-          <Text
-            style={[AppText.mediumTitle, {marginTop: 26, textAlign: 'center'}]}>
-            Adding shipping address
-          </Text>
-          <DividerComponent height={14} />
-          <EditTextComponent placeholder="Full name" />
-          <DividerComponent height={20} />
-          <EditTextComponent isShowLabel inputLabel="Address" />
-          <DividerComponent height={20} />
-          <EditTextComponent isShowLabel inputLabel="City" />
-          <DividerComponent height={20} />
-          <EditTextComponent isShowLabel inputLabel="State" />
-          <DividerComponent height={20} />
-          <EditTextComponent isShowLabel inputLabel="Zip Code (Postal Code)" />
-          <DividerComponent height={20} />
-          <EditTextComponent
-            isShowLabel
-            inputLabel="Country"
-            rightIcon={AppIcons.right_arrow_normal}
-            isShowRightIcon
-          />
-          <RadiusButton
-            title="SAVE ADDRESS"
-            type="redButton"
-            buttonCustomStyle={{marginTop: 40}}
-          />
-        </View>
-      </ReactNativeModal>
+      <ShippingAddressModal
+        dismissModal={dismissModal}
+        isModalVisible={isModalVisible}
+      />
       <HeaderComponent
         type="medium"
         leftIcon={AppIcons.back_arrow}
         onLeftIconPress={goBack}
-        title="Payment method"
+        title="Shipping Addresses"
       />
-      <View style={{paddingHorizontal: 16, flex: 1}}>
-        <DividerComponent height={31} />
-        <Text style={AppText.mediumTitle}>Your payment cards</Text>
+      <View
+        style={{
+          paddingHorizontal: 16,
+          flex: 1,
+          marginTop: 15,
+        }}>
         <FlatList
           data={SHIPPING_ADDRESS}
           renderItem={renderShipItem}
@@ -163,7 +111,6 @@ const ShippingAddressScreen = () => {
             return <DividerComponent height={20} />;
           }}
           showsVerticalScrollIndicator={false}
-          style={{marginTop: 29}}
         />
         <CircleButton
           icon={AppIcons.plus}
