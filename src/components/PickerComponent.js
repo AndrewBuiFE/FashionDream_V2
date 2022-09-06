@@ -31,12 +31,12 @@ export default function PickerComponent(props) {
       <View style={{flex: 1, justifyContent: 'center'}}>
         <Text style={AppText.smallTitle}>{title}</Text>
         {_.isString(description) && description.length > 0 ? (
-          <Text style={[AppText.tinyTitle, {marginTop: 3}]}>{description}</Text>
+          <Text style={[AppText.tinyTitle, {marginTop: 9}]}>{description}</Text>
         ) : null}
       </View>
       <View
         style={{
-          marginRight: 17,
+          marginRight: 8,
           width: 24,
           height: 24,
           alignItems: 'center',

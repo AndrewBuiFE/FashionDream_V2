@@ -64,15 +64,15 @@ export interface Order {
   number: string;
   date: Date;
   trackingNumber: string;
-  quantity: number;
-  totalAmount: number;
+  // quantity: number;
+  // totalAmount: number;
   status: ShippingStatus;
   listItem: Product[];
   shippingAddress: ShippingAddress;
   paymentMethod: PaymentMethod;
   deliveryMethod: Delivery;
   discount: PromoCode;
-  total: number;
+  // total: number;
 }
 
 export interface Review {
@@ -103,4 +103,8 @@ export interface User {
   promoCode: PromoCode[];
   review: Review[];
   setting: Setting[];
+}
+
+export interface DeliverStatus {
+  status: ShippingStatus;
 }

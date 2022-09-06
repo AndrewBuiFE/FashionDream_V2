@@ -236,3 +236,220 @@ export const SHIPPING_ADDRESS = [
     zipCode: 129389,
   },
 ];
+
+/**
+ * @type {import('../models/types/index.d').DeliverStatus[]}
+ */
+export const DELIVER_STATUS = [
+  {
+    status: 'Delivered',
+  },
+  {
+    status: 'Processing',
+  },
+  {
+    status: 'Cancelled',
+  },
+];
+
+/**
+ * @type {import('../models/types/index.d').Order[]}
+ */
+export const ORDER = [
+  {
+    date: '05-12-2019',
+    number: '1234567',
+    trackingNumber: 'IW3475453455',
+    deliveryMethod: 'FedEx, 3 days, 15$',
+    discount: '10%, Personal promo code',
+    paymentMethod: '**** **** **** 3947',
+    shippingAddress: '3 Newbridge Court ,Chino Hills, CA 91709, United States',
+    status: 'Delivered',
+    listItem: [
+      {
+        id: 1,
+        image: [
+          AppImages.man_1,
+          AppImages.man_2,
+          AppImages.man_3,
+          AppImages.man_4,
+        ],
+        discountPercent: 10,
+        star: 4,
+        comment: 6,
+        description:
+          'Short dress in soft cotton jersey with decorative buttons down the front and a wide, frill-trimmed square neckline with concealed elastication. Elasticated seam under the bust and short puff sleeves with a small frill trim.',
+        brand:
+          'Dorothy sdfas fdjk ajsdjf asfjd jf adjf kajfd jsakj jskdjf ksja jskfdj jdsjf ',
+        title:
+          'Evening adkfj jfk jdjfsk ajd asdkjf ksfj ksjdf skdf jaksdfj js jaksj',
+        originalPrice: 15,
+        isFavorited: false,
+        timeCreated: '12/06/2022',
+        isAvailable: true,
+      },
+      {
+        id: 2,
+        image: [AppImages.man_2],
+        discountPercent: 10,
+        star: 4,
+        comment: 6,
+        description:
+          'Short dress in soft cotton jersey with decorative buttons down the front and a wide, frill-trimmed square neckline with concealed elastication. Elasticated seam under the bust and short puff sleeves with a small frill trim.',
+        brand: 'Dorothy peru',
+        title: 'Dress',
+        originalPrice: 15,
+        isFavorited: false,
+        timeCreated: '12/06/2022',
+        isAvailable: true,
+      },
+    ],
+  },
+  {
+    date: '05-12-2019',
+    number: '1947034',
+    trackingNumber: 'IW3475453455',
+    deliveryMethod: 'FedEx, 3 days, 15$',
+    discount: '10%, Personal promo code',
+    paymentMethod: '**** **** **** 3947',
+    shippingAddress: '3 Newbridge Court ,Chino Hills, CA 91709, United States',
+    status: 'Delivered',
+    listItem: [
+      {
+        id: 1,
+        image: [
+          AppImages.man_1,
+          AppImages.man_2,
+          AppImages.man_3,
+          AppImages.man_4,
+        ],
+        discountPercent: 10,
+        star: 4,
+        comment: 6,
+        description:
+          'Short dress in soft cotton jersey with decorative buttons down the front and a wide, frill-trimmed square neckline with concealed elastication. Elasticated seam under the bust and short puff sleeves with a small frill trim.',
+        brand:
+          'Dorothy sdfas fdjk ajsdjf asfjd jf adjf kajfd jsakj jskdjf ksja jskfdj jdsjf ',
+        title:
+          'Evening adkfj jfk jdjfsk ajd asdkjf ksfj ksjdf skdf jaksdfj js jaksj',
+        originalPrice: 15,
+        isFavorited: false,
+        timeCreated: '12/06/2022',
+        isAvailable: true,
+      },
+      {
+        id: 2,
+        image: [AppImages.man_2],
+        discountPercent: 10,
+        star: 4,
+        comment: 6,
+        description:
+          'Short dress in soft cotton jersey with decorative buttons down the front and a wide, frill-trimmed square neckline with concealed elastication. Elasticated seam under the bust and short puff sleeves with a small frill trim.',
+        brand: 'Dorothy peru',
+        title: 'Dress',
+        originalPrice: 15,
+        isFavorited: false,
+        timeCreated: '12/06/2022',
+        isAvailable: true,
+      },
+    ],
+  },
+  {
+    date: '05-12-2019',
+    number: '38489374',
+    trackingNumber: 'IW3475453455',
+    deliveryMethod: 'FedEx, 3 days, 15$',
+    discount: '10%, Personal promo code',
+    paymentMethod: '**** **** **** 3947',
+    shippingAddress: '3 Newbridge Court ,Chino Hills, CA 91709, United States',
+    status: 'Delivered',
+    listItem: [
+      {
+        id: 1,
+        image: [
+          AppImages.man_1,
+          AppImages.man_2,
+          AppImages.man_3,
+          AppImages.man_4,
+        ],
+        discountPercent: 10,
+        star: 4,
+        comment: 6,
+        description:
+          'Short dress in soft cotton jersey with decorative buttons down the front and a wide, frill-trimmed square neckline with concealed elastication. Elasticated seam under the bust and short puff sleeves with a small frill trim.',
+        brand:
+          'Dorothy sdfas fdjk ajsdjf asfjd jf adjf kajfd jsakj jskdjf ksja jskfdj jdsjf ',
+        title:
+          'Evening adkfj jfk jdjfsk ajd asdkjf ksfj ksjdf skdf jaksdfj js jaksj',
+        originalPrice: 15,
+        isFavorited: false,
+        timeCreated: '12/06/2022',
+        isAvailable: true,
+      },
+      {
+        id: 2,
+        image: [AppImages.man_2],
+        discountPercent: 10,
+        star: 4,
+        comment: 6,
+        description:
+          'Short dress in soft cotton jersey with decorative buttons down the front and a wide, frill-trimmed square neckline with concealed elastication. Elasticated seam under the bust and short puff sleeves with a small frill trim.',
+        brand: 'Dorothy peru',
+        title: 'Dress',
+        originalPrice: 15,
+        isFavorited: false,
+        timeCreated: '12/06/2022',
+        isAvailable: true,
+      },
+    ],
+  },
+  {
+    date: '05-12-2019',
+    number: '1947034',
+    trackingNumber: 'IW3475453455',
+    deliveryMethod: 'FedEx, 3 days, 15$',
+    discount: '10%, Personal promo code',
+    paymentMethod: '**** **** **** 3947',
+    shippingAddress: '3 Newbridge Court ,Chino Hills, CA 91709, United States',
+    status: 'Delivered',
+    listItem: [
+      {
+        id: 1,
+        image: [
+          AppImages.man_1,
+          AppImages.man_2,
+          AppImages.man_3,
+          AppImages.man_4,
+        ],
+        discountPercent: 10,
+        star: 4,
+        comment: 6,
+        description:
+          'Short dress in soft cotton jersey with decorative buttons down the front and a wide, frill-trimmed square neckline with concealed elastication. Elasticated seam under the bust and short puff sleeves with a small frill trim.',
+        brand:
+          'Dorothy sdfas fdjk ajsdjf asfjd jf adjf kajfd jsakj jskdjf ksja jskfdj jdsjf ',
+        title:
+          'Evening adkfj jfk jdjfsk ajd asdkjf ksfj ksjdf skdf jaksdfj js jaksj',
+        originalPrice: 15,
+        isFavorited: false,
+        timeCreated: '12/06/2022',
+        isAvailable: true,
+      },
+      {
+        id: 2,
+        image: [AppImages.man_2],
+        discountPercent: 10,
+        star: 4,
+        comment: 6,
+        description:
+          'Short dress in soft cotton jersey with decorative buttons down the front and a wide, frill-trimmed square neckline with concealed elastication. Elasticated seam under the bust and short puff sleeves with a small frill trim.',
+        brand: 'Dorothy peru',
+        title: 'Dress',
+        originalPrice: 15,
+        isFavorited: false,
+        timeCreated: '12/06/2022',
+        isAvailable: true,
+      },
+    ],
+  },
+];
