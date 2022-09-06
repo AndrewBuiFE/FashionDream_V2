@@ -3,12 +3,13 @@ import React from 'react';
 import CartScreen from '../screens/cart/CartScreen';
 import CheckoutScreen from '../screens/checkout/CheckoutScreen';
 import PaymentCardScreen from '../screens/checkout/PaymentCardScreen';
+import ShippingAddressScreen from '../screens/checkout/ShippingAddressScreen';
 import {ScreenName} from '../shared/constants/ScreenName';
 
 const Stack = createNativeStackNavigator();
 const CartNavigator = () => {
   return (
-    <Stack.Navigator initialRouteName={ScreenName.paymentCardScreen}>
+    <Stack.Navigator initialRouteName={ScreenName.shippingAddressScreen}>
       <Stack.Screen
         name={ScreenName.cartScreen}
         component={CartScreen}
@@ -28,6 +29,14 @@ const CartNavigator = () => {
       <Stack.Screen
         name={ScreenName.paymentCardScreen}
         component={PaymentCardScreen}
+        options={{
+          headerShown: false,
+          title: '',
+        }}
+      />
+      <Stack.Screen
+        name={ScreenName.shippingAddressScreen}
+        component={ShippingAddressScreen}
         options={{
           headerShown: false,
           title: '',

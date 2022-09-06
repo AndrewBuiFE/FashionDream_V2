@@ -36,6 +36,7 @@ export const AppText = {
   mediumTitle: {
     color: AppColors.primaryText,
     fontFamily: 'Metropolis',
+    fontWeight: '650',
     fontSize: 18,
     lineHeight: 22,
   },

@@ -6,6 +6,7 @@ export const AppImages = {
   man_3: require('../../assets/images/3.png'),
   man_4: require('../../assets/images/4.png'),
   mastercard: require('../../assets/images/mastercard.png'),
+  mastercard_white: require('../../assets/images/mastercard_white.png'),
   fedex: require('../../assets/images/fedex.png'),
   dhl: require('../../assets/images/dhl.png'),
   usps: require('../../assets/images/usps.png'),

@@ -40,4 +40,7 @@ export const AppIcons = {
   minus: require('../../assets/icons/minus.png'),
   plus: require('../../assets/icons/plus.png'),
   arrow_forward: require('../../assets/icons/arrow_forward.png'),
+  // checkout
+  chip: require('../../assets/icons/chip.png'),
+  help: require('../../assets/icons/help.png'),
 };

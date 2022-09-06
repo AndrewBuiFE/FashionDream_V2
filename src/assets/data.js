@@ -190,3 +190,49 @@ export const PAYMENT_CARD = [
     isDefault: false,
   },
 ];
+
+/**
+ * @type {import('../models/types/index.d').ShippingAddress[]}
+ */
+export const SHIPPING_ADDRESS = [
+  {
+    address: '50 Phan Dinh Giot',
+    city: 'Ha Noi',
+    country: 'Viet Nam',
+    fullName: 'Bui Viet Hoang',
+    state: 'Thanh Xuan',
+    zipCode: 129389,
+  },
+  {
+    address: '50 Phan Dinh Giot',
+    city: 'Ha Noi',
+    country: 'Viet Nam',
+    fullName: 'Bui Viet Hoang',
+    state: 'Thanh Xuan',
+    zipCode: 129389,
+  },
+  {
+    address: '50 Phan Dinh Giot',
+    city: 'Ha Noi',
+    country: 'Viet Nam',
+    fullName: 'Bui Viet Hoang',
+    state: 'Thanh Xuan',
+    zipCode: 129389,
+  },
+  {
+    address: '50 Phan Dinh Giot',
+    city: 'Ha Noi',
+    country: 'Viet Nam',
+    fullName: 'Bui Viet Hoang',
+    state: 'Thanh Xuan',
+    zipCode: 129389,
+  },
+  {
+    address: '50 Phan Dinh Giot',
+    city: 'Ha Noi',
+    country: 'Viet Nam',
+    fullName: 'Bui Viet Hoang',
+    state: 'Thanh Xuan',
+    zipCode: 129389,
+  },
+];
