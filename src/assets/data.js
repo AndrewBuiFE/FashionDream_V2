@@ -1,5 +1,121 @@
+import {AppColors} from '../shared/constants/AppColors';
 import {AppImages} from '../shared/constants/AppImages';
 
+/**
+ * @description Age => Categories => SubCategories => Types in subcategories
+ */
+export const CATEGORY = [
+  {
+    category: 'Women',
+  },
+  {
+    category: 'Men',
+  },
+];
+
+export const TYPE = [
+  {
+    id: 1,
+    type: 'T-shirts',
+  },
+  {
+    id: 2,
+    type: 'Crop-tops',
+  },
+  {
+    id: 3,
+    type: 'Sleeveless',
+  },
+  {
+    id: 4,
+    type: 'Crop-tops',
+  },
+  {
+    id: 5,
+    type: 'Sleeveless',
+  },
+];
+export const SORT_TITLE = [
+  {
+    title: 'Popular',
+  },
+  {
+    title: 'Newest',
+  },
+  {
+    title: 'Customer review',
+  },
+  {
+    title: 'Price: lowest to high',
+  },
+  {
+    title: 'Price: highest to low',
+  },
+];
+export const TABVIEWLIST = [
+  {
+    id: 1,
+    title: ['New', 'Clothes', 'Shoes', 'Accesories'],
+    image: [AppImages.man_1, AppImages.man_2, AppImages.man_3, AppImages.man_4],
+  },
+  {
+    id: 2,
+    title: ['1', '2', '3', '4'],
+    image: [AppImages.man_1, AppImages.man_2, AppImages.man_3, AppImages.man_4],
+    sale: {
+      title: 'SUMMER SALES',
+      content: 'Up to 50% off',
+      backgroundColor: AppColors.hotRed,
+    },
+  },
+  {
+    id: 3,
+    title: ['1', '2', '3', '4', '5', '6'],
+    image: [
+      AppImages.man_1,
+      AppImages.man_2,
+      AppImages.man_3,
+      AppImages.man_4,
+      AppImages.big_banner,
+      AppImages.small_banner,
+    ],
+    sale: {
+      title: 'SUMMER SALES',
+      content: 'Up to 50% off',
+      backgroundColor: AppColors.hotRed,
+    },
+  },
+];
+export const FILTER_COLOR = [
+  '#020202',
+  '#F6F6F6',
+  '#F48117',
+  '#BEA9A9',
+  '#91BA4F',
+  '#2CB1B1',
+];
+export const FILTER_SIZE = ['XS', 'S', 'M', 'L', 'XL'];
+export const FILTER_CATEGORY = ['All', 'Women', 'Men', 'Boys', 'Girls'];
+export const BRANDS = [
+  'adidas',
+  'adidas Originals',
+  'Blend',
+  'Boutique',
+  'Champion',
+  'Diesel',
+  'Naf naf',
+  'Valentino',
+  'Dolce & Gabbana',
+  'adidas',
+  'adidas Originals',
+  'Blend',
+  'Boutique',
+  'Champion',
+  'Diesel',
+  'Naf naf',
+  'Valentino',
+  'Dolce & Gabbana',
+];
 /**
  * @type {import('../models/types/index.d').Product}
  */

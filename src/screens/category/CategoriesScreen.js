@@ -1,50 +1,24 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-shadow */
 import {useNavigation} from '@react-navigation/native';
-import React, {useRef, useState} from 'react';
-import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
+import React, {useCallback, useRef, useState} from 'react';
+import {
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import Carousel from 'react-native-snap-carousel';
+import {TABVIEWLIST} from '../../assets/data';
 import DividerComponent from '../../components/DividerComponent';
 import HeaderComponent from '../../components/HeaderComponent';
 import {AppColors} from '../../shared/constants/AppColors';
 import {AppText, DeviceConstant} from '../../shared/constants/AppGlobal';
 import {AppIcons} from '../../shared/constants/AppIcons';
-import {AppImages} from '../../shared/constants/AppImages';
 import {ScreenName} from '../../shared/constants/ScreenName';
 
-const TabViewList = [
-  {
-    id: 1,
-    title: ['New', 'Clothes', 'Shoes', 'Accesories'],
-    image: [AppImages.man_1, AppImages.man_2, AppImages.man_3, AppImages.man_4],
-  },
-  {
-    id: 2,
-    title: ['1', '2', '3', '4'],
-    image: [AppImages.man_1, AppImages.man_2, AppImages.man_3, AppImages.man_4],
-    sale: {
-      title: 'SUMMER SALES',
-      content: 'Up to 50% off',
-      backgroundColor: AppColors.hotRed,
-    },
-  },
-  {
-    id: 3,
-    title: ['1', '2', '3', '4', '5', '6'],
-    image: [
-      AppImages.man_1,
-      AppImages.man_2,
-      AppImages.man_3,
-      AppImages.man_4,
-      AppImages.big_banner,
-      AppImages.small_banner,
-    ],
-    sale: {
-      title: 'SUMMER SALES',
-      content: 'Up to 50% off',
-      backgroundColor: AppColors.hotRed,
-    },
-  },
-];
 const CategoriesScreen = () => {
   // common hooks
   const navigation = useNavigation();
@@ -53,7 +27,7 @@ const CategoriesScreen = () => {
   const swiperRef = useRef();
 
   // render functions
-  const renderTabView = ({item, index}) => {
+  const renderTabView = useCallback(({item, index}) => {
     let category = item?.title.map((i, categoryIndex) => {
       return {title: i, image: item.image[categoryIndex]};
     });
@@ -110,7 +84,7 @@ const CategoriesScreen = () => {
         <DividerComponent height={20} />
       </ScrollView>
     );
-  };
+  }, []);
   return (
     <View style={{flex: 1, backgroundColor: AppColors.primaryBackground}}>
       <HeaderComponent
@@ -158,20 +132,16 @@ const CategoriesScreen = () => {
       <Carousel
         ref={swiperRef}
         firstItem={index}
-        data={TabViewList}
+        data={TABVIEWLIST}
         renderItem={renderTabView}
         sliderWidth={DeviceConstant.screenWidth}
         itemWidth={DeviceConstant.screenWidth}
         onSnapToItem={index => setIndex(index)}
         enableSnap
         loop={false}
-        contentContainerCustomStyle={
-          {
-            // backgroundColor: 'blue',
-          }
-        }
       />
     </View>
   );
 };
 export default CategoriesScreen;
+const styles = StyleSheet.create({});

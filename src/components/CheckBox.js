@@ -15,6 +15,7 @@ import {AppIcons} from '../shared/constants/AppIcons';
  * @property {boolean=} isCheck
  * @property {(string) => string=} onCheck
  * @property {import('react-native').ViewStyle} customStyle
+ * @property {import('react-native').TextStyle} textStyle
  * @param {Prop} props
  */
 export default function CheckBox(props) {
@@ -27,6 +28,7 @@ export default function CheckBox(props) {
     isCheck,
     onCheck,
     customStyle,
+    textStyle,
   } = props;
   return (
     <View
@@ -38,7 +40,7 @@ export default function CheckBox(props) {
       }}>
       {hasTextLeft ? (
         <View style={{}}>
-          <Text style={[AppText.primaryText]}>{textLeft}</Text>
+          <Text style={[AppText.primaryText, {...textStyle}]}>{textLeft}</Text>
         </View>
       ) : null}
       <TouchableOpacity onPress={onCheck}>
@@ -54,7 +56,7 @@ export default function CheckBox(props) {
       </TouchableOpacity>
       {hasTextRight ? (
         <View style={{marginLeft: 13}}>
-          <Text style={[AppText.primaryText]}>{textRight}</Text>
+          <Text style={[AppText.primaryText, {...textStyle}]}>{textRight}</Text>
         </View>
       ) : null}
     </View>

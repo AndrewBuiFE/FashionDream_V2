@@ -2,6 +2,7 @@ import {useNavigation} from '@react-navigation/native';
 import React, {useCallback, useState} from 'react';
 import {FlatList, ScrollView, StyleSheet, Text, View} from 'react-native';
 import RnRangeSlider from 'rn-range-slider';
+import {FILTER_CATEGORY, FILTER_COLOR, FILTER_SIZE} from '../../assets/data';
 import ColorComponent from '../../components/ColorComponent';
 import DividerComponent from '../../components/DividerComponent';
 import HeaderComponent from '../../components/HeaderComponent';
@@ -13,16 +14,6 @@ import {AppText} from '../../shared/constants/AppGlobal';
 import {AppIcons} from '../../shared/constants/AppIcons';
 import {ScreenName} from '../../shared/constants/ScreenName';
 
-const COLORS = [
-  '#020202',
-  '#F6F6F6',
-  '#F48117',
-  '#BEA9A9',
-  '#91BA4F',
-  '#2CB1B1',
-];
-const SIZE = ['XS', 'S', 'M', 'L', 'XL'];
-const CATEGORY = ['All', 'Women', 'Men', 'Boys', 'Girls'];
 // https://github.com/githuboftigran/rn-widgets-demo/tree/master/src/Slider
 const THUMB_RADIUS = 11;
 
@@ -38,9 +29,7 @@ const Label = ({text, ...restProps}) => {
 };
 const Notch = props => <View style={styles.notch} {...props} />;
 /**
- *
- * @param {string} title
- * @param {import('react-native').StyleProp<import('react-native').ViewStyle>} customStyle
+ * @param {{title: string, customStyle: import('react-native').StyleProp<import('react-native').ViewStyle>}} param0
  * @return {JSX.Element}
  */
 const FilterTitle = ({title, customStyle}) => (
@@ -65,21 +54,42 @@ const FilterModals = () => {
   const [high, setHigh] = useState(1000);
   const navigation = useNavigation();
   const goBack = navigation.goBack;
+  const [generalFilter, setFilter] = useState({
+    colorIndex: 0,
+    sizeIndex: 0,
+    categoryIndex: 0,
+    brandIndex: 0,
+  });
   // render function
   const renderThumb = useCallback(() => <Thumb />, []);
   const renderRail = useCallback(() => <Rail />, []);
   const renderRailSelected = useCallback(() => <RailSelected />, []);
   const renderLabel = useCallback(value => <Label text={`$${value}`} />, []);
   const renderNotch = useCallback(() => <Notch />, []);
-  const renderColor = ({item, index}) => {
-    return <ColorComponent backgroundColor={item} isCheck />;
-  };
-  const renderSeperator = () => <DividerComponent width={20} />;
+  const renderColor = useCallback(
+    ({item, index}) => {
+      return (
+        <ColorComponent
+          backgroundColor={item}
+          isCheck={generalFilter.colorIndex === index ? true : false}
+          onColorPress={() => {
+            setFilter({...generalFilter, colorIndex: index});
+          }}
+        />
+      );
+    },
+    [generalFilter],
+  );
+  const renderSeperator = useCallback(() => {
+    return <DividerComponent width={20} />;
+  }, []);
+
   // utility function
   const handleValueChange = useCallback((low, high) => {
     setLow(low);
     setHigh(high);
   }, []);
+
   return (
     <View
       style={{
@@ -95,10 +105,7 @@ const FilterModals = () => {
       <ScrollView
         contentContainerStyle={{paddingHorizontal: 16}}
         showsVerticalScrollIndicator={false}>
-        <FilterTitle
-          title="Price range"
-          customStyle={{marginTop: 0, backgroundColor: AppColors.tabBar}}
-        />
+        <FilterTitle title="Price range" customStyle={{marginTop: 0}} />
         <View
           style={{
             height: 40,
@@ -120,64 +127,61 @@ const FilterModals = () => {
             onValueChanged={handleValueChange}
           />
         </View>
-        <FilterTitle
-          title="Colors"
-          customStyle={{backgroundColor: AppColors.tabBar}}
-        />
+        <FilterTitle title="Colors" customStyle={{}} />
         <View style={{height: 44, marginTop: 24}}>
           <FlatList
-            data={COLORS}
+            data={FILTER_COLOR}
             renderItem={renderColor}
             horizontal
             showsHorizontalScrollIndicator={false}
             ItemSeparatorComponent={renderSeperator}
           />
         </View>
-        <FilterTitle
-          title="Sizes"
-          customStyle={{backgroundColor: AppColors.tabBar}}
-        />
+        <FilterTitle title="Sizes" customStyle={{}} />
         <View style={{height: 40, marginTop: 24, flexDirection: 'row'}}>
-          {SIZE.map((size, index) => {
+          {FILTER_SIZE.map((size, index) => {
+            let isActive = generalFilter.sizeIndex === index;
             return (
               <TagComponent
                 key={index}
                 size="medium"
                 tag={size}
                 shape="square"
-                type="blackTag"
-                hasBorder
+                type={isActive ? 'redTag' : 'blackTag'}
+                hasBorder={!isActive}
                 tagViewStyle={{
                   marginLeft: index == 0 ? 0 : 16,
-                  backgroundColor: AppColors.primaryBackground,
+                }}
+                onTagPress={() => {
+                  setFilter({...generalFilter, sizeIndex: index});
                 }}
               />
             );
           })}
         </View>
-        <FilterTitle
-          title="Categories"
-          customStyle={{backgroundColor: AppColors.tabBar}}
-        />
+        <FilterTitle title="Categories" customStyle={{}} />
         <View
           style={{
             marginTop: 24,
             flexDirection: 'row',
             flexWrap: 'wrap',
           }}>
-          {CATEGORY.map((cate, index) => {
+          {FILTER_CATEGORY.map((cate, index) => {
+            let isActive = generalFilter.categoryIndex === index;
             return (
               <TagComponent
                 key={index}
                 size="large"
                 tag={cate}
                 shape="round"
-                type="blackTag"
-                hasBorder
+                type={isActive ? 'redTag' : 'blackTag'}
+                hasBorder={!isActive}
                 tagViewStyle={{
                   marginLeft: index == 0 || index == 3 ? 0 : 22,
                   marginTop: index < 3 ? 0 : 12,
-                  backgroundColor: AppColors.primaryBackground,
+                }}
+                onTagPress={() => {
+                  setFilter({...generalFilter, categoryIndex: index});
                 }}
               />
             );
@@ -189,7 +193,10 @@ const FilterModals = () => {
           onPickerPress={() => {
             navigation.navigate(ScreenName.brandModals);
           }}
-          customStyle={{marginTop: 24}}
+          customStyle={{
+            marginTop: 24,
+            backgroundColor: AppColors.primaryBackground,
+          }}
         />
         <View
           style={{
@@ -201,12 +208,12 @@ const FilterModals = () => {
           <RadiusButton
             type="disabledButton"
             title="Discard"
-            buttonCustomStyle={{width: 160}}
+            buttonCustomStyle={{width: 160, height: 36}}
           />
           <RadiusButton
             type="redButton"
             title="Apply"
-            buttonCustomStyle={{width: 160}}
+            buttonCustomStyle={{width: 160, height: 36}}
           />
         </View>
       </ScrollView>

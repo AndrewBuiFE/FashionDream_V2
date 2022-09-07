@@ -34,7 +34,9 @@ export default function TagComponent(props) {
         alignItems: 'center',
         justifyContent: 'center',
         borderWidth: 1,
-        borderColor: hasBorder ? AppColors.whiteBackground : undefined,
+        borderColor: hasBorder
+          ? AppColors.whiteBackground
+          : AppColors.primaryRed,
         ...tagViewStyle,
       }}
       onPress={onTagPress}>
