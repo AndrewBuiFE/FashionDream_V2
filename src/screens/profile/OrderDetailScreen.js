@@ -3,6 +3,7 @@ import {FlatList, Text, View} from 'react-native';
 import DividerComponent from '../../components/DividerComponent';
 import HeaderComponent from '../../components/HeaderComponent';
 import ProductOrderedComponent from '../../components/ProductOrderedComponent';
+import RadiusButton from '../../components/RadiusButton';
 import {AppColors} from '../../shared/constants/AppColors';
 import {AppText} from '../../shared/constants/AppGlobal';
 import {AppIcons} from '../../shared/constants/AppIcons';
@@ -13,39 +14,29 @@ const OrderDetailScreen = props => {
   let {order} = props?.route?.params;
 
   // rendering functions
-  /**
-   * @param {string} field
-   * @param {string} content
-   */
-  // const OrderInfomationField = (field, content) => {
-  //   return (
-  //     <View style={{flexDirection: 'row'}}>
-  //       <Text style={{width: 132}}>{field}</Text>
-  //       <Text style={{width: 215}}>{content}</Text>
-  //     </View>
-  //   );
-  // };
-  const renderSeparator = useCallback(() => {
-    return <DividerComponent height={30} width={8} />;
-  }, []);
-  const renderOrderedProduct = useCallback(
+  const OrderInformationField = useCallback(
     /**
-     * @type {import('react-native').ListRenderItem<import('../../models/types/index.d').Product>}
+     * @param {{field: string, content: string}} param0
      */
-    ({item: orderedProduct, index}) => {
-      return <ProductOrderedComponent product={orderedProduct} />;
+    ({field, content}) => {
+      return (
+        <View style={{flexDirection: 'row'}}>
+          <Text
+            style={[
+              AppText.primaryText,
+              {color: AppColors.smallTitleText, width: 132},
+            ]}>
+            {field}
+          </Text>
+          <Text style={[AppText.primaryText, {flex: 1}]}>{content}</Text>
+        </View>
+      );
     },
     [],
   );
-  return (
-    <View style={{flex: 1, backgroundColor: AppColors.primaryBackground}}>
-      <HeaderComponent
-        type="medium"
-        leftIcon={AppIcons.back_arrow}
-        rightIcon={AppIcons.search}
-        title="Order Details"
-      />
-      <View style={{marginHorizontal: 16, marginTop: 9}}>
+  const renderHeader = useCallback(() => {
+    return (
+      <View>
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
           <Text style={AppText.mediumTitle}>{`Order №${order.number}`}</Text>
           <Text
@@ -70,18 +61,90 @@ const OrderDetailScreen = props => {
             {order.status}
           </Text>
         </View>
-        <View style={{marginTop: 16}}>
+        <View style={{marginTop: 16, marginBottom: 18}}>
           <Text style={AppText.primaryText}>3 items</Text>
         </View>
-        <View style={{marginTop: 18}}>
-          <FlatList
-            data={order.listItem}
-            renderItem={renderOrderedProduct}
-            ItemSeparatorComponent={renderSeparator}
-            showsVerticalScrollIndicator={false}
+      </View>
+    );
+  }, [order]);
+  const renderFooter = useCallback(() => {
+    return (
+      <View style={{marginTop: 34}}>
+        <Text
+          style={[AppText.primaryText, {marginBottom: 15, fontWeight: '650'}]}>
+          Order information
+        </Text>
+        <OrderInformationField
+          field="Shipping address: "
+          content="3 Newbridge Court ,Chino Hills, CA 91709, United States"
+        />
+        <DividerComponent height={24} />
+        <OrderInformationField
+          field="Payment method: "
+          content="**** **** **** 3947"
+        />
+        <DividerComponent height={24} />
+        <OrderInformationField
+          field="Delivery method: "
+          content="FedEx, 3 days, 15$"
+        />
+        <DividerComponent height={24} />
+        <OrderInformationField
+          field="Discount: "
+          content="10% Personal promo"
+        />
+        <DividerComponent height={24} />
+        <OrderInformationField field="Total amount: " content="133$" />
+        <View
+          style={{
+            marginTop: 34,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+          }}>
+          <RadiusButton
+            type="disabledButton"
+            title="Reorder"
+            buttonCustomStyle={{width: 160}}
+          />
+          <RadiusButton
+            type="redButton"
+            title="Leave feedback"
+            buttonCustomStyle={{width: 160}}
           />
         </View>
-        <View style={{marginTop: 34}} />
+        <DividerComponent height={24} />
+      </View>
+    );
+  }, []);
+  const renderSeparator = useCallback(() => {
+    return <DividerComponent height={30} width={8} />;
+  }, []);
+  const renderOrderedProduct = useCallback(
+    /**
+     * @type {import('react-native').ListRenderItem<import('../../models/types/index.d').Product>}
+     */
+    ({item: orderedProduct, index}) => {
+      return <ProductOrderedComponent product={orderedProduct} />;
+    },
+    [],
+  );
+  return (
+    <View style={{flex: 1, backgroundColor: AppColors.primaryBackground}}>
+      <HeaderComponent
+        type="medium"
+        leftIcon={AppIcons.back_arrow}
+        rightIcon={AppIcons.search}
+        title="Order Details"
+      />
+      <View style={{marginHorizontal: 16, marginTop: 9, flex: 1}}>
+        <FlatList
+          data={order.listItem}
+          renderItem={renderOrderedProduct}
+          ListHeaderComponent={renderHeader}
+          ListFooterComponent={renderFooter}
+          ItemSeparatorComponent={renderSeparator}
+          showsVerticalScrollIndicator={false}
+        />
       </View>
     </View>
   );

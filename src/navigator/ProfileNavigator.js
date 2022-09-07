@@ -3,13 +3,14 @@ import React from 'react';
 import MyOrderScreen from '../screens/profile/MyOrderScreen';
 import OrderDetailScreen from '../screens/profile/OrderDetailScreen';
 import ProfileScreen from '../screens/profile/ProfileScreen';
+import SettingScreen from '../screens/profile/SettingScreen';
 import {ScreenName} from '../shared/constants/ScreenName';
 import TestComponent from '../tests/TestComponents';
 
 const Stack = createNativeStackNavigator();
 const ProfileNavigator = () => {
   return (
-    <Stack.Navigator initialRouteName={ScreenName.profileScreen}>
+    <Stack.Navigator initialRouteName={ScreenName.settingScreen}>
       <Stack.Screen
         name={ScreenName.testComponent}
         component={TestComponent}
@@ -37,6 +38,14 @@ const ProfileNavigator = () => {
       <Stack.Screen
         name={ScreenName.orderDetailScreen}
         component={OrderDetailScreen}
+        options={{
+          headerShown: false,
+          title: '',
+        }}
+      />
+      <Stack.Screen
+        name={ScreenName.settingScreen}
+        component={SettingScreen}
         options={{
           headerShown: false,
           title: '',

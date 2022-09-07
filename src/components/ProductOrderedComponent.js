@@ -1,7 +1,7 @@
 import React from 'react';
-import { Image, Text, TouchableOpacity, View } from 'react-native';
-import { AppColors } from '../shared/constants/AppColors';
-import { AppText } from '../shared/constants/AppGlobal';
+import {Image, Text, TouchableOpacity, View} from 'react-native';
+import {AppColors} from '../shared/constants/AppColors';
+import {AppText} from '../shared/constants/AppGlobal';
 /**
  * @author hoang
  * @description Product favorite component
@@ -39,7 +39,7 @@ export default function ProductOrderedComponent(props) {
             }}
           />
         </View>
-        <View style={{marginLeft: 11, flex: 1}}>
+        <View style={{paddingLeft: 11, paddingRight: 14, flex: 1}}>
           <Text numberOfLines={1} style={[AppText.smallTitle, {marginTop: 11}]}>
             {product.title}
           </Text>
@@ -59,8 +59,21 @@ export default function ProductOrderedComponent(props) {
               flexDirection: 'row',
               alignItems: 'center',
               marginTop: 12,
+              justifyContent: 'space-between',
             }}>
-            <View style={{flexDirection: 'row', flex: 1}}>
+            <View>
+              <Text style={AppText.primaryText}>
+                <Text
+                  style={[
+                    AppText.primaryText,
+                    {color: AppColors.smallTitleText},
+                  ]}>
+                  Unit:
+                </Text>
+                {1}
+              </Text>
+            </View>
+            <View style={{flexDirection: 'row'}}>
               <Text
                 numberOfLines={1}
                 style={[

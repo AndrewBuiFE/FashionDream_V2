@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {useNavigation} from '@react-navigation/native';
 import React, {useCallback} from 'react';
 import {FlatList, Text, View} from 'react-native';
@@ -8,6 +9,7 @@ import RadiusButton from '../../components/RadiusButton';
 import {AppColors} from '../../shared/constants/AppColors';
 import {AppText} from '../../shared/constants/AppGlobal';
 import {AppIcons} from '../../shared/constants/AppIcons';
+import {ScreenName} from '../../shared/constants/ScreenName';
 const MyOrderScreen = () => {
   // common hooks
   const navigation = useNavigation();
@@ -108,9 +110,9 @@ const MyOrderScreen = () => {
               type="disabledButton"
               buttonCustomStyle={{width: 98, height: 36}}
               onButtonPress={() => {
-                // navigation.navigate(ScreenName.orderDetailScreen, {
-                //   order: order,
-                // });
+                navigation.navigate(ScreenName.orderDetailScreen, {
+                  order: order,
+                });
               }}
             />
             <Text style={[AppText.primaryText, {color: AppColors.success}]}>

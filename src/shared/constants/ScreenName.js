@@ -24,4 +24,5 @@ export const ScreenName = {
   profileScreen: 'ProfileScreen',
   myOrderScreen: 'MyOrderScreen',
   orderDetailScreen: 'OrderDetailScreen',
+  settingScreen: 'SettingScreen',
 };
