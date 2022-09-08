@@ -1,13 +1,14 @@
-import React, {useEffect, useState} from 'react';
-import {Text, View} from 'react-native';
+import React, { useCallback, useEffect, useState } from 'react';
+import { FlatList, Text, View } from 'react-native';
 import ReactNativeModal from 'react-native-modal';
-import {FILTER_SIZE} from '../../assets/data';
+import { FILTER_COLOR } from '../../assets/data';
+import ColorComponent from '../../components/ColorComponent';
+import DividerComponent from '../../components/DividerComponent';
 import Modalheader from '../../components/ModalHeader';
 import PickerComponent from '../../components/PickerComponent';
 import RadiusButton from '../../components/RadiusButton';
-import TagComponent from '../../components/TagComponent';
-import {AppColors} from '../../shared/constants/AppColors';
-import {AppText} from '../../shared/constants/AppGlobal';
+import { AppColors } from '../../shared/constants/AppColors';
+import { AppText } from '../../shared/constants/AppGlobal';
 
 /**
  * @author hoang
@@ -19,16 +20,34 @@ import {AppText} from '../../shared/constants/AppGlobal';
  * @property {number} currentActiveIndex
  * @param {Prop} props
  */
-const SelectSizeModal = props => {
-  // common var
-  let {isModalVisible, dismissModal, onSelect, currentActiveIndex} = props;
+const SelectColorModal = props => {
+  // var
+  let {isModalVisible, dismissModal, currentActiveIndex, onSelect} = props;
   // hooks
   const [activeIndex, setActiveIndex] = useState(currentActiveIndex);
-  // functions
   const hideModal = () => {
     onSelect(activeIndex);
     dismissModal();
   };
+  // rendering
+  const renderColor = useCallback(
+    ({item, index}) => {
+      return (
+        <ColorComponent
+          backgroundColor={item}
+          isCheck={activeIndex === index ? true : false}
+          onColorPress={() => {
+            setActiveIndex(index);
+          }}
+        />
+      );
+    },
+    // [generalFilter],
+    [activeIndex],
+  );
+  const renderSeperator = useCallback(() => {
+    return <DividerComponent width={20} />;
+  }, []);
   // side effect
   useEffect(() => {
     setActiveIndex(currentActiveIndex);
@@ -48,20 +67,20 @@ const SelectSizeModal = props => {
       style={{
         margin: 0,
         width: '100%',
-        height: 368,
+        height: 300,
         position: 'absolute',
         bottom: 0,
       }}>
       <View
         style={{
           backgroundColor: AppColors.tabBar,
-          height: 368,
+          height: 300,
           borderTopRightRadius: 34,
           borderTopLeftRadius: 34,
         }}>
         <Modalheader />
         <View style={{alignItems: 'center', marginTop: 16}}>
-          <Text style={AppText.mediumTitle}>Select size</Text>
+          <Text style={AppText.mediumTitle}>Select color</Text>
         </View>
         <View
           style={{
@@ -70,32 +89,16 @@ const SelectSizeModal = props => {
             marginTop: 24,
             marginHorizontal: 16,
           }}>
-          {FILTER_SIZE.map((cate, index) => {
-            let active = activeIndex === index;
-            return (
-              <TagComponent
-                key={index}
-                size="large"
-                tag={cate}
-                shape="round"
-                type={active ? 'redTag' : 'blackTag'}
-                hasBorder={!active}
-                tagViewStyle={{
-                  marginLeft: index == 0 || index == 3 ? 0 : 30.3,
-                  marginTop: index < 3 ? 0 : 16,
-                  backgroundColor: active
-                    ? AppColors.primaryRed
-                    : AppColors.primaryBackground,
-                }}
-                onTagPress={() => {
-                  setActiveIndex(index);
-                }}
-              />
-            );
-          })}
+          <FlatList
+            data={FILTER_COLOR}
+            renderItem={renderColor}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            ItemSeparatorComponent={renderSeperator}
+          />
         </View>
         <PickerComponent
-          title="Size info"
+          title="Color info"
           customStyle={{
             marginTop: 24,
             borderWidth: 0.4,
@@ -115,4 +118,4 @@ const SelectSizeModal = props => {
     </ReactNativeModal>
   );
 };
-export default SelectSizeModal;
+export default SelectColorModal;

@@ -38,7 +38,6 @@ export default function ProductItemComponent(props) {
     onProductPress,
     size,
   } = props;
-  console.log('Is horizontal: ', isHorizontal);
   let rightButtonIcon;
   if (isFavorite && isBottomRightButtonActive) {
     rightButtonIcon = AppIcons.bag_favorite;

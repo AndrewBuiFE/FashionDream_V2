@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/native';
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {
   FlatList,
   Image,
@@ -8,31 +8,44 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import ReactNativeModal from 'react-native-modal';
 import Carousel from 'react-native-snap-carousel';
-import {PRODUCT} from '../../assets/data';
+import {FILTER_SIZE, PRODUCT} from '../../assets/data';
 import CircleButton from '../../components/CircleButton';
 import DividerComponent from '../../components/DividerComponent';
 import HeaderComponent from '../../components/HeaderComponent';
-import Modalheader from '../../components/ModalHeader';
 import PickerComponent from '../../components/PickerComponent';
 import ProductItemComponent from '../../components/ProductItemComponent';
 import RadiusButton from '../../components/RadiusButton';
 import StarComponent from '../../components/StarComponent';
-import TagComponent from '../../components/TagComponent';
 import {AppColors} from '../../shared/constants/AppColors';
 import {AppText, DeviceConstant} from '../../shared/constants/AppGlobal';
 import {AppIcons} from '../../shared/constants/AppIcons';
 import {ScreenName} from '../../shared/constants/ScreenName';
+import SelectColorModal from '../modals/SelectColorModal';
+import SelectSizeModal from '../modals/SelectSizeModal';
 
-const SIZE = ['XS', 'S', 'M', 'L', 'XL'];
 const SLIDER_HEIGHT = 413;
 const SLIDER_WIDTH = 275;
+/**
+ * @author Hoang
+ * @description ProductCardScreen
+ */
 const ProductCardScreen = props => {
   // common hooks
   const navigation = useNavigation();
   const goBack = navigation.goBack;
-  const [isModalVisible, showDropDownModal] = useState(false);
+  const [isModalVisible, showDropDownModal] = useState({
+    size: false,
+    color: false,
+  });
+  const [dropdownTitle, setDropdownTitle] = useState({
+    color: 'Color',
+    size: 'Size',
+  });
+  const [currentActiveIndex, setCurrentActiveIndex] = useState({
+    color: -1,
+    size: -1,
+  });
   const [productsFavorite, setProductsFavorite] = useState(
     PRODUCT.map(product => {
       return product.isFavorited;
@@ -46,145 +59,240 @@ const ProductCardScreen = props => {
 
   // common functions
   const dismissModal = () => {
-    showDropDownModal(false);
+    showDropDownModal({color: false, size: false});
   };
   // rendering functions
-  /**
-   * @param {string} title
-   * @return {JSX.Element}
-   */
-  const renderDropDown = title => {
-    return (
-      <TouchableOpacity
-        style={{
-          width: 138,
-          height: 40,
-          borderWidth: 0.4,
-          borderColor: AppColors.smallTitleText,
-          borderRadius: 8,
-          paddingLeft: 12,
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          flexDirection: 'row',
-        }}
-        onPress={() => {
-          showDropDownModal(previous => !previous);
-        }}>
-        <Text>{title}</Text>
-        <View
+
+  const DropDown = useCallback(
+    /**
+     * @param {{title: string, type: string}} param0
+     * @return {JSX.Element}
+     */
+    ({title, type}) => {
+      return (
+        <TouchableOpacity
           style={{
-            width: 16,
-            height: 16,
+            width: 138,
+            height: 40,
+            borderWidth: 0.4,
+            borderColor: AppColors.smallTitleText,
+            borderRadius: 8,
+            paddingLeft: 12,
             alignItems: 'center',
-            justifyContent: 'center',
-            paddingRight: 8,
+            justifyContent: 'space-between',
+            flexDirection: 'row',
+          }}
+          onPress={() => {
+            showDropDownModal({
+              size: type === 'size' ? true : false,
+              color: type === 'color' ? true : false,
+            });
           }}>
-          <Image source={AppIcons.drop_down} />
-        </View>
-      </TouchableOpacity>
-    );
-  };
-  const renderProduct = ({item, index}) => {
-    return (
-      <ProductItemComponent
-        product={item}
-        key={index}
-        isBottomRightButtonActive={productsFavorite[index]}
-        onButtomRightButtonPress={() => {
-          let tempState = [...productsFavorite];
-          tempState[index] = !tempState[index];
-          setProductsFavorite(tempState);
-        }}
-        onProductPress={() => {
-          navigation.navigate(ScreenName.productCardScreen, {product: item});
-        }}
-      />
-    );
-  };
-  const renderSelectSizeModal = () => (
-    <View>
-      <Text>Select size</Text>
-    </View>
+          <Text>
+            {type === 'color' ? dropdownTitle.color : dropdownTitle.size}
+          </Text>
+          <View
+            style={{
+              width: 16,
+              height: 16,
+              alignItems: 'center',
+              justifyContent: 'center',
+              paddingRight: 8,
+            }}>
+            <Image source={AppIcons.drop_down} />
+          </View>
+        </TouchableOpacity>
+      );
+    },
+    [dropdownTitle],
   );
-  const renderImage = ({item, index}) => {
+  const renderProduct = useCallback(
+    ({item, index}) => {
+      return (
+        <ProductItemComponent
+          product={item}
+          key={index}
+          isBottomRightButtonActive={productsFavorite[index]}
+          onButtomRightButtonPress={() => {
+            let tempState = [...productsFavorite];
+            tempState[index] = !tempState[index];
+            setProductsFavorite(tempState);
+          }}
+          onProductPress={() => {
+            navigation.navigate(ScreenName.productCardScreen, {product: item});
+          }}
+        />
+      );
+    },
+    [navigation, productsFavorite],
+  );
+  const renderImage = useCallback(({item, index}) => {
     return (
       <Image
         source={item}
         style={{width: SLIDER_WIDTH, height: SLIDER_HEIGHT}}
       />
     );
-  };
+  }, []);
+  const renderFooter = useCallback(
+    () => <DividerComponent height={260} width={16} />,
+    [],
+  );
+  const renderSeparator = useCallback(
+    () => <View style={{height: 260, width: 16}} />,
+    [],
+  );
   return (
     <View style={{flex: 1, backgroundColor: AppColors.primaryBackground}}>
-      <ReactNativeModal
-        isVisible={isModalVisible}
-        animationIn="slideInUp"
-        avoidKeyboard
-        backdropColor="rgba(0, 0, 0, 0.3)"
-        hasBackdrop
-        coverScreen
-        statusBarTranslucent={true}
-        backdropTransitionInTiming={200}
-        onBackdropPress={dismissModal}
-        style={{
-          margin: 0,
-          bottom: 0,
-          position: 'absolute',
-          width: '100%',
-        }}>
-        <View
-          style={{
-            backgroundColor: AppColors.tabBar,
-            height: 368,
-            borderTopRightRadius: 34,
-            borderTopLeftRadius: 34,
-          }}>
-          <Modalheader />
-          <View style={{alignItems: 'center', marginTop: 16}}>
-            <Text style={AppText.mediumTitle}>Select size</Text>
-          </View>
-          <View
-            style={{
-              flexDirection: 'row',
-              flexWrap: 'wrap',
-              marginTop: 24,
-              marginHorizontal: 16,
-            }}>
-            {SIZE.map((cate, index) => {
-              return (
-                <TagComponent
-                  key={index}
-                  size="large"
-                  tag={cate}
-                  shape="round"
-                  type="blackTag"
-                  hasBorder
-                  tagViewStyle={{
-                    marginLeft: index == 0 || index == 3 ? 0 : 30.3,
-                    marginTop: index < 3 ? 0 : 16,
-                    backgroundColor: AppColors.primaryBackground,
-                  }}
-                />
-              );
-            })}
-          </View>
-          <PickerComponent
-            title="Size info"
-            customStyle={{
-              marginTop: 24,
-              borderWidth: 0.4,
-              borderColor: AppColors.smallTitleText,
-            }}
-          />
-          <View style={{marginHorizontal: 16}}>
-            <RadiusButton
-              title="ADD TO CART"
-              type="redButton"
-              buttonCustomStyle={{marginTop: 28}}
-            />
-          </View>
-        </View>
-      </ReactNativeModal>
+      <SelectSizeModal
+        dismissModal={dismissModal}
+        isModalVisible={isModalVisible.size}
+        currentActiveIndex={currentActiveIndex.size}
+        onSelect={
+          /**
+           * @type {string}
+           */
+          index => {
+            switch (index) {
+              case 0: {
+                setDropdownTitle({
+                  ...dropdownTitle,
+                  size: FILTER_SIZE[0],
+                });
+                setCurrentActiveIndex({
+                  ...currentActiveIndex,
+                  size: 0,
+                });
+                break;
+              }
+              case 1: {
+                setDropdownTitle({
+                  ...dropdownTitle,
+                  size: FILTER_SIZE[1],
+                });
+                setCurrentActiveIndex({
+                  ...currentActiveIndex,
+                  size: 1,
+                });
+                break;
+              }
+              case 2: {
+                setDropdownTitle({
+                  ...dropdownTitle,
+                  size: FILTER_SIZE[2],
+                });
+                setCurrentActiveIndex({
+                  ...currentActiveIndex,
+                  size: 2,
+                });
+                break;
+              }
+              case 3: {
+                setDropdownTitle({
+                  ...dropdownTitle,
+                  size: FILTER_SIZE[3],
+                });
+                setCurrentActiveIndex({
+                  ...currentActiveIndex,
+                  size: 3,
+                });
+                break;
+              }
+              case 4: {
+                setDropdownTitle({
+                  ...dropdownTitle,
+                  size: FILTER_SIZE[4],
+                });
+                setCurrentActiveIndex({
+                  ...currentActiveIndex,
+                  size: 4,
+                });
+                break;
+              }
+            }
+          }
+        }
+      />
+      <SelectColorModal
+        dismissModal={dismissModal}
+        isModalVisible={isModalVisible.color}
+        currentActiveIndex={currentActiveIndex.color}
+        onSelect={
+          /**
+           * @type {string}
+           */
+          index => {
+            switch (index) {
+              case 0: {
+                setDropdownTitle({
+                  ...dropdownTitle,
+                  color: 'black',
+                });
+                setCurrentActiveIndex({
+                  ...currentActiveIndex,
+                  color: 0,
+                });
+                break;
+              }
+              case 1: {
+                setDropdownTitle({
+                  ...dropdownTitle,
+                  color: 'white',
+                });
+                setCurrentActiveIndex({
+                  ...currentActiveIndex,
+                  color: 1,
+                });
+                break;
+              }
+              case 2: {
+                setDropdownTitle({
+                  ...dropdownTitle,
+                  color: 'orange',
+                });
+                setCurrentActiveIndex({
+                  ...currentActiveIndex,
+                  color: 2,
+                });
+                break;
+              }
+              case 3: {
+                setDropdownTitle({
+                  ...dropdownTitle,
+                  color: 'brown',
+                });
+                setCurrentActiveIndex({
+                  ...currentActiveIndex,
+                  color: 3,
+                });
+                break;
+              }
+              case 4: {
+                setDropdownTitle({
+                  ...dropdownTitle,
+                  color: 'green',
+                });
+                setCurrentActiveIndex({
+                  ...currentActiveIndex,
+                  color: 4,
+                });
+                break;
+              }
+              case 5: {
+                setDropdownTitle({
+                  ...dropdownTitle,
+                  color: 'blue',
+                });
+                setCurrentActiveIndex({
+                  ...currentActiveIndex,
+                  color: 5,
+                });
+                break;
+              }
+            }
+          }
+        }
+      />
       <HeaderComponent
         type="medium"
         title={product.title}
@@ -213,8 +321,12 @@ const ProductCardScreen = props => {
             justifyContent: 'space-around',
             alignItems: 'center',
           }}>
-          <View>{renderDropDown('Size')}</View>
-          <View style={{}}>{renderDropDown('Color')}</View>
+          <View>
+            <DropDown title="Size" type="size" />
+          </View>
+          <View>
+            <DropDown title="Color" type="color" />
+          </View>
           <CircleButton
             type="darkButton"
             size="small"
@@ -293,8 +405,30 @@ const ProductCardScreen = props => {
           />
         </View>
         <View style={{marginTop: 57}}>
-          <PickerComponent description="" title="Shipping info" />
-          <PickerComponent description="" title="Support" />
+          <PickerComponent
+            description=""
+            title="Shipping info"
+            onPickerPress={() => {
+              navigation.navigate(ScreenName.shippingAddressScreen);
+            }}
+            customStyle={{
+              backgroundColor: AppColors.primaryBackground,
+              borderWidth: 0.3,
+              borderColor: AppColors.whiteBackground,
+            }}
+          />
+          <PickerComponent
+            description=""
+            title="Support"
+            onPickerPress={() => {
+              navigation.navigate(ScreenName.shippingAddressScreen);
+            }}
+            customStyle={{
+              backgroundColor: AppColors.primaryBackground,
+              borderWidth: 0.3,
+              borderColor: AppColors.whiteBackground,
+            }}
+          />
         </View>
         <View
           style={{
@@ -312,17 +446,12 @@ const ProductCardScreen = props => {
         <DividerComponent height={12} />
         <FlatList
           data={PRODUCT}
-          renderItem={renderProduct}
           horizontal
           showsHorizontalScrollIndicator={false}
-          ItemSeparatorComponent={() => (
-            <View style={{height: 260, width: 16}} />
-          )}
-          ListFooterComponent={() => (
-            <DividerComponent height={260} width={16} />
-          )}
+          renderItem={renderProduct}
+          ItemSeparatorComponent={renderSeparator}
+          ListFooterComponent={renderFooter}
           contentContainerStyle={{
-            // paddingHorizontal: 16,
             paddingLeft: 16,
           }}
         />

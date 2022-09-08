@@ -14,7 +14,6 @@ const BrandModals = () => {
   const navigation = useNavigation();
   const goBack = navigation.goBack;
   const [isActiveBrand, setActiveBrand] = useState(BRANDS.map(() => false));
-  console.log('Is active brand: ', isActiveBrand);
   // rendering functions
   const renderBrandRow = useCallback(
     ({item, index}) => {
@@ -29,9 +28,8 @@ const BrandModals = () => {
           isCheck={isActive}
           onCheck={() => {
             setActiveBrand(curState => {
-              let newState = curState.map((state, index1) => {
-                index1 === index;
-              });
+              let newState = [...curState];
+              newState[index] = !newState[index];
               return newState;
             });
           }}

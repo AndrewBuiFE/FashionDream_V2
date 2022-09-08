@@ -4,6 +4,7 @@ import ForgotPassScreen from '../screens/auth/ForgotPassScreen';
 import LoginScreen from '../screens/auth/LoginScreen';
 import SignupScreen from '../screens/auth/SignupScreen';
 import CategoriesScreen from '../screens/category/CategoriesScreen';
+import ShippingAddressScreen from '../screens/checkout/ShippingAddressScreen';
 import HomeScreen from '../screens/mainpage/HomeScreen';
 import ProductCardScreen from '../screens/product/ProductCardScreen';
 import {ScreenName} from '../shared/constants/ScreenName';
@@ -55,6 +56,14 @@ const HomeNavigator = () => {
       <Stack.Screen
         name={ScreenName.productCardScreen}
         component={ProductCardScreen}
+        options={{
+          headerShown: false,
+          title: '',
+        }}
+      />
+      <Stack.Screen
+        name={ScreenName.shippingAddressScreen}
+        component={ShippingAddressScreen}
         options={{
           headerShown: false,
           title: '',

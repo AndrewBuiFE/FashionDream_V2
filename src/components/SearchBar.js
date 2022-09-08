@@ -29,7 +29,7 @@ export default function SearchBar(props) {
       <View style={{marginLeft: 15}}>
         <Image source={AppIcons.search} />
       </View>
-      <View>
+      <View style={{flex: 1}}>
         <TextInput
           style={[AppText.primaryText]}
           placeholder={placeholder}
