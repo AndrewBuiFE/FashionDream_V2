@@ -7,11 +7,12 @@ import {AppIcons} from '../shared/constants/AppIcons';
  * @typedef Prop
  * @property {'large' | 'small'} size
  * @property {number} quantity
+ * @property {boolean} hideInactiveStar
  * @param {Prop} props
  * @return {JSX.Element}
  */
 export default function StarComponent(props) {
-  let {quantity, size} = props;
+  let {quantity, size, hideInactiveStar} = props;
   let starView = [0, 0, 0, 0, 0];
   for (let i = 0; i < quantity; i++) {
     starView[i] = 1;
@@ -20,7 +21,7 @@ export default function StarComponent(props) {
     <View
       style={{
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: hideInactiveStar ? 'flex-end' : 'space-between',
         width: size == 'large' ? 276 : 74,
       }}>
       {starView.map((id, index) => {
@@ -30,6 +31,8 @@ export default function StarComponent(props) {
               source={
                 size === 'large'
                   ? AppIcons.star_big_inactive
+                  : hideInactiveStar
+                  ? null
                   : AppIcons.star_inactive
               }
               key={index}

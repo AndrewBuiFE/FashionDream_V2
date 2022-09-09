@@ -3,12 +3,16 @@ import React from 'react';
 import CatalogScreen from '../screens/catalog/CatalogScreen';
 import CategoriesScreen from '../screens/category/CategoriesScreen';
 import PartialCategoryScreen from '../screens/category/PartialCategoryScreen';
+import BrandModals from '../screens/modals/BrandsModal';
+import FilterModals from '../screens/modals/FiltersModal';
 import {ScreenName} from '../shared/constants/ScreenName';
 
 const Stack = createNativeStackNavigator();
-const ShopNavigator = () => {
+const ShopNavigator = ({navigation, route}) => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      initialRouteName={ScreenName.categoriesScreen}
+      screenOptions={{}}>
       <Stack.Screen
         name={ScreenName.categoriesScreen}
         component={CategoriesScreen}
@@ -28,6 +32,22 @@ const ShopNavigator = () => {
       <Stack.Screen
         name={ScreenName.catalogScreen}
         component={CatalogScreen}
+        options={{
+          headerShown: false,
+          title: '',
+        }}
+      />
+      <Stack.Screen
+        name={ScreenName.filterModals}
+        component={FilterModals}
+        options={{
+          headerShown: false,
+          title: '',
+        }}
+      />
+      <Stack.Screen
+        name={ScreenName.brandModals}
+        component={BrandModals}
         options={{
           headerShown: false,
           title: '',

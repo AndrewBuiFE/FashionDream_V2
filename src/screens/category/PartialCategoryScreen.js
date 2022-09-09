@@ -1,6 +1,7 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {FlatList, Text, TouchableOpacity, View} from 'react-native';
+import DividerComponent from '../../components/DividerComponent';
 import HeaderComponent from '../../components/HeaderComponent';
 import RadiusButton from '../../components/RadiusButton';
 import {AppColors} from '../../shared/constants/AppColors';
@@ -20,10 +21,60 @@ const LIST_CATEGORY = [
     id: 3,
     title: 'Blazers',
   },
+  {
+    id: 4,
+    title: 'Tops',
+  },
+  {
+    id: 5,
+    title: 'Shoes',
+  },
+  {
+    id: 6,
+    title: 'Blazers',
+  },
+  {
+    id: 7,
+    title: 'Tops',
+  },
+  {
+    id: 8,
+    title: 'Shoes',
+  },
+  {
+    id: 9,
+    title: 'Blazers',
+  },
+  {
+    id: 10,
+    title: 'Tops',
+  },
+  {
+    id: 11,
+    title: 'Shoes',
+  },
+  {
+    id: 12,
+    title: 'Blazers',
+  },
+  {
+    id: 13,
+    title: 'Tops',
+  },
+  {
+    id: 14,
+    title: 'Shoes',
+  },
+  {
+    id: 15,
+    title: 'Blazers',
+  },
 ];
 const PartialCategoryScreen = () => {
   const navigation = useNavigation();
   const goBack = navigation.goBack;
+
+  // rendering functions
   const renderListCate = ({item, index}) => {
     return (
       <TouchableOpacity
@@ -50,13 +101,8 @@ const PartialCategoryScreen = () => {
       </TouchableOpacity>
     );
   };
-  const renderHeader = () => {
-    return (
-      <Text style={[AppText.tinyTitle, {marginTop: 16, marginLeft: 16}]}>
-        Choose category
-      </Text>
-    );
-  };
+  const renderFooter = () => <DividerComponent height={20} />;
+
   return (
     <View style={{flex: 1, backgroundColor: AppColors.primaryBackground}}>
       <HeaderComponent
@@ -73,11 +119,16 @@ const PartialCategoryScreen = () => {
           buttonCustomStyle={{}}
         />
       </View>
-      <FlatList
-        data={LIST_CATEGORY}
-        renderItem={renderListCate}
-        ListHeaderComponent={renderHeader}
-      />
+      <View style={{marginTop: 16, marginLeft: 16}}>
+        <Text style={[AppText.tinyTitle]}>Choose category</Text>
+      </View>
+      <View style={{flex: 1}}>
+        <FlatList
+          data={LIST_CATEGORY}
+          renderItem={renderListCate}
+          ListFooterComponent={renderFooter}
+        />
+      </View>
     </View>
   );
 };

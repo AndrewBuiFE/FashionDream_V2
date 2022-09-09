@@ -10,13 +10,21 @@ import {AppText} from '../shared/constants/AppGlobal';
  * @property {'large' | 'medium'} type
  * @property {import('react-native').StyleProp<import('react-native').ImageStyle>=} leftIcon
  * @property {import('react-native').StyleProp<import('react-native').ImageStyle>=} rightIcon
+ * @property {import('react-native').StyleProp<import('react-native').ViewStyle>=} customViewStyle
  * @property {()=> void=} onLeftIconPress
  * @property {()=> void=} onRightIconPress
  * @param {Prop} props
  */
 export default function HeaderComponent(props) {
-  let {title, type, leftIcon, rightIcon, onLeftIconPress, onRightIconPress} =
-    props;
+  let {
+    title,
+    type,
+    leftIcon,
+    rightIcon,
+    customViewStyle,
+    onLeftIconPress,
+    onRightIconPress,
+  } = props;
   return type == 'medium' ? (
     <View
       style={{
@@ -26,6 +34,7 @@ export default function HeaderComponent(props) {
         paddingHorizontal: 8,
         alignItems: 'center',
         justifyContent: 'space-between',
+        ...customViewStyle,
       }}>
       <TouchableOpacity
         onPress={onLeftIconPress}
@@ -37,8 +46,12 @@ export default function HeaderComponent(props) {
         }}>
         <Image source={leftIcon} style={{}} />
       </TouchableOpacity>
-      <View>
-        <Text style={[AppText.mediumTitle]}>{title}</Text>
+      <View style={{flex: 1, paddingHorizontal: 10}}>
+        <Text
+          style={[AppText.mediumTitle, {textAlign: 'center'}]}
+          numberOfLines={1}>
+          {title}
+        </Text>
       </View>
       <TouchableOpacity
         onPress={onRightIconPress}
@@ -52,7 +65,7 @@ export default function HeaderComponent(props) {
       </TouchableOpacity>
     </View>
   ) : (
-    <View style={{height: 96, width: '100%'}}>
+    <View style={{height: 96, width: '100%', ...customViewStyle}}>
       <View
         style={{
           flexDirection: 'row',
@@ -84,7 +97,9 @@ export default function HeaderComponent(props) {
         </TouchableOpacity>
       </View>
       <View style={{marginTop: 18, paddingLeft: 14}}>
-        <Text style={[AppText.largeTitle]}>{title}</Text>
+        <Text style={[AppText.largeTitle]} numberOfLines={1}>
+          {title}
+        </Text>
       </View>
     </View>
   );

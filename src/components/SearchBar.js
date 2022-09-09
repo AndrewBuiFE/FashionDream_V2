@@ -18,7 +18,6 @@ export default function SearchBar(props) {
     <TouchableOpacity
       style={{
         backgroundColor: AppColors.lightDark,
-        width: 343,
         height: 40,
         borderRadius: 23,
         shadowColor: ' rgba(0, 0, 0, 0.05)',
@@ -30,7 +29,7 @@ export default function SearchBar(props) {
       <View style={{marginLeft: 15}}>
         <Image source={AppIcons.search} />
       </View>
-      <View>
+      <View style={{flex: 1}}>
         <TextInput
           style={[AppText.primaryText]}
           placeholder={placeholder}

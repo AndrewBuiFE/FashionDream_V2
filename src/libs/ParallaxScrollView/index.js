@@ -323,7 +323,9 @@ class ParallaxScrollView extends Component {
     const {viewHeight} = this.state;
     const containerStyles = [{backgroundColor: contentBackgroundColor}];
 
-    if (contentContainerStyle) containerStyles.push(contentContainerStyle);
+    if (contentContainerStyle) {
+      containerStyles.push(contentContainerStyle);
+    }
 
     this.containerHeight = this.state.viewHeight;
 
@@ -447,4 +449,5 @@ ParallaxScrollView.defaultProps = {
   outputScaleValue: 5,
 };
 
-module.exports = ParallaxScrollView;
+// module.exports = ParallaxScrollView;
+export default ParallaxScrollView;

@@ -8,18 +8,41 @@ import {AppIcons} from '../shared/constants/AppIcons';
  * @typedef Prop
  * @property {string=} content
  * @property {'redCheckbox' | 'whiteCheckbox'} type
- * @property {boolean=} hasText
+ * @property {boolean=} hasTextLeft
+ * @property {boolean=} hasTextRight
+ * @property {string=} textLeft
+ * @property {string=} textRight
  * @property {boolean=} isCheck
  * @property {(string) => string=} onCheck
+ * @property {import('react-native').ViewStyle} customStyle
+ * @property {import('react-native').TextStyle} textStyle
  * @param {Prop} props
  */
 export default function CheckBox(props) {
-  let {content, type, hasText, isCheck, onCheck} = props;
+  let {
+    textLeft,
+    textRight,
+    type,
+    hasTextLeft,
+    hasTextRight,
+    isCheck,
+    onCheck,
+    customStyle,
+    textStyle,
+  } = props;
   return (
     <View
       style={{
         flexDirection: 'row',
+        alignItems: 'center',
+        // justifyContent: 'space-between',
+        ...customStyle,
       }}>
+      {hasTextLeft ? (
+        <View style={{}}>
+          <Text style={[AppText.primaryText, {...textStyle}]}>{textLeft}</Text>
+        </View>
+      ) : null}
       <TouchableOpacity onPress={onCheck}>
         <Image
           source={
@@ -31,9 +54,9 @@ export default function CheckBox(props) {
           }
         />
       </TouchableOpacity>
-      {hasText ? (
+      {hasTextRight ? (
         <View style={{marginLeft: 13}}>
-          <Text style={[AppText.primaryText]}>{content}</Text>
+          <Text style={[AppText.primaryText, {...textStyle}]}>{textRight}</Text>
         </View>
       ) : null}
     </View>

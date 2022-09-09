@@ -1,12 +1,13 @@
-import {ImageStyle} from 'react-native/Libraries/StyleSheet/StyleSheet';
+import { ImageStyle } from 'react-native/Libraries/StyleSheet/StyleSheet';
 
 export type DeliveryName = 'FEDex' | 'USPSCOM' | 'DHL';
 export type ShippingStatus = 'Cancel' | 'Received' | 'Shipping' | 'Delivered';
 export interface Product {
-  image: ImageStyle;
+  image: Array<ImageStyle>;
   discountPercent: number;
   star: number;
   comment: number;
+  description: string;
   brand: string;
   title: string;
   originalPrice: number;
@@ -37,6 +38,7 @@ export interface Delivery {
   name: DeliveryName;
   price: number;
   image: ImageStyle;
+  deliveryTime: string;
 }
 
 export interface PaymentMethod {
@@ -62,15 +64,15 @@ export interface Order {
   number: string;
   date: Date;
   trackingNumber: string;
-  quantity: number;
-  totalAmount: number;
+  // quantity: number;
+  // totalAmount: number;
   status: ShippingStatus;
   listItem: Product[];
   shippingAddress: ShippingAddress;
   paymentMethod: PaymentMethod;
   deliveryMethod: Delivery;
   discount: PromoCode;
-  total: number;
+  // total: number;
 }
 
 export interface Review {
@@ -101,4 +103,8 @@ export interface User {
   promoCode: PromoCode[];
   review: Review[];
   setting: Setting[];
+}
+
+export interface DeliverStatus {
+  status: ShippingStatus;
 }

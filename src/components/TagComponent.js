@@ -8,6 +8,7 @@ import {AppText} from '../shared/constants/AppGlobal';
  * @description Tag
  * @typedef Prop
  * @property {'redTag' | 'blackTag' | 'whiteTag'} type
+ * @property {'round' | 'square'} shape
  * @property {'large' | 'medium'} size
  * @property {string} tag
  * @property {() => void } onTagPress
@@ -16,7 +17,7 @@ import {AppText} from '../shared/constants/AppGlobal';
  * @param {Prop} props
  */
 export default function TagComponent(props) {
-  let {tag, size, type, tagViewStyle, hasBorder, onTagPress} = props;
+  let {tag, size, shape, type, tagViewStyle, hasBorder, onTagPress} = props;
   return (
     <TouchableOpacity
       style={{
@@ -26,14 +27,17 @@ export default function TagComponent(props) {
             : type == 'redTag'
             ? AppColors.primaryRed
             : AppColors.whiteBackground,
-        height: size == 'large' ? 40 : 30,
-        width: 100,
-        borderRadius: size == 'large' ? 8 : 29,
+        height: size == 'large' || shape == 'square' ? 40 : 30,
+        width: shape == 'round' ? 100 : 40,
+        borderRadius:
+          (size == 'large' && shape == 'round') || shape == 'square' ? 8 : 29,
         alignItems: 'center',
         justifyContent: 'center',
-        tagViewStyle,
         borderWidth: 1,
-        borderColor: hasBorder ? AppColors.whiteBackground : undefined,
+        borderColor: hasBorder
+          ? AppColors.whiteBackground
+          : AppColors.primaryRed,
+        ...tagViewStyle,
       }}
       onPress={onTagPress}>
       <Text

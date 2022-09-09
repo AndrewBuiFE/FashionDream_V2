@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {ScrollView, Text} from 'react-native';
-import {PRODUCT} from '../assets/data';
+import {PRODUCT, PROMO_CODE} from '../assets/data';
+import CartItem from '../components/CartItem';
 import CheckBox from '../components/CheckBox';
 import CircleButton from '../components/CircleButton';
 import ColorComponent from '../components/ColorComponent';
@@ -13,7 +14,10 @@ import EditTextComponent from '../components/EditTextComponent';
 import FilterComponent from '../components/FilterComponent';
 import HeaderComponent from '../components/HeaderComponent';
 import LabelComponent from '../components/LabelComponent';
+import Modalheader from '../components/ModalHeader';
+import PickerComponent from '../components/PickerComponent';
 import ProductItemComponent from '../components/ProductItemComponent';
+import PromoCode from '../components/PromoCode';
 import RadiusButton from '../components/RadiusButton';
 import SearchBar from '../components/SearchBar';
 import StarComponent from '../components/StarComponent';
@@ -147,7 +151,26 @@ const TestComponent = () => {
       <ConfirmDialog dialogRef={ConfirmDialogRef} />
       <Text>Demo</Text>
       <DividerComponent />
+      <Text>Picker</Text>
+      <DividerComponent />
+      <PickerComponent
+        title="dfsdf"
+        description="sdfdf"
+        onPickerPress={() => {
+          console.log('Picker press!');
+        }}
+      />
+      <Text>Modal Header</Text>
+      <DividerComponent />
+      <Modalheader />
+      <DividerComponent />
+      <Text>Cart item</Text>
+      <CartItem />
       <DemoComponent />
+      <DividerComponent />
+      <Text>Promo code</Text>
+      <PromoCode promo={PROMO_CODE[0]} />
+      <DividerComponent />
       <ActionSheet />
     </ScrollView>
   );

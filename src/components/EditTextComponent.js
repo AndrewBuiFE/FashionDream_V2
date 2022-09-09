@@ -11,6 +11,7 @@ import {AppIcons} from '../shared/constants/AppIcons';
  * @property {string=} inputLabel
  * @property {string} inputText
  * @property {string=} alertText
+ * @property {import('react-native').StyleProp<import('react-native').ImageStyle>} rightIcon
  * @property {boolean=} isAlerting
  * @property {boolean=} isShowRightIcon
  * @property {boolean} isShowLabel
@@ -28,6 +29,7 @@ export default function EditTextComponent(props) {
     placeholder,
     isAlerting,
     isShowRightIcon,
+    rightIcon,
     isShowLabel,
     viewStyle,
     onTextBlur,
@@ -75,7 +77,15 @@ export default function EditTextComponent(props) {
         </View>
         {isShowRightIcon ? (
           <View style={{marginRight: 21}}>
-            <Image source={isAlerting ? AppIcons.redCross : AppIcons.check} />
+            <Image
+              source={
+                rightIcon
+                  ? rightIcon
+                  : isAlerting
+                  ? AppIcons.redCross
+                  : AppIcons.check
+              }
+            />
           </View>
         ) : null}
       </View>
