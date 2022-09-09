@@ -1,3 +1,4 @@
+import {useNavigation} from '@react-navigation/native';
 import React, {useCallback} from 'react';
 import {FlatList, Text, View} from 'react-native';
 import DividerComponent from '../../components/DividerComponent';
@@ -7,12 +8,16 @@ import RadiusButton from '../../components/RadiusButton';
 import {AppColors} from '../../shared/constants/AppColors';
 import {AppText} from '../../shared/constants/AppGlobal';
 import {AppIcons} from '../../shared/constants/AppIcons';
+import {ScreenName} from '../../shared/constants/ScreenName';
 const OrderDetailScreen = props => {
+  // common vars
   /**
    * @type {{order: import('../../models/types/index.d').Order}}
    */
   let {order} = props?.route?.params;
-
+  // hooks
+  const navigation = useNavigation();
+  const goBack = navigation.goBack;
   // rendering functions
   const OrderInformationField = useCallback(
     /**
@@ -105,17 +110,21 @@ const OrderDetailScreen = props => {
             type="disabledButton"
             title="Reorder"
             buttonCustomStyle={{width: 160}}
+            // onButtonPress=
           />
           <RadiusButton
             type="redButton"
             title="Leave feedback"
             buttonCustomStyle={{width: 160}}
+            onButtonPress={() => {
+              navigation.navigate(ScreenName.reviewScreen);
+            }}
           />
         </View>
         <DividerComponent height={24} />
       </View>
     );
-  }, []);
+  }, [navigation]);
   const renderSeparator = useCallback(() => {
     return <DividerComponent height={30} width={8} />;
   }, []);
@@ -135,6 +144,7 @@ const OrderDetailScreen = props => {
         leftIcon={AppIcons.back_arrow}
         rightIcon={AppIcons.search}
         title="Order Details"
+        onLeftIconPress={goBack}
       />
       <View style={{marginHorizontal: 16, marginTop: 9, flex: 1}}>
         <FlatList

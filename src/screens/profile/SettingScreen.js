@@ -1,3 +1,4 @@
+import {useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {Switch, Text, TouchableOpacity, View} from 'react-native';
 import DividerComponent from '../../components/DividerComponent';
@@ -9,6 +10,9 @@ import {AppIcons} from '../../shared/constants/AppIcons';
 import ChangePasswordModal from '../modals/ChangePasswordModal';
 const NOTIFICATION = ['Sales', 'New arrivals', 'Delivery status changes'];
 const SettingScreen = () => {
+  // hooks
+  const navigation = useNavigation();
+  const goBack = navigation.goBack;
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
   const [isModalVisible, setVisible] = useState(false);
@@ -28,6 +32,7 @@ const SettingScreen = () => {
         leftIcon={AppIcons.back_arrow}
         rightIcon={AppIcons.search}
         title="Settings"
+        onLeftIconPress={goBack}
       />
       <View style={{marginHorizontal: 16}}>
         <Text

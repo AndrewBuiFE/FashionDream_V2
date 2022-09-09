@@ -30,6 +30,8 @@ const PaymentCardModal = props => {
       backdropColor="rgba(0, 0, 0, 0.3)"
       hasBackdrop
       coverScreen
+      swipeDirection={'down'}
+      onSwipeComplete={dismissModal}
       statusBarTranslucent={true}
       backdropTransitionInTiming={200}
       onBackdropPress={dismissModal}
@@ -38,6 +40,7 @@ const PaymentCardModal = props => {
         bottom: 0,
         position: 'absolute',
         width: '100%',
+        height: 572,
       }}>
       <View
         style={{

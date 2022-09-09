@@ -1,6 +1,7 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
 import FavoriteScreen from '../screens/favorite/FavoriteScreen';
+import FilterModals from '../screens/modals/FiltersModal';
 import {ScreenName} from '../shared/constants/ScreenName';
 
 const Stack = createNativeStackNavigator();
@@ -10,6 +11,14 @@ const FavoriteNavigator = () => {
       <Stack.Screen
         name={ScreenName.favoriteScreen}
         component={FavoriteScreen}
+        options={{
+          headerShown: false,
+          title: '',
+        }}
+      />
+      <Stack.Screen
+        name={ScreenName.filterModals}
+        component={FilterModals}
         options={{
           headerShown: false,
           title: '',

@@ -34,6 +34,7 @@ const CategoriesScreen = () => {
     return (
       <ScrollView
         key={index}
+        showsVerticalScrollIndicator={false}
         contentContainerStyle={{alignItems: 'center', marginTop: 16}}>
         {item.sale ? (
           <View

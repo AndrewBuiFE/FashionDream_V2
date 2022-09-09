@@ -13,6 +13,7 @@ import {ScreenName} from '../../shared/constants/ScreenName';
 const MyOrderScreen = () => {
   // common hooks
   const navigation = useNavigation();
+  const goBack = navigation.goBack;
   // utility functions
   const keyExtractor = useCallback(item => item.id, []);
   // rendering functions
@@ -131,6 +132,7 @@ const MyOrderScreen = () => {
         leftIcon={AppIcons.back_arrow}
         rightIcon={AppIcons.search}
         title="My Orders"
+        onLeftIconPress={goBack}
       />
       <View>
         <FlatList

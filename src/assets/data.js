@@ -569,3 +569,26 @@ export const ORDER = [
     ],
   },
 ];
+
+export const RATING = [
+  {
+    rate: 5,
+    reviewCount: 12,
+  },
+  {
+    rate: 4,
+    reviewCount: 5,
+  },
+  {
+    rate: 3,
+    reviewCount: 4,
+  },
+  {
+    rate: 2,
+    reviewCount: 2,
+  },
+  {
+    rate: 1,
+    reviewCount: 5,
+  },
+];

@@ -53,12 +53,18 @@ const ProfileScreen = () => {
         title="Shipping addresses"
         description="3 addresses"
         customStyle={{height: 72}}
+        onPickerPress={() => {
+          navigation.navigate(ScreenName.shippingAddressScreen);
+        }}
       />
       <DividerComponent height={5} />
       <PickerComponent
         title="Payment methods"
         description="Visa **34"
         customStyle={{height: 72}}
+        onPickerPress={() => {
+          navigation.navigate(ScreenName.paymentCardScreen);
+        }}
       />
       <DividerComponent height={5} />
       <PickerComponent
@@ -77,6 +83,9 @@ const ProfileScreen = () => {
         title="Settings"
         description="Notifications, password"
         customStyle={{height: 72}}
+        onPickerPress={() => {
+          navigation.navigate(ScreenName.settingScreen);
+        }}
       />
     </View>
   );

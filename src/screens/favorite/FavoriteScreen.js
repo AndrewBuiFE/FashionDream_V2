@@ -1,7 +1,7 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useCallback, useState} from 'react';
 import {FlatList, RefreshControl, View} from 'react-native';
-import {PRODUCT} from '../../assets/data';
+import {PRODUCT, SORT_TITLE, TYPE} from '../../assets/data';
 import DividerComponent from '../../components/DividerComponent';
 import FilterComponent from '../../components/FilterComponent';
 import HeaderComponent from '../../components/HeaderComponent';
@@ -10,39 +10,14 @@ import RadiusButton from '../../components/RadiusButton';
 import {AppColors} from '../../shared/constants/AppColors';
 import {AppIcons} from '../../shared/constants/AppIcons';
 import {ScreenName} from '../../shared/constants/ScreenName';
-import Utils from '../../shared/helpers/Utils';
-const TYPE = [
-  {
-    id: 1,
-    type: 'T-shirts',
-  },
-  {
-    id: 2,
-    type: 'Crop-tops',
-  },
-  {
-    id: 3,
-    type: 'Sleeveless',
-  },
-  {
-    id: 4,
-    type: 'Crop-tops',
-  },
-  {
-    id: 5,
-    type: 'Sleeveless',
-  },
-];
+import SortModal from '../modals/SortModal';
 
+/**
+ * @author Hoang
+ * @description FavoriteScreen
+ */
 const FavoriteScreen = props => {
   // used variables
-  const sortOptions = [
-    'Popular',
-    'Newest',
-    'Customer review',
-    'Price: lowest to high',
-    'Price: highest to low',
-  ];
   /**
    * @type {Array<import('../../models/types/index.d').Product>}
    */
@@ -51,44 +26,97 @@ const FavoriteScreen = props => {
   const navigation = useNavigation();
   const goBack = navigation.goBack;
   const [layout, changeLayout] = useState(true); // true - horizontal, false - vertical
-
+  const [isModalVisible, showModal] = useState(false);
+  const [modalActiveIndex, setActiveIndex] = useState(0);
   // utility function
+  const dismissModal = () => {
+    showModal(false);
+  };
   const keyExtractor = useCallback(item => item.id, []);
   // rendering functions
-  const renderSeperator = () => {
+  const renderSeperator = useCallback(() => {
     return <DividerComponent height={30} width={8} />;
-  };
-  const renderProductSeperator = () => {
+  }, []);
+  const renderProductSeperator = useCallback(() => {
     return <DividerComponent height={26} />;
-  };
-  const renderType = ({item, index}) => {
-    return (
-      <RadiusButton
-        type="whiteButton"
-        title={item.type}
-        buttonCustomStyle={{width: 100, height: 30}}
-      />
-    );
-  };
-  const renderHeader = () => <DividerComponent height={26} />;
-  const renderFooter = () => <DividerComponent height={30} />;
+  }, []);
+  const renderType = useCallback(
+    /**
+     * @type {import('react-native').ListRenderItem<object>}
+     */
+    ({item, index}) => {
+      return (
+        <RadiusButton
+          type="whiteButton"
+          title={item.type}
+          buttonCustomStyle={{width: 100, height: 30}}
+        />
+      );
+    },
+    [],
+  );
+  const renderFooter = useCallback(() => <DividerComponent height={30} />, []);
   /**
    * @type {import('react-native').ListRenderItem<import('../../models/types/index.d').Product>}
    */
-  const renderProduct = ({item}) => {
-    return (
-      <ProductFavoriteComponent
-        isHorizontal={layout}
-        product={item}
-        size={'large'}
-        isBottomRightButtonActive={item.isFavorited}
-        isFavorite={true}
-        isProductSoldOut={!item.isAvailable}
-      />
-    );
-  };
+  const renderProduct = useCallback(
+    /**
+     * @type {import('react-native').ListRenderItem<import('../../models/types/index.d').Product>}
+     */
+    ({item}) => {
+      return (
+        <ProductFavoriteComponent
+          isHorizontal={layout}
+          product={item}
+          size={'large'}
+          isBottomRightButtonActive={item.isFavorited}
+          isFavorite={true}
+          isProductSoldOut={!item.isAvailable}
+        />
+      );
+    },
+    [layout],
+  );
   return (
     <View style={{flex: 1, backgroundColor: AppColors.primaryBackground}}>
+      <SortModal
+        dismissModal={dismissModal}
+        isModalVisible={isModalVisible}
+        activeIndex={modalActiveIndex}
+        onSortPress={sortIndex => {
+          switch (sortIndex) {
+            case 0: {
+              console.log('0');
+              setActiveIndex(0);
+              break;
+            }
+            case 1: {
+              console.log('1');
+              setActiveIndex(1);
+              break;
+            }
+            case 2: {
+              console.log('2');
+              setActiveIndex(2);
+
+              break;
+            }
+            case 3: {
+              console.log('3');
+              setActiveIndex(3);
+              break;
+            }
+            case 4: {
+              console.log('4');
+              setActiveIndex(4);
+              break;
+            }
+            default:
+              console.log('0');
+              break;
+          }
+        }}
+      />
       <HeaderComponent
         title={'Favorites'}
         type={layout ? 'large' : 'medium'}
@@ -101,9 +129,9 @@ const FavoriteScreen = props => {
           data={TYPE}
           renderItem={renderType}
           key={keyExtractor}
+          ItemSeparatorComponent={renderSeperator}
           horizontal
           showsHorizontalScrollIndicator={false}
-          ItemSeparatorComponent={renderSeperator}
           contentContainerStyle={{
             marginLeft: 16,
             marginTop: 12,
@@ -113,6 +141,7 @@ const FavoriteScreen = props => {
       </View>
       <View style={{marginHorizontal: 16, marginTop: 18}}>
         <FilterComponent
+          sortTitle={SORT_TITLE[modalActiveIndex]?.title}
           isHorizontal={layout}
           customFilterView={{}}
           onFilterPress={() => {
@@ -122,10 +151,7 @@ const FavoriteScreen = props => {
             changeLayout(currState => !currState);
           }}
           onSortPress={() => {
-            Utils.showActionSheet({
-              options: sortOptions,
-              title: 'Sort by',
-            });
+            showModal(true);
           }}
         />
       </View>
@@ -187,7 +213,6 @@ const FavoriteScreen = props => {
               justifyContent: 'space-around',
             }}
             showsVerticalScrollIndicator={false}
-            // ListHeaderComponent={renderHeader}
             ListFooterComponent={renderFooter}
             ItemSeparatorComponent={renderProductSeperator}
           />
