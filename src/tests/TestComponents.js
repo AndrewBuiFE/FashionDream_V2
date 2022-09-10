@@ -19,6 +19,7 @@ import PickerComponent from '../components/PickerComponent';
 import ProductItemComponent from '../components/ProductItemComponent';
 import PromoCode from '../components/PromoCode';
 import RadiusButton from '../components/RadiusButton';
+import ReviewComponent from '../components/ReviewComponent';
 import SearchBar from '../components/SearchBar';
 import StarComponent from '../components/StarComponent';
 import TagComponent from '../components/TagComponent';
@@ -170,6 +171,9 @@ const TestComponent = () => {
       <DividerComponent />
       <Text>Promo code</Text>
       <PromoCode promo={PROMO_CODE[0]} />
+      <DividerComponent />
+      <Text>Review</Text>
+      <ReviewComponent />
       <DividerComponent />
       <ActionSheet />
     </ScrollView>

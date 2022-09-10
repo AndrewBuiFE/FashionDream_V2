@@ -121,7 +121,6 @@ const HomeScreen = () => {
     return (
       <View
         style={{
-          height: 196,
           width: '100%',
         }}>
         <ImageBackground
