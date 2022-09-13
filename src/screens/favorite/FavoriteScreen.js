@@ -122,6 +122,7 @@ const FavoriteScreen = props => {
         type={layout ? 'large' : 'medium'}
         // leftIcon={AppIcons.back_arrow}
         rightIcon={AppIcons.search}
+        customAction="search"
         onLeftIconPress={goBack}
       />
       <View>

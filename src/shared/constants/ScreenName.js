@@ -26,4 +26,6 @@ export const ScreenName = {
   orderDetailScreen: 'OrderDetailScreen',
   settingScreen: 'SettingScreen',
   reviewScreen: 'ReviewScreen',
+  visualSearchScreen: 'VisualSearchScreen',
+  takePhotoScreen: 'TakePhotoScreen',
 };

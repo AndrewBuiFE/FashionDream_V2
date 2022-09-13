@@ -1,4 +1,5 @@
 import {useNavigation} from '@react-navigation/native';
+import _ from 'lodash';
 import React, {useCallback, useState} from 'react';
 import {
   FlatList,
@@ -29,6 +30,7 @@ const CheckoutScreen = () => {
   const navigation = useNavigation();
   const goBack = navigation.goBack;
   const [isModalVisible, showSuccessModal] = useState(false);
+  const [activeDeliveryIndex, setDeliveryIndex] = useState();
   // utitlity functions
   const dismissModal = () => {
     showSuccessModal(false);
@@ -48,6 +50,14 @@ const CheckoutScreen = () => {
             borderRadius: 8,
             alignItems: 'center',
             justifyContent: 'center',
+            opacity: _.isUndefined(activeDeliveryIndex)
+              ? 1
+              : activeDeliveryIndex === index
+              ? 1
+              : 0.5,
+          }}
+          onPress={() => {
+            setDeliveryIndex(index);
           }}>
           <Image source={delivery.image} style={{}} />
           <Text style={[AppText.tinyTitle, {marginTop: 11}]}>
@@ -56,7 +66,7 @@ const CheckoutScreen = () => {
         </TouchableOpacity>
       );
     },
-    [],
+    [activeDeliveryIndex],
   );
   return (
     <View style={{flex: 1, backgroundColor: AppColors.primaryBackground}}>

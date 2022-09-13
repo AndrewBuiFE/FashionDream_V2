@@ -17,6 +17,7 @@ const ProfileScreen = () => {
       <HeaderComponent
         type="large"
         title="My profile"
+        customAction="search"
         rightIcon={AppIcons.search}
       />
       <View style={{flexDirection: 'row', marginHorizontal: 16, marginTop: 24}}>

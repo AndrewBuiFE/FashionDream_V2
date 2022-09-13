@@ -13,6 +13,7 @@ import {ScreenName} from '../../shared/constants/ScreenName';
 const ForgotPassScreen = () => {
   const navigation = useNavigation();
   const goBack = navigation.goBack;
+  // rendering
   return (
     <View style={styles.container}>
       <HeaderComponent

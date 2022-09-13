@@ -111,6 +111,7 @@ const PartialCategoryScreen = () => {
         rightIcon={AppIcons.search}
         title="Categories"
         onLeftIconPress={goBack}
+        customAction="search"
       />
       <View style={{marginTop: 16, marginHorizontal: 16}}>
         <RadiusButton

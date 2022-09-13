@@ -25,6 +25,7 @@ const CategoriesScreen = () => {
   const goBack = navigation.goBack;
   const [index, setIndex] = useState(0);
   const swiperRef = useRef();
+  // functions
 
   // render functions
   const renderTabView = useCallback(({item, index}) => {
@@ -86,61 +87,66 @@ const CategoriesScreen = () => {
       </ScrollView>
     );
   }, []);
+  // effect
   return (
     <View style={{flex: 1, backgroundColor: AppColors.primaryBackground}}>
-      <HeaderComponent
-        type="medium"
-        leftIcon={AppIcons.back_arrow}
-        rightIcon={AppIcons.search}
-        title="Categories"
-        onLeftIconPress={goBack}
-      />
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-around',
-          height: 44,
-          alignItems: 'center',
-        }}>
-        {['Women', 'Men', 'Kids'].map((cate, i) => {
-          return (
-            <TouchableOpacity style={{}} key={i}>
-              <Text
-                style={[
-                  AppText.smallTitle,
-                  {
-                    color:
-                      index == i
-                        ? AppColors.primaryText
-                        : AppColors.smallTitleText,
-                    textAlign: 'center',
-                  },
-                ]}>
-                {cate}
-              </Text>
-              <View
-                style={{
-                  height: 3,
-                  width: 125,
-                  backgroundColor:
-                    index == i ? AppColors.primaryRed : 'transparent',
-                }}
-              />
-            </TouchableOpacity>
-          );
-        })}
+      <View style={{flex: 1, backgroundColor: AppColors.primaryBackground}}>
+        <HeaderComponent
+          type="medium"
+          title="Categories"
+          leftIcon={AppIcons.back_arrow}
+          rightIcon={AppIcons.search}
+          onLeftIconPress={goBack}
+          customAction="search"
+          // onRightIconPress={() => {}}
+        />
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+            height: 44,
+            alignItems: 'center',
+          }}>
+          {['Women', 'Men', 'Kids'].map((cate, i) => {
+            return (
+              <TouchableOpacity style={{}} key={i}>
+                <Text
+                  style={[
+                    AppText.smallTitle,
+                    {
+                      color:
+                        index == i
+                          ? AppColors.primaryText
+                          : AppColors.smallTitleText,
+                      textAlign: 'center',
+                    },
+                  ]}>
+                  {cate}
+                </Text>
+                <View
+                  style={{
+                    height: 3,
+                    width: 125,
+                    backgroundColor:
+                      index == i ? AppColors.primaryRed : 'transparent',
+                  }}
+                />
+              </TouchableOpacity>
+            );
+          })}
+        </View>
+        <Carousel
+          ref={swiperRef}
+          firstItem={index}
+          data={TABVIEWLIST}
+          renderItem={renderTabView}
+          sliderWidth={DeviceConstant.screenWidth}
+          itemWidth={DeviceConstant.screenWidth}
+          onSnapToItem={index => setIndex(index)}
+          enableSnap
+          loop={false}
+        />
       </View>
-      <Carousel
-        ref={swiperRef}
-        firstItem={index}
-        data={TABVIEWLIST}
-        renderItem={renderTabView}
-        sliderWidth={DeviceConstant.screenWidth}
-        itemWidth={DeviceConstant.screenWidth}
-        onSnapToItem={index => setIndex(index)}
-        enableSnap
-        loop={false}
-      />
     </View>
   );
 };

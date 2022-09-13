@@ -8,6 +8,7 @@ import {
   Platform,
   Text,
   TextInput,
+  TouchableOpacity,
   View,
 } from 'react-native';
 import KeyboardAvoidingView from 'react-native/Libraries/Components/Keyboard/KeyboardAvoidingView';
@@ -88,11 +89,17 @@ const CartScreen = () => {
       <PromoCodeModal
         dismissModal={dismissModal}
         isModalVisible={isModalVisible}
+        onApplyPromoCode={code => {
+          setFinalCode(code);
+        }}
       />
       <HeaderComponent
         type="large"
         title="My Bag"
         rightIcon={AppIcons.search}
+        customAction="search"
+        // onRightIconPress={}
+        // onRightIconPress={}
       />
       <View style={{marginHorizontal: 16}}>
         <FlatList
@@ -114,7 +121,7 @@ const CartScreen = () => {
               },
             ],
           }}>
-          <View
+          <TouchableOpacity
             style={{
               flexDirection: 'row',
               marginTop: 25,
@@ -128,11 +135,15 @@ const CartScreen = () => {
               borderBottomLeftRadius: 8,
               height: 36,
               alignItems: 'center',
+            }}
+            onPress={() => {
+              showPromoModal(true);
             }}>
             {/* <ScrollView onPress={Keyboard.dismiss}> */}
             <TextInput
               placeholder="Enter your promo code"
               showSoftInputOnFocus={false}
+              editable={false}
               onFocus={() => {
                 showPromoModal(true);
                 setFocus(true);
@@ -141,7 +152,7 @@ const CartScreen = () => {
               selectTextOnFocus
               value={finalCode}
               placeholderTextColor={AppColors.smallTitleText}
-              style={{paddingLeft: 20, width: 307}}
+              style={{paddingLeft: 20, width: 307, color: 'white'}}
               onSubmitEditing={Keyboard.dismiss}
               keyboardType={null}
               // onLayout={event => {
@@ -160,7 +171,7 @@ const CartScreen = () => {
                 showPromoModal(true);
               }}
             />
-          </View>
+          </TouchableOpacity>
         </Animated.View>
         <View
           style={{

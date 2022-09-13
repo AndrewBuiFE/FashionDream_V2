@@ -13,7 +13,7 @@ import TestComponent from '../tests/TestComponents';
 const Stack = createNativeStackNavigator();
 const ProfileNavigator = () => {
   return (
-    <Stack.Navigator initialRouteName={ScreenName.reviewScreen}>
+    <Stack.Navigator initialRouteName={ScreenName.profileScreen}>
       <Stack.Screen
         name={ScreenName.testComponent}
         component={TestComponent}

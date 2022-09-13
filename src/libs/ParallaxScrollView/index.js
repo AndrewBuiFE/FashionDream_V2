@@ -439,7 +439,9 @@ ParallaxScrollView.defaultProps = {
   contentBackgroundColor: '#fff',
   fadeOutForeground: true,
   onChangeHeaderVisibility: () => {},
-  renderScrollComponent: props => <Animated.ScrollView {...props} />,
+  renderScrollComponent: props => (
+    <Animated.ScrollView {...props} showsVerticalScrollIndicator={false} />
+  ),
   renderBackground: renderEmpty,
   renderContentBackground: noRender,
   renderParallaxHeader: renderEmpty, // Deprecated (will be removed in 0.18.0)

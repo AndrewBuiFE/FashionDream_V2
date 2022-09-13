@@ -8,11 +8,13 @@ import FilterComponent from '../../components/FilterComponent';
 import HeaderComponent from '../../components/HeaderComponent';
 import ProductItemComponent from '../../components/ProductItemComponent';
 import RadiusButton from '../../components/RadiusButton';
+import ParallaxScrollView from '../../libs/ParallaxScrollView';
 import {AppColors} from '../../shared/constants/AppColors';
 import {AppIcons} from '../../shared/constants/AppIcons';
 import {ScreenName} from '../../shared/constants/ScreenName';
 import SortModal from '../modals/SortModal';
-
+const PARALLAX_HEADER_HEIGHT = 96;
+const STICKY_HEADER_HEIGHT = 44;
 /**
  * @author Hoang
  * @description CatalogScreen
@@ -86,11 +88,48 @@ const CatalogScreen = props => {
           product={item}
           size={'large'}
           isBottomRightButtonActive={item.isFavorited}
+          onProductPress={() =>
+            navigation.navigate(ScreenName.productCardScreen, {product: item})
+          }
         />
       );
     },
     [layout],
   );
+  const renderStickHeader = useCallback(() => {
+    return (
+      <View
+        style={{
+          width: '100%',
+        }}>
+        <HeaderComponent
+          title={headerTitle}
+          type={'medium'}
+          customAction="search"
+          leftIcon={AppIcons.back_arrow}
+          rightIcon={AppIcons.search}
+          onLeftIconPress={goBack}
+        />
+      </View>
+    );
+  }, [navigation]);
+  const renderStickyForeGround = useCallback(() => {
+    return (
+      // <View
+      //   style={{
+      //     width: '100%',
+      //   }}>
+      <HeaderComponent
+        title={headerTitle}
+        type={'large'}
+        customAction="search"
+        leftIcon={AppIcons.back_arrow}
+        rightIcon={AppIcons.search}
+        onLeftIconPress={goBack}
+      />
+      // </View>
+    );
+  }, []);
   return (
     <View style={{flex: 1, backgroundColor: AppColors.primaryBackground}}>
       <SortModal
@@ -131,82 +170,86 @@ const CatalogScreen = props => {
           }
         }}
       />
-      <HeaderComponent
-        title={headerTitle}
-        type={layout ? 'large' : 'medium'}
-        leftIcon={AppIcons.back_arrow}
-        rightIcon={AppIcons.search}
-        onLeftIconPress={goBack}
-      />
-      <View>
-        <FlatList
-          data={TYPE}
-          renderItem={renderType}
-          key={keyExtractor}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          ItemSeparatorComponent={renderSeperator}
-          contentContainerStyle={{
-            marginLeft: 16,
-            marginTop: 12,
-            height: 30,
-          }}
-        />
-      </View>
-      <View style={{marginHorizontal: 16, marginTop: 18}}>
-        <FilterComponent
-          sortTitle={SORT_TITLE[modalActiveIndex]?.title}
-          isHorizontal={layout}
-          customFilterView={{}}
-          onFilterPress={() => {
-            navigation.navigate(ScreenName.filterModals);
-          }}
-          onViewChange={() => {
-            changeLayout(currState => !currState);
-          }}
-          onSortPress={() => {
-            showModal(true);
-          }}
-        />
-      </View>
+      <ParallaxScrollView
+        backgroundColor="black"
+        contentBackgroundColor="black"
+        parallaxHeaderHeight={PARALLAX_HEADER_HEIGHT}
+        stickyHeaderHeight={STICKY_HEADER_HEIGHT}
+        contentContainerStyle={{
+          flex: 1,
+        }}
+        renderForeground={renderStickyForeGround}
+        renderStickyHeader={renderStickHeader}>
+        <View>
+          <FlatList
+            data={TYPE}
+            renderItem={renderType}
+            key={keyExtractor}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            ItemSeparatorComponent={renderSeperator}
+            contentContainerStyle={{
+              marginLeft: 16,
+              marginTop: 12,
+              height: 30,
+            }}
+          />
+        </View>
+        <View style={{marginHorizontal: 16, marginTop: 18}}>
+          <FilterComponent
+            sortTitle={SORT_TITLE[modalActiveIndex]?.title}
+            isHorizontal={layout}
+            customFilterView={{}}
+            onFilterPress={() => {
+              navigation.navigate(ScreenName.filterModals);
+            }}
+            onViewChange={() => {
+              changeLayout(currState => !currState);
+            }}
+            onSortPress={() => {
+              showModal(true);
+            }}
+          />
+        </View>
 
-      <View style={{marginTop: 26, flex: 1}}>
-        {/* mount flatlist when view change (specify distint key for each view) */}
-        {layout ? (
-          <FlatList
-            data={PRODUCT}
-            renderItem={renderProduct}
-            // refreshControl={renderRefresh}
-            contentContainerStyle={{
-              marginHorizontal: 16,
-            }}
-            key={'#'}
-            keyExtractor={item => '#' + item.id}
-            numColumns={1}
-            ListFooterComponent={renderFooter}
-            showsVerticalScrollIndicator={false}
-            ItemSeparatorComponent={renderProductSeperator}
-          />
-        ) : (
-          <FlatList
-            data={PRODUCT}
-            renderItem={renderProduct}
-            // refreshControl={renderRefresh}
-            contentContainerStyle={{
-              marginHorizontal: 16,
-            }}
-            key={'_'}
-            keyExtractor={item => '_' + item.id}
-            numColumns={2}
-            columnWrapperStyle={{
-              justifyContent: 'space-around',
-            }}
-            showsVerticalScrollIndicator={false}
-            ListFooterComponent={renderFooter}
-            ItemSeparatorComponent={renderProductSeperator}
-          />
-        )}
-      </View>
+        <View style={{marginTop: 26, flex: 1}}>
+          {/* mount flatlist when view change (specify distint key for each view) */}
+          {layout ? (
+            <FlatList
+              data={PRODUCT}
+              renderItem={renderProduct}
+              // refreshControl={renderRefresh}
+              contentContainerStyle={{
+                marginHorizontal: 16,
+              }}
+              key={'#'}
+              keyExtractor={item => '#' + item.id}
+              numColumns={1}
+              ListFooterComponent={renderFooter}
+              showsVerticalScrollIndicator={false}
+              ItemSeparatorComponent={renderProductSeperator}
+            />
+          ) : (
+            <FlatList
+              data={PRODUCT}
+              renderItem={renderProduct}
+              // refreshControl={renderRefresh}
+              contentContainerStyle={{
+                marginHorizontal: 16,
+              }}
+              key={'_'}
+              keyExtractor={item => '_' + item.id}
+              numColumns={2}
+              columnWrapperStyle={{
+                justifyContent: 'space-around',
+              }}
+              showsVerticalScrollIndicator={false}
+              ListFooterComponent={renderFooter}
+              ItemSeparatorComponent={renderProductSeperator}
+            />
+          )}
+        </View>
+      </ParallaxScrollView>
     </View>
   );
 };

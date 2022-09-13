@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import {FlatList, Keyboard, Text, TextInput, View} from 'react-native';
 import ReactNativeModal from 'react-native-modal';
 import {PROMO_CODE} from '../../assets/data';
@@ -16,12 +16,13 @@ import {AppIcons} from '../../shared/constants/AppIcons';
  * @typedef Prop
  * @property {boolean} isModalVisible
  * @property {Function} dismissModal
- * @property {Function} onAddingCard
+ * @property {Function} onApplyPromoCode
  * @param {Prop} props
  */
 const PromoCodeModal = props => {
-  let {isModalVisible, dismissModal, onAddingCard} = props;
-
+  let {isModalVisible, dismissModal, onApplyPromoCode} = props;
+  // hooks
+  const [text, setText] = useState('');
   // rendering functions
   const renderSeparator = useCallback(() => {
     return <DividerComponent height={24} />;
@@ -35,13 +36,13 @@ const PromoCodeModal = props => {
         <PromoCode
           promo={promoCode}
           onApply={code => {
-            // setFinalCode(code);
-            // showPromoModal(false);
+            onApplyPromoCode(code);
+            dismissModal();
           }}
         />
       );
     },
-    [],
+    [onApplyPromoCode, dismissModal],
   );
   return (
     <ReactNativeModal
@@ -90,6 +91,10 @@ const PromoCodeModal = props => {
           <TextInput
             placeholder="Enter your promo code"
             placeholderTextColor={AppColors.smallTitleText}
+            value={text}
+            onChangeText={newText => {
+              setText(newText);
+            }}
             style={{paddingLeft: 20, width: 307}}
             onSubmitEditing={Keyboard.dismiss}
           />
@@ -98,7 +103,8 @@ const PromoCodeModal = props => {
             size="small"
             customStyle={{position: 'absolute', right: 0}}
             onButtonPress={() => {
-              // showPromoModal(false);
+              onApplyPromoCode(text);
+              dismissModal();
             }}
           />
         </View>
