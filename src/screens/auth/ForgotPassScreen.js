@@ -9,10 +9,10 @@ import RadiusButton from '../../components/RadiusButton';
 import {AppColors} from '../../shared/constants/AppColors';
 import {AppIcons} from '../../shared/constants/AppIcons';
 import {ScreenName} from '../../shared/constants/ScreenName';
+import Utils from '../../shared/helpers/Utils';
 
 const ForgotPassScreen = () => {
   const navigation = useNavigation();
-  const goBack = navigation.goBack;
   // rendering
   return (
     <View style={styles.container}>
@@ -20,56 +20,60 @@ const ForgotPassScreen = () => {
         type="large"
         leftIcon={AppIcons.back_arrow}
         title="Forgot password"
-        onLeftIconPress={goBack}
+        onLeftIconPress={() => {
+          Utils.goBack(navigation);
+        }}
       />
-      <Formik
-        initialValues={{email: ''}}
-        onSubmit={(value, {resetForm}) => {
-          console.log('Value: ', value);
-          resetForm();
-        }}
-        validationSchema={Yup.object({
-          email: Yup.string('email is invalid')
-            .email('email is not valid')
-            .required('email should not be left empty'),
-        })}>
-        {({
-          handleChange,
-          handleBlur,
-          handleSubmit,
-          dirty,
-          isValid,
-          values,
-          errors,
-          touched,
-        }) => {
-          return (
-            <View style={styles.inputSection}>
-              <EditTextComponent
-                isShowLabel
-                isShowRightIcon={!!touched.email}
-                isAlerting={!!errors.email && touched.email}
-                alertText={errors.email}
-                inputLabel="Email"
-                inputText={values.email}
-                onTextEdit={handleChange('email')}
-                onTextBlur={handleBlur('email')}
-              />
-              <RadiusButton
-                title="SEND"
-                type={isValid && dirty ? 'redButton' : 'disabledButton'}
-                onButtonPress={() => {
-                  if (isValid && dirty) {
-                    handleSubmit();
-                    navigation.navigate(ScreenName.loginScreen);
-                  }
-                }}
-                buttonCustomStyle={{marginTop: 30}}
-              />
-            </View>
-          );
-        }}
-      </Formik>
+      <View style={{paddingHorizontal: 16}}>
+        <Formik
+          initialValues={{email: ''}}
+          onSubmit={(value, {resetForm}) => {
+            console.log('Value: ', value);
+            resetForm();
+          }}
+          validationSchema={Yup.object({
+            email: Yup.string('email is invalid')
+              .email('email is not valid')
+              .required('email should not be left empty'),
+          })}>
+          {({
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            dirty,
+            isValid,
+            values,
+            errors,
+            touched,
+          }) => {
+            return (
+              <View style={styles.inputSection}>
+                <EditTextComponent
+                  isShowLabel
+                  isShowRightIcon={!!touched.email}
+                  isAlerting={!!errors.email && touched.email}
+                  alertText={errors.email}
+                  inputLabel="Email"
+                  inputText={values.email}
+                  onTextEdit={handleChange('email')}
+                  onTextBlur={handleBlur('email')}
+                />
+                <RadiusButton
+                  title="SEND"
+                  type={isValid && dirty ? 'redButton' : 'disabledButton'}
+                  onButtonPress={() => {
+                    if (isValid && dirty) {
+                      handleSubmit();
+                      navigation.navigate(ScreenName.loginScreen);
+                    }
+                  }}
+                  buttonCustomStyle={{marginTop: 30}}
+                />
+              </View>
+            );
+          }}
+        </Formik>
+      </View>
     </View>
   );
 };
@@ -77,7 +81,6 @@ export default ForgotPassScreen;
 const styles = StyleSheet.create({
   container: {
     backgroundColor: AppColors.primaryBackground,
-    paddingHorizontal: 16,
     flex: 1,
   },
   inputSection: {

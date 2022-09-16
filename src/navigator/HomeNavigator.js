@@ -1,5 +1,6 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
+import {useSelector} from 'react-redux';
 import ForgotPassScreen from '../screens/auth/ForgotPassScreen';
 import LoginScreen from '../screens/auth/LoginScreen';
 import SignupScreen from '../screens/auth/SignupScreen';
@@ -11,8 +12,12 @@ import {ScreenName} from '../shared/constants/ScreenName';
 
 const Stack = createNativeStackNavigator();
 const HomeNavigator = () => {
+  const {appFirstRun} = useSelector(state => state.system);
   return (
-    <Stack.Navigator initialRouteName={ScreenName.homeScreen}>
+    <Stack.Navigator
+      initialRouteName={
+        appFirstRun ? ScreenName.signupScreen : ScreenName.homeScreen
+      }>
       <Stack.Screen
         name={ScreenName.loginScreen}
         component={LoginScreen}

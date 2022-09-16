@@ -83,7 +83,7 @@ export default function HeaderComponent(props) {
         flexDirection: 'row',
         width: '100%',
         height: 44,
-        paddingHorizontal: 8,
+        // paddingHorizontal: 8,
         alignItems: 'center',
         justifyContent: 'space-between',
         ...customViewStyle,
@@ -174,13 +174,18 @@ export default function HeaderComponent(props) {
       </Animated.View>
     </Animated.View>
   ) : (
-    <Animated.View style={{height: 96, width: '100%', ...customViewStyle}}>
+    <Animated.View
+      style={{
+        height: 96,
+        width: '100%',
+        ...customViewStyle,
+      }}>
       <Animated.View
         style={{
           flexDirection: 'row',
           width: '100%',
           height: 44,
-          paddingHorizontal: 8,
+          // paddingHorizontal: 8,
           alignItems: 'center',
           justifyContent: 'space-between',
         }}>

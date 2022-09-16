@@ -42,3 +42,5 @@ test('compiling android goes as expected', () => {
   expect(() => compileAndroidCode()).toThrow('you are using the wrong JDK');
   expect(() => compileAndroidCode()).toThrow(/JK/);
 });
+
+test();

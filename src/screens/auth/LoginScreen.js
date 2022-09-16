@@ -1,137 +1,170 @@
+/* eslint-disable no-shadow */
 import {useNavigation} from '@react-navigation/native';
+import axios from 'axios';
 import {Formik} from 'formik';
 import React from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {useDispatch} from 'react-redux';
 import * as Yup from 'yup';
 import CircleButton from '../../components/CircleButton';
 import DividerComponent from '../../components/DividerComponent';
 import EditTextComponent from '../../components/EditTextComponent';
 import HeaderComponent from '../../components/HeaderComponent';
 import RadiusButton from '../../components/RadiusButton';
+import {CommonApi} from '../../controllers/apis/Api';
 import {AppColors} from '../../shared/constants/AppColors';
 import {AppText} from '../../shared/constants/AppGlobal';
 import {AppIcons} from '../../shared/constants/AppIcons';
 import {ScreenName} from '../../shared/constants/ScreenName';
+import Utils from '../../shared/helpers/Utils';
+import {setAppFirstRun} from '../../stores/slices/SystemSlice';
 
 const LoginScreen = () => {
+  // hooks
   const navigation = useNavigation();
-  /**
-   * back to previous screen on stack
-   * @param {import('@react-navigation/native').NavigationProp} navigation will use rootNavigation
-   */
-  const goBack = () => {
-    if (navigation.canGoBack()) {
-      navigation.goBack();
-    }
-  };
+  const dispatch = useDispatch();
+  // common vars
+  const commonApi = new CommonApi();
   return (
     <View style={styles.container}>
       <HeaderComponent
         type="large"
         leftIcon={AppIcons.back_arrow}
         title="Login"
-        onLeftIconPress={goBack}
-      />
-
-      <Formik
-        initialValues={{email: '', password: ''}}
-        onSubmit={(value, {resetForm}) => {
-          console.log('Value: ', value);
-          resetForm();
+        onLeftIconPress={() => {
+          Utils.goBack(navigation);
         }}
-        validationSchema={Yup.object({
-          email: Yup.string('email is invalid')
-            .email('email is not valid')
-            .required('email should not be left empty'),
-          password: Yup.string('password is invalid')
-            .min(6)
-            .max(18)
-            .matches(
-              /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/g,
-              'password must contain at least one uppercase letter, one lowercase letter, one number and one special character',
-            )
-            .required('password should not be left empty'),
-        })}>
-        {({
-          handleChange,
-          handleBlur,
-          handleSubmit,
-          dirty,
-          isValid,
-          values,
-          errors,
-          touched,
-        }) => {
-          return (
-            <View>
-              <View style={styles.inputSection}>
-                <EditTextComponent
-                  isShowLabel
-                  isShowRightIcon={!!touched.email}
-                  isAlerting={!!errors.email && touched.email}
-                  alertText={errors.email}
-                  inputLabel="Email"
-                  inputText={values.email}
-                  onTextEdit={handleChange('email')}
-                  onTextBlur={handleBlur('email')}
-                />
-                <DividerComponent height={8} />
-                <EditTextComponent
-                  placeholder="Password"
-                  isShowRightIcon={!!touched.password}
-                  alertText={errors.password}
-                  isAlerting={!!errors.password && touched.password}
-                  inputText={values.password}
-                  onTextEdit={handleChange('password')}
-                  onTextBlur={handleBlur('password')}
-                />
-              </View>
-              <TouchableOpacity
-                style={styles.suggestion}
-                onPress={() => {
-                  navigation.navigate(ScreenName.forgotPassScreen);
-                }}>
-                <Text style={AppText.primaryText}>Forgot your password?</Text>
-                <View
-                  style={{
-                    marginLeft: 3,
-                    width: 24,
-                    height: 24,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}>
-                  <Image
-                    source={AppIcons.right_arrow}
-                    // style={{width: '100%', height: '100%'}}
+      />
+      <View style={{paddingHorizontal: 16}}>
+        <Formik
+          initialValues={{email: '', password: ''}}
+          onSubmit={async (value, {resetForm}) => {
+            console.log('Value: ', value);
+            const params = {
+              email: value.email,
+              password: value.password,
+            };
+            await commonApi.logIn(params).then(res => {
+              console.log('res', res);
+              if (res.code == 201) {
+                navigation.navigate(ScreenName.homeScreen);
+                dispatch(setAppFirstRun(false));
+              }
+            });
+
+            resetForm();
+          }}
+          validationSchema={Yup.object({
+            email: Yup.string('email is invalid')
+              .email('email is not valid')
+              .required('email should not be left empty'),
+            password: Yup.string('password is invalid')
+              .min(6)
+              .max(18) // /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/g
+              .matches(
+                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/g,
+                'password must contain at least one uppercase letter, one lowercase letter, one number and one special character',
+              )
+              .required('password should not be left empty'),
+          })}>
+          {({
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            dirty,
+            isValid,
+            values,
+            errors,
+            touched,
+          }) => {
+            return (
+              <View>
+                <View style={styles.inputSection}>
+                  <EditTextComponent
+                    isShowLabel
+                    isShowRightIcon={!!touched.email}
+                    isAlerting={!!errors.email && touched.email}
+                    alertText={errors.email}
+                    inputLabel="Email"
+                    inputText={values.email}
+                    onTextEdit={handleChange('email')}
+                    onTextBlur={handleBlur('email')}
+                  />
+                  <DividerComponent height={8} />
+                  <EditTextComponent
+                    placeholder="Password"
+                    isShowRightIcon={!!touched.password}
+                    alertText={errors.password}
+                    isAlerting={!!errors.password && touched.password}
+                    inputText={values.password}
+                    onTextEdit={handleChange('password')}
+                    onTextBlur={handleBlur('password')}
                   />
                 </View>
-              </TouchableOpacity>
-              <RadiusButton
-                title="LOGIN"
-                type={isValid && dirty ? 'redButton' : 'disabledButton'}
-                onButtonPress={() => {
-                  if (isValid && dirty) {
-                    handleSubmit();
-                    navigation.navigate(ScreenName.homeScreen);
-                  }
-                }}
-                buttonCustomStyle={{marginTop: 30}}
-              />
-            </View>
-          );
-        }}
-      </Formik>
+                <TouchableOpacity
+                  style={styles.suggestion}
+                  onPress={() => {
+                    navigation.navigate(ScreenName.forgotPassScreen);
+                  }}>
+                  <Text style={AppText.primaryText}>Forgot your password?</Text>
+                  <View
+                    style={{
+                      marginLeft: 3,
+                      width: 24,
+                      height: 24,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}>
+                    <Image
+                      source={AppIcons.right_arrow}
+                      // style={{width: '100%', height: '100%'}}
+                    />
+                  </View>
+                </TouchableOpacity>
+                <RadiusButton
+                  title="LOGIN"
+                  type={isValid && dirty ? 'redButton' : 'disabledButton'}
+                  onButtonPress={async () => {
+                    // if (isValid && dirty) {
+                    // handleSubmit();
+                    const params = {};
+                    // await commonApi.logIn(params).then(res => {
+                    //   console.log('res', res);
+                    //   if (res.code == 201) {
+                    //     navigation.navigate(ScreenName.homeScreen);
+                    //     dispatch(setAppFirstRun(false));
+                    //   }
+                    // });
+                    axios({
+                      method: 'post',
+                      url: 'http://192.168.0.103:5678/auth/login',
+                      data: {
+                        email: 'buiviethoang12062000@gmail.com',
+                        password: 'Rbfatman123',
+                      },
+                    }).then(res => {
+                      console.log(res);
+                    });
+                    // }
+                  }}
+                  buttonCustomStyle={{marginTop: 30}}
+                />
+              </View>
+            );
+          }}
+        </Formik>
 
-      <View style={{marginTop: 194, alignItems: 'center'}}>
-        <Text style={AppText.primaryText}>Or login with social account</Text>
-      </View>
-      <View style={styles.socialSection}>
-        <CircleButton isSocialButton icon={AppIcons.google} />
-        <CircleButton
-          isSocialButton
-          icon={AppIcons.facebook}
-          customStyle={{marginLeft: 16}}
-        />
+        <View style={{marginTop: 194, alignItems: 'center'}}>
+          <Text style={AppText.primaryText}>Or login with social account</Text>
+        </View>
+        <View style={styles.socialSection}>
+          <CircleButton isSocialButton icon={AppIcons.google} />
+          <CircleButton
+            isSocialButton
+            icon={AppIcons.facebook}
+            customStyle={{marginLeft: 16}}
+          />
+        </View>
       </View>
     </View>
   );
@@ -140,7 +173,6 @@ export default LoginScreen;
 const styles = StyleSheet.create({
   container: {
     backgroundColor: AppColors.primaryBackground,
-    paddingHorizontal: 16,
     flex: 1,
   },
   inputSection: {

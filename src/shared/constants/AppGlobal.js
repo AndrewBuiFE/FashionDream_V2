@@ -64,3 +64,7 @@ export const DeviceConstant = {
   screenWidth: Dimensions.get('screen').width,
   screenHeight: Dimensions.get('screen').height,
 };
+
+export const GeneralConfig = {
+  firstRun: true,
+};

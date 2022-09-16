@@ -1,7 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {useNavigation} from '@react-navigation/native';
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {
+  Alert,
+  BackHandler,
   FlatList,
   ImageBackground,
   RefreshControl,
@@ -10,6 +12,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import {useDispatch} from 'react-redux';
 import {PRODUCT, SECTION} from '../../assets/data';
 import DividerComponent from '../../components/DividerComponent';
 import ProductItemComponent from '../../components/ProductItemComponent';
@@ -19,6 +22,7 @@ import {AppColors} from '../../shared/constants/AppColors';
 import {AppText} from '../../shared/constants/AppGlobal';
 import {AppImages} from '../../shared/constants/AppImages';
 import {ScreenName} from '../../shared/constants/ScreenName';
+import {setAppFirstRun} from '../../stores/slices/SystemSlice';
 const PARALLAX_HEADER_HEIGHT = 536;
 const STICKY_HEADER_HEIGHT = 196;
 
@@ -35,7 +39,7 @@ const HomeScreen = () => {
   );
   const [refresh, setRefresh] = useState(true);
   const navigation = useNavigation();
-
+  const dispatch = useDispatch();
   // rendering functions
   const renderItem = useCallback(
     /**
@@ -110,6 +114,7 @@ const HomeScreen = () => {
             type="redButton"
             buttonCustomStyle={{width: 160, marginLeft: 15, marginTop: 18}}
             onButtonPress={() => {
+              dispatch(setAppFirstRun(true));
               navigation.navigate(ScreenName.shopNavigator);
             }}
           />
@@ -132,6 +137,28 @@ const HomeScreen = () => {
         </ImageBackground>
       </View>
     );
+  }, []);
+
+  // effect
+  const backAction = () => {
+    Alert.alert('Exit App?', 'Do you want to exit this app?', [
+      {
+        text: 'Cancel',
+        onPress: () => null,
+        style: 'cancel',
+      },
+      {
+        text: 'Exit',
+        onPress: () => BackHandler.exitApp(),
+      },
+    ]);
+    return true;
+  };
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', backAction);
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', backAction);
+    };
   }, []);
   return (
     <ParallaxScrollView

@@ -24,4 +24,14 @@ export default {
   showActionSheet(props) {
     ActionSheetRef.current?.show(props);
   },
+
+  goBack(navigation) {
+    // kiểm tra có thể  goBack không trước khi thực hiện
+    if (!navigation.canGoBack()) {
+      ScaleToastRef.current?.show("You can't go back anymore");
+    }
+    if (navigation.canGoBack()) {
+      return navigation.goBack();
+    }
+  },
 };

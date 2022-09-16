@@ -2,8 +2,8 @@ import {createSlice} from '@reduxjs/toolkit';
 
 const tag = 'SystemSlice';
 export const initialState = {
-  appState: 'idle',
-  appFirstLoad: false,
+  appState: 'background', // run in background
+  appFirstRun: true, // first time run app
   language: 'vi',
   loadingLanguage: false,
 };
@@ -11,6 +11,12 @@ const SystemSlice = createSlice({
   name: tag,
   initialState: initialState,
   reducers: {
+    setAppFirstRun(state, action) {
+      return {
+        ...state,
+        appFirstRun: action.payload,
+      };
+    },
     setAppState(state, action) {
       return {
         ...state,
@@ -38,4 +44,4 @@ const SystemSlice = createSlice({
   },
 });
 export default SystemSlice.reducer;
-export const {setAppState} = SystemSlice.actions;
+export const {setAppState, setAppFirstRun} = SystemSlice.actions;
