@@ -36,6 +36,7 @@ const TabIcons = {
     icon: [AppIcons.profile_active, AppIcons.profile_inactive],
   },
 };
+const tabHiddenRoutes = [ScreenName.loginScreen, ScreenName.introScreen];
 const AppNavigator = () => {
   // const {t, i18n} = useTranslation('i18n');
   const appState = useRef(AppState.currentState);
@@ -79,6 +80,7 @@ const AppNavigator = () => {
             shadowOffset: {width: 0, height: -4},
             shadowRadius: 20,
             elevation: 2,
+            // display: tabHiddenRoutes.includes(routeName) ? 'none' : 'flex',
           },
           tabBarItemStyle: {
             backgroundColor: AppColors.primaryBackground,
@@ -100,9 +102,9 @@ const AppNavigator = () => {
         <Tab.Screen
           name={ScreenName.homeNavigator}
           component={HomeNavigator}
-          options={{
+          options={({route}) => ({
             tabBarLabel: 'Home',
-          }}
+          })}
         />
         <Tab.Screen
           name={ScreenName.shopNavigator}

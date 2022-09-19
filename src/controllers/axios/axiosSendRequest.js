@@ -10,7 +10,7 @@ const tag = 'axiosSendRequest';
  * @param {string} url
  * @param {object} params
  * @param {string} object
- * @return {Promise<{result: string, code: number, message: string}>}
+ * @return {Promise<{data: object, statusCode: number, message: string}>}
  */
 async function axiosSendRequest(method, url, params = null, header = null) {
   console.log(

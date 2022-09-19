@@ -1,10 +1,8 @@
 /* eslint-disable no-shadow */
 import {useNavigation} from '@react-navigation/native';
-import axios from 'axios';
 import {Formik} from 'formik';
 import React from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {useDispatch} from 'react-redux';
 import * as Yup from 'yup';
 import CircleButton from '../../components/CircleButton';
 import DividerComponent from '../../components/DividerComponent';
@@ -17,12 +15,10 @@ import {AppText} from '../../shared/constants/AppGlobal';
 import {AppIcons} from '../../shared/constants/AppIcons';
 import {ScreenName} from '../../shared/constants/ScreenName';
 import Utils from '../../shared/helpers/Utils';
-import {setAppFirstRun} from '../../stores/slices/SystemSlice';
 
 const LoginScreen = () => {
   // hooks
   const navigation = useNavigation();
-  const dispatch = useDispatch();
   // common vars
   const commonApi = new CommonApi();
   return (
@@ -46,9 +42,8 @@ const LoginScreen = () => {
             };
             await commonApi.logIn(params).then(res => {
               console.log('res', res);
-              if (res.code == 201) {
+              if (res.statusCode == 200) {
                 navigation.navigate(ScreenName.homeScreen);
-                dispatch(setAppFirstRun(false));
               }
             });
 
@@ -125,27 +120,9 @@ const LoginScreen = () => {
                   title="LOGIN"
                   type={isValid && dirty ? 'redButton' : 'disabledButton'}
                   onButtonPress={async () => {
-                    // if (isValid && dirty) {
-                    // handleSubmit();
-                    const params = {};
-                    // await commonApi.logIn(params).then(res => {
-                    //   console.log('res', res);
-                    //   if (res.code == 201) {
-                    //     navigation.navigate(ScreenName.homeScreen);
-                    //     dispatch(setAppFirstRun(false));
-                    //   }
-                    // });
-                    axios({
-                      method: 'post',
-                      url: 'http://192.168.0.103:5678/auth/login',
-                      data: {
-                        email: 'buiviethoang12062000@gmail.com',
-                        password: 'Rbfatman123',
-                      },
-                    }).then(res => {
-                      console.log(res);
-                    });
-                    // }
+                    if (isValid && dirty) {
+                      handleSubmit();
+                    }
                   }}
                   buttonCustomStyle={{marginTop: 30}}
                 />

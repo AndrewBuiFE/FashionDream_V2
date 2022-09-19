@@ -28,4 +28,5 @@ export const ScreenName = {
   reviewScreen: 'ReviewScreen',
   visualSearchScreen: 'VisualSearchScreen',
   takePhotoScreen: 'TakePhotoScreen',
+  introScreen: 'IntroScreen',
 };

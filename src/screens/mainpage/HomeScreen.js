@@ -22,7 +22,6 @@ import {AppColors} from '../../shared/constants/AppColors';
 import {AppText} from '../../shared/constants/AppGlobal';
 import {AppImages} from '../../shared/constants/AppImages';
 import {ScreenName} from '../../shared/constants/ScreenName';
-import {setAppFirstRun} from '../../stores/slices/SystemSlice';
 const PARALLAX_HEADER_HEIGHT = 536;
 const STICKY_HEADER_HEIGHT = 196;
 
@@ -114,7 +113,6 @@ const HomeScreen = () => {
             type="redButton"
             buttonCustomStyle={{width: 160, marginLeft: 15, marginTop: 18}}
             onButtonPress={() => {
-              dispatch(setAppFirstRun(true));
               navigation.navigate(ScreenName.shopNavigator);
             }}
           />
