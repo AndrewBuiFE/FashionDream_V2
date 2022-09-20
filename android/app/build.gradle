@@ -1,5 +1,5 @@
 apply plugin: "com.android.application"
-
+apply plugin: "com.google.gms.google-services"
 import com.android.build.OutputFile
 
 /**
@@ -285,6 +285,10 @@ dependencies {
         implementation jscFlavor
     }
     implementation project(':react-native-fs')
+    implementation platform('com.google.firebase:firebase-bom:30.4.1')
+    implementation 'com.google.firebase:firebase-messaging'
+    implementation 'com.google.firebase:firebase-analytics'
+
 }
 
 if (isNewArchitectureEnabled()) {

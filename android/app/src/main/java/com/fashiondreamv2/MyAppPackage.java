@@ -1,4 +1,4 @@
-package com.fashiondreamv2;
+/*package com.fashiondreamv2;
 
 import androidx.annotation.NonNull;
 
@@ -30,4 +30,4 @@ public class MyAppPackage implements ReactPackage {
         return Arrays.<ViewManager>asList(
         );
     }
-}
+}*/

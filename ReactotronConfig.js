@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import reactotron, {openInEditor} from 'reactotron-react-native';
+import reactotron from 'reactotron-react-native';
 import {reactotronRedux} from 'reactotron-redux';
 reactotron
   .setAsyncStorageHandler(AsyncStorage) // AsyncStorage would either come from `react-native` or `@react-native-community/async-storage` depending on where you get it from

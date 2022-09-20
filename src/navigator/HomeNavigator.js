@@ -14,7 +14,6 @@ import {ScreenName} from '../shared/constants/ScreenName';
 
 const Stack = createNativeStackNavigator();
 const HomeNavigator = ({navigation, route}) => {
-  console.log('Navigation: ', route);
   const {appFirstRun} = useSelector(state => state.system);
   React.useLayoutEffect(() => {
     const tabHiddenRoutes = [ScreenName.loginScreen, ScreenName.introScreen];
