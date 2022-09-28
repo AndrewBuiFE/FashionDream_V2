@@ -29,4 +29,6 @@ export const ScreenName = {
   visualSearchScreen: 'VisualSearchScreen',
   takePhotoScreen: 'TakePhotoScreen',
   introScreen: 'IntroScreen',
+  testScreen: 'TestScreen',
+  testApi: 'TestApi',
 };

@@ -5,6 +5,7 @@ import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
 import i18next from './i18n';
 import AppNavigator from './src/navigator/AppNavigator';
+import AppAuthen from './src/screens/auth/AppAuthen';
 import {FCMService} from './src/services/FCMService';
 import {persistor, store} from './src/stores/configureStore';
 enableScreens();
@@ -38,6 +39,7 @@ const App: () => Node = () => {
       <I18nextProvider i18n={i18next}>
         <PersistGate persistor={persistor}>
           <AppNavigator />
+          <AppAuthen />
         </PersistGate>
       </I18nextProvider>
     </Provider>

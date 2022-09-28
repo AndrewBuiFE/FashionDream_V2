@@ -12,7 +12,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {PRODUCT, SECTION} from '../../assets/data';
 import DividerComponent from '../../components/DividerComponent';
 import ProductItemComponent from '../../components/ProductItemComponent';
@@ -39,6 +39,8 @@ const HomeScreen = () => {
   const [refresh, setRefresh] = useState(true);
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const {products, pagination} = useSelector(state => state.product);
+  console.log('product: ', products);
   // rendering functions
   const renderItem = useCallback(
     /**
@@ -189,7 +191,7 @@ const HomeScreen = () => {
             </View>
             <View style={{marginTop: 22}}>
               <FlatList
-                data={PRODUCT}
+                data={products}
                 horizontal
                 // refreshControl={renderRefresh}
                 showsHorizontalScrollIndicator={false}

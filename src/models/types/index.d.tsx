@@ -3,20 +3,37 @@ import { ImageStyle } from 'react-native/Libraries/StyleSheet/StyleSheet';
 export type DeliveryName = 'FEDex' | 'USPSCOM' | 'DHL';
 export type ShippingStatus = 'Cancel' | 'Received' | 'Shipping' | 'Delivered';
 export interface Product {
+  // id: number;
+  // user: User[];
+  // title: string;
+  // description: string;
+  // originalPrice: number;
+  // quantity: number;
+  // image: Array<ImageStyle>;
+  // discountPercent: number;
+  // star: number;
+  // comment: number;
+  // brand: string;
+  // isFavorited: boolean;
+  // timeCreated: Date;
+  // isAvailable: boolean;
   id: number;
-  user: User[];
   title: string;
+  metaTitle: string;
+  slug: string;
   description: string;
-  originalPrice: number;
+  price: number;
+  discount: number;
   quantity: number;
-  image: Array<ImageStyle>;
-  discountPercent: number;
-  star: number;
-  comment: number;
+  content: string;
   brand: string;
-  isFavorited: boolean;
-  timeCreated: Date;
-  isAvailable: boolean;
+  image: ProductImage[];
+  review: Review[];
+}
+
+export interface ProductImage {
+  id: number;
+  imageURL: string;
 }
 
 export interface PromoCode {
@@ -79,13 +96,17 @@ export interface Order {
 }
 
 export interface Review {
-  rating: number;
-  publishedAt: Date;
-  content: string;
-  isHelpful: boolean;
-  photos: ImageStyle[];
-  reviewer: User;
+  // rating: number;
+  // publishedAt: Date;
+  // content: string;
+  // isHelpful: boolean;
+  // photos: ImageStyle[];
+  // reviewer: User;
+  // title: string;
   title: string;
+  rating: number;
+  content: string;
+  user: User;
 }
 
 export interface Notification {

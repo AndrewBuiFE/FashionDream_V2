@@ -6,6 +6,8 @@ export const initialState = {
   appFirstRun: true, // first time run app
   language: 'vi',
   loadingLanguage: false,
+  accessToken: '',
+  refreshToken: '',
 };
 const SystemSlice = createSlice({
   name: tag,

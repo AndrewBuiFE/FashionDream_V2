@@ -85,7 +85,7 @@ const handleRequestError = data => {
  * @param {*} key
  * @param {*} value
  */
-const setAxiosHeader = (key, value) => {
+export const setAxiosHeader = (key, value) => {
   axios.defaults.headers.common[key] = value;
   console.log('[Axios]', 'Set default header', {key, value});
 };

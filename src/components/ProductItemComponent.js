@@ -65,7 +65,7 @@ export default function ProductItemComponent(props) {
           height: 104,
         }}>
         <Image
-          source={product.image[0]}
+          source={{uri: product?.image[0]?.imageURL}}
           style={{
             width: '100%',
             height: '100%',
@@ -76,10 +76,10 @@ export default function ProductItemComponent(props) {
       </View>
       <View style={{marginLeft: 11, flex: 1}}>
         <Text numberOfLines={1} style={[AppText.mediumTitle, {marginTop: 11}]}>
-          {product.title}
+          {product?.title}
         </Text>
         <Text numberOfLines={1} style={[AppText.tinyTitle, {marginTop: 4}]}>
-          {product.brand}
+          {product?.brand}
         </Text>
         <View
           style={{
@@ -87,7 +87,7 @@ export default function ProductItemComponent(props) {
             alignItems: 'center',
             marginTop: 8,
           }}>
-          <StarComponent quantity={product.star} size="small" />
+          <StarComponent quantity={product?.review[0]?.rating} size="small" />
           <Text
             numberOfLines={1}
             style={[
@@ -98,7 +98,7 @@ export default function ProductItemComponent(props) {
                 fontFamily: 'Metropolis',
                 marginLeft: 2,
               },
-            ]}>{`(${product.comment})`}</Text>
+            ]}>{`(${product.review ? product.review.length : 0})`}</Text>
         </View>
         <View style={{flexDirection: 'row', marginTop: 8}}>
           <Text
@@ -113,7 +113,7 @@ export default function ProductItemComponent(props) {
                 color: AppColors.smallTitleText,
               },
             ]}>
-            {`${product.originalPrice}$`}
+            {`${product?.price}$`}
           </Text>
           <Text
             numberOfLines={1}
@@ -124,7 +124,7 @@ export default function ProductItemComponent(props) {
               color: AppColors.hotRed,
               marginLeft: 4,
             }}>
-            {`${product.originalPrice * (1 - product.discountPercent / 100)}$`}
+            {`${product?.price * (1 - product?.discount / 100)}$`}
           </Text>
         </View>
       </View>
@@ -155,14 +155,14 @@ export default function ProductItemComponent(props) {
           backgroundColor: '#C4C4C4',
         }}>
         <ImageBackground
-          source={product.image[0]}
+          source={{uri: product?.image[0]?.imageURL}}
           imageStyle={{borderRadius: 8}}
           style={{
             width: '100%',
             height: '100%',
           }}>
           <LabelComponent
-            label={`-${product.discountPercent}%`}
+            label={`-${product?.discount}%`}
             type="redLabel"
             labelViewStyle={{marginTop: 8, marginLeft: 9}}
           />
@@ -186,7 +186,7 @@ export default function ProductItemComponent(props) {
           alignItems: 'center',
           marginTop: 7,
         }}>
-        <StarComponent quantity={product.star} size="small" />
+        <StarComponent quantity={product?.review[0]?.rating} size="small" />
         <Text
           numberOfLines={1}
           style={[
@@ -197,13 +197,13 @@ export default function ProductItemComponent(props) {
               fontFamily: 'Metropolis',
               marginLeft: 2,
             },
-          ]}>{`(${product.comment})`}</Text>
+          ]}>{`(${product.review ? product.review.length : 0})`}</Text>
       </View>
       <Text numberOfLines={1} style={[AppText.tinyTitle, {marginTop: 7}]}>
-        {product.brand}
+        {product?.brand}
       </Text>
       <Text numberOfLines={1} style={[AppText.mediumTitle, {marginTop: 6}]}>
-        {product.title}
+        {product?.title}
       </Text>
       <View style={{flexDirection: 'row'}}>
         <Text
@@ -218,7 +218,7 @@ export default function ProductItemComponent(props) {
               color: AppColors.smallTitleText,
             },
           ]}>
-          {`${product.originalPrice}$`}
+          {`${product?.price}$`}
         </Text>
         <Text
           numberOfLines={1}
@@ -229,7 +229,7 @@ export default function ProductItemComponent(props) {
             color: AppColors.hotRed,
             marginLeft: 4,
           }}>
-          {`${product.originalPrice * (1 - product.discountPercent / 100)}$`}
+          {`${Math.ceil(product?.price * (1 - product?.discount / 100))}$`}
         </Text>
       </View>
     </TouchableOpacity>

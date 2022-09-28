@@ -9,6 +9,7 @@ import DemoComponent from '../components/DemoComponent';
 import ConfirmDialog, {
   ConfirmDialogRef,
 } from '../components/dialog/ConfirmDialog';
+import RenderLoading from '../components/dialog/RenderLoading';
 import DividerComponent from '../components/DividerComponent';
 import EditTextComponent from '../components/EditTextComponent';
 import FilterComponent from '../components/FilterComponent';
@@ -28,6 +29,7 @@ import ActionSheet from '../screens/modals/ActionSheet';
 import {AppColors} from '../shared/constants/AppColors';
 import {DeviceConstant} from '../shared/constants/AppGlobal';
 import {AppIcons} from '../shared/constants/AppIcons';
+import TestApiScreen from './TestApi';
 const TestComponent = () => {
   const [text, setText] = useState('');
   return (
@@ -37,6 +39,7 @@ const TestComponent = () => {
         backgroundColor: 'black',
         alignItems: 'center',
       }}>
+      <TestApiScreen />
       <DividerComponent />
       <Text>Radius button</Text>
       <RadiusButton
@@ -176,6 +179,10 @@ const TestComponent = () => {
       <ReviewComponent />
       <DividerComponent />
       <ActionSheet />
+      <DividerComponent />
+      <RenderLoading />
+      <DividerComponent />
+      {/* <WebViewDemo /> */}
     </ScrollView>
   );
 };

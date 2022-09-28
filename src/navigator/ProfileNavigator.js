@@ -8,15 +8,33 @@ import ProfileScreen from '../screens/profile/ProfileScreen';
 import SettingScreen from '../screens/profile/SettingScreen';
 import ReviewScreen from '../screens/review/ReviewScreen';
 import {ScreenName} from '../shared/constants/ScreenName';
+import TestApiScreen from '../tests/TestApi';
 import TestComponent from '../tests/TestComponents';
+import TestScreen from '../tests/TestScreen';
 
 const Stack = createNativeStackNavigator();
 const ProfileNavigator = () => {
   return (
-    <Stack.Navigator initialRouteName={ScreenName.profileScreen}>
+    <Stack.Navigator initialRouteName={ScreenName.testScreen}>
+      <Stack.Screen
+        name={ScreenName.testScreen}
+        component={TestScreen}
+        options={{
+          headerShown: false,
+          title: '',
+        }}
+      />
       <Stack.Screen
         name={ScreenName.testComponent}
         component={TestComponent}
+        options={{
+          headerShown: false,
+          title: '',
+        }}
+      />
+      <Stack.Screen
+        name={ScreenName.testApi}
+        component={TestApiScreen}
         options={{
           headerShown: false,
           title: '',
