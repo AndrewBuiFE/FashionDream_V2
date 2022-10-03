@@ -35,6 +35,9 @@ const TestScreen = () => {
           justifyContent: 'center',
           width: '100%',
           height: 50,
+        }}
+        onPress={() => {
+          navigation.navigate(ScreenName.testComponent);
         }}>
         <Text style={{color: 'white', fontSize: 20}}>Test components</Text>
       </TouchableOpacity>

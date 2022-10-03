@@ -25,6 +25,12 @@ const SystemSlice = createSlice({
         appState: action.payload,
       };
     },
+    setAppAccessToken(state, action) {
+      return {
+        ...state,
+        accessToken: action.payload,
+      };
+    },
     changeLanguage(state, action) {
       return {
         ...state,
@@ -46,4 +52,5 @@ const SystemSlice = createSlice({
   },
 });
 export default SystemSlice.reducer;
-export const {setAppState, setAppFirstRun} = SystemSlice.actions;
+export const {setAppState, setAppFirstRun, setAppAccessToken} =
+  SystemSlice.actions;

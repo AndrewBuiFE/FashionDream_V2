@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {ScrollView, Text} from 'react-native';
-import {PRODUCT, PROMO_CODE} from '../assets/data';
+import {PROMO_CODE} from '../assets/data';
 import CartItem from '../components/CartItem';
 import CheckBox from '../components/CheckBox';
 import CircleButton from '../components/CircleButton';
@@ -17,7 +17,6 @@ import HeaderComponent from '../components/HeaderComponent';
 import LabelComponent from '../components/LabelComponent';
 import Modalheader from '../components/ModalHeader';
 import PickerComponent from '../components/PickerComponent';
-import ProductItemComponent from '../components/ProductItemComponent';
 import PromoCode from '../components/PromoCode';
 import RadiusButton from '../components/RadiusButton';
 import ReviewComponent from '../components/ReviewComponent';
@@ -145,7 +144,7 @@ const TestComponent = () => {
       />
       <DividerComponent />
       <Text>Color</Text>
-      <ProductItemComponent product={PRODUCT[0]} isHorizontal />
+      {/* <ProductItemComponent product={PRODUCT[0]} isHorizontal /> */}
       <DividerComponent />
       <Text>Color</Text>
       <StarComponent quantity={5} size="small" />

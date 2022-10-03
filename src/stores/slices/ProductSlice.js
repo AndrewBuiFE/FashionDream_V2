@@ -35,7 +35,7 @@ export const initialState = {
 export const thunkGetProductList = createAsyncThunk(
   productTag,
   /**
-   * @param {import('../reducers/type/index.d').ProductState} params
+   * @param {import('./type').ProductState} params
    */
   async params => {
     return await Api.getAllProduct();

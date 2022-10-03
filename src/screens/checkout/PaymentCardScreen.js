@@ -1,15 +1,19 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {useNavigation} from '@react-navigation/native';
 import React, {useCallback, useState} from 'react';
 import {FlatList, Image, Text, View} from 'react-native';
-import {PAYMENT_CARD} from '../../assets/data';
+import {useDispatch, useSelector} from 'react-redux';
 import CheckBox from '../../components/CheckBox';
 import CircleButton from '../../components/CircleButton';
 import DividerComponent from '../../components/DividerComponent';
 import HeaderComponent from '../../components/HeaderComponent';
+import Api from '../../controllers/apis/Api';
 import {AppColors} from '../../shared/constants/AppColors';
 import {AppText} from '../../shared/constants/AppGlobal';
 import {AppIcons} from '../../shared/constants/AppIcons';
 import {AppImages} from '../../shared/constants/AppImages';
+import Utils from '../../shared/helpers/Utils';
+import {thunkGetPaymentCards} from '../../stores/slices/CheckoutSlice';
 import PaymentCardModal from '../modals/PaymentCardModal';
 
 /**
@@ -21,6 +25,11 @@ const PaymentCardScreen = () => {
   const navigation = useNavigation();
   const goBack = navigation.goBack;
   const [isModalVisible, showCardModal] = useState(false);
+  const dispatch = useDispatch();
+  /**
+   * @type {import('../../stores/types/slice').CheckoutState}
+   */
+  const {paymentCards} = useSelector(state => state.checkout);
   // utitlity functions
   const dismissModal = () => {
     showCardModal(false);
@@ -68,7 +77,7 @@ const PaymentCardScreen = () => {
               <View>
                 <Text style={AppText.secondaryTextBlack}>Card Holder Name</Text>
                 <Text style={[AppText.smallTitle, {marginTop: 5}]}>
-                  {paymentCard.cardName}
+                  {paymentCard.cardHolder}
                 </Text>
               </View>
               <View>
@@ -81,7 +90,7 @@ const PaymentCardScreen = () => {
           </View>
           <CheckBox
             type="whiteCheckbox"
-            isCheck={false}
+            isCheck={paymentCard.defaultPayment}
             hasTextRight
             textRight="Use as default payment method"
             customStyle={{marginTop: 25}}
@@ -89,14 +98,26 @@ const PaymentCardScreen = () => {
         </View>
       );
     },
-    [],
+    [paymentCards],
   );
   return (
     <View style={{flex: 1, backgroundColor: AppColors.primaryBackground}}>
       <PaymentCardModal
         dismissModal={dismissModal}
         isModalVisible={isModalVisible}
-        onAddingCard={() => {}}
+        onAddingCard={async value => {
+          console.log('card value: ', Utils.parseCardField(value));
+
+          const result = await Api.createPaymentCard(
+            Utils.parseCardField(value),
+          );
+          console.log(result);
+          if (result.statusCode === 201) {
+            dispatch(thunkGetPaymentCards());
+          } else {
+            console.log(result);
+          }
+        }}
       />
       <HeaderComponent
         type="medium"
@@ -108,7 +129,7 @@ const PaymentCardScreen = () => {
         <DividerComponent height={31} />
         <Text style={AppText.mediumTitle}>Your payment cards</Text>
         <FlatList
-          data={PAYMENT_CARD}
+          data={paymentCards}
           renderItem={renderCardItem}
           ItemSeparatorComponent={() => {
             return <DividerComponent height={39} />;

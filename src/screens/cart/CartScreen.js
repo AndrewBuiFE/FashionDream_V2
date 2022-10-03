@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {useNavigation} from '@react-navigation/native';
-import React, {useCallback, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {
   Animated,
   FlatList,
@@ -12,6 +12,7 @@ import {
   View,
 } from 'react-native';
 import KeyboardAvoidingView from 'react-native/Libraries/Components/Keyboard/KeyboardAvoidingView';
+import {useSelector} from 'react-redux';
 import {PRODUCT} from '../../assets/data';
 import CartItem from '../../components/CartItem';
 import CircleButton from '../../components/CircleButton';
@@ -31,6 +32,7 @@ const CartScreen = () => {
   const shift = useRef(new Animated.Value(0)).current;
   const navigation = useNavigation();
   const [finalCode, setFinalCode] = useState('');
+  const {accessToken} = useSelector(state => state.system);
   // common functions
   const dismissModal = () => {
     showPromoModal(false);
@@ -81,6 +83,11 @@ const CartScreen = () => {
   //     hideKeyboard.remove();
   //   };
   // }, []);
+  useEffect(() => {
+    if (!accessToken) {
+      navigation.navigate(ScreenName.loginScreen);
+    }
+  }, [accessToken]);
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : null}

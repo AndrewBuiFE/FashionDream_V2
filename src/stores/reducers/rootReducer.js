@@ -4,6 +4,9 @@ import {combineReducers} from '@reduxjs/toolkit';
 import {PersistConfig, persistReducer} from 'redux-persist';
 import immutableTransform from 'redux-persist-transform-immutable';
 import autoMergeLevel2 from 'redux-persist/es/stateReconciler/autoMergeLevel2';
+import CheckoutSlice, {
+  initialState as initialCheckoutState,
+} from '../slices/CheckoutSlice';
 import ProductSlice, {
   initialState as initialProductState,
 } from '../slices/ProductSlice';
@@ -11,15 +14,16 @@ import SystemSlice, {
   initialState as initialSystemState,
 } from '../slices/SystemSlice';
 /**
- * @type {Reducer<import("./type/index.d").FashionDreamState>}
+ * @type {Reducer<import('../types/slice').FashionDreamState>}
  */
 const fashionDreamReducer = combineReducers({
   system: SystemSlice,
   product: ProductSlice,
+  checkout: CheckoutSlice,
 });
 
 /**
- * @type {Reducer<import("./type/index.d").FashionDreamState>}
+ * @type {Reducer<import('../types/slice').FashionDreamState>}
  */
 const rootReducer = (state, action) => {
   if (action.type === 'SIGN_OUT_SUCCESS') {
@@ -28,6 +32,7 @@ const rootReducer = (state, action) => {
         ...state,
         system: initialSystemState,
         product: initialProductState,
+        checkout: initialCheckoutState,
       },
       action,
     );

@@ -3,24 +3,27 @@ import {useNavigation} from '@react-navigation/native';
 import {Formik} from 'formik';
 import React from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {useDispatch} from 'react-redux';
 import * as Yup from 'yup';
 import CircleButton from '../../components/CircleButton';
 import DividerComponent from '../../components/DividerComponent';
 import EditTextComponent from '../../components/EditTextComponent';
 import HeaderComponent from '../../components/HeaderComponent';
 import RadiusButton from '../../components/RadiusButton';
-import {CommonApi} from '../../controllers/apis/Api';
+import Api from '../../controllers/apis/Api';
+import {setAxiosHeader} from '../../controllers/axios/axiosSendRequest';
 import {AppColors} from '../../shared/constants/AppColors';
 import {AppText} from '../../shared/constants/AppGlobal';
 import {AppIcons} from '../../shared/constants/AppIcons';
 import {ScreenName} from '../../shared/constants/ScreenName';
 import Utils from '../../shared/helpers/Utils';
+import {setAppAccessToken} from '../../stores/slices/SystemSlice';
 
 const LoginScreen = () => {
   // hooks
   const navigation = useNavigation();
+  const dispatch = useDispatch();
   // common vars
-  const commonApi = new CommonApi();
   return (
     <View style={styles.container}>
       <HeaderComponent
@@ -40,9 +43,14 @@ const LoginScreen = () => {
               email: value.email,
               password: value.password,
             };
-            await commonApi.logIn(params).then(res => {
+            await Api.logIn(params).then(res => {
               console.log('res', res);
-              if (res.statusCode == 200) {
+              if (res.statusCode == 200 && res.data) {
+                dispatch(setAppAccessToken(res.data.accessToken));
+                setAxiosHeader(
+                  'Authorization',
+                  `Bearer ${res.data.accessToken}`,
+                );
                 navigation.navigate(ScreenName.homeScreen);
               }
             });

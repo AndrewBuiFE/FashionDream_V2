@@ -1,4 +1,4 @@
-import { Product } from "../../../models/types/index.d";
+import {PaymentMethod, Product} from '../../models/types/index.d';
 
 /**
  * Save state for FashionDream
@@ -6,6 +6,7 @@ import { Product } from "../../../models/types/index.d";
 export interface FashionDreamState {
   system: SystemState;
   product: ProductState;
+  checkout: CheckoutState;
 }
 export interface SystemState {
   appState: string;
@@ -26,15 +27,41 @@ export interface ProductState {
       priceFrom: number;
       priceTo: number;
       discount: number;
-      quantityFrom : number; 
+      quantityFrom: number;
       quantityTo: number;
       content: string;
       createdAtFrom: string;
       createdAtTo: string;
-    },
+    };
     page: number;
     limit: number;
-  },
+  };
+  loadingState: boolean;
+  loadMoreState: boolean;
+  forceReload: boolean;
+}
+export interface CheckoutState {
+  paymentCards: PaymentMethod[];
+  shippingAddress: [];
+  deliveryMethod: {};
+  pagination: {
+    hasMore: boolean;
+    total: number;
+    filter: {
+      title: string;
+      description: string;
+      priceFrom: number;
+      priceTo: number;
+      discount: number;
+      quantityFrom: number;
+      quantityTo: number;
+      content: string;
+      createdAtFrom: string;
+      createdAtTo: string;
+    };
+    page: number;
+    limit: number;
+  };
   loadingState: boolean;
   loadMoreState: boolean;
   forceReload: boolean;

@@ -1,4 +1,4 @@
-import { ImageStyle } from 'react-native/Libraries/StyleSheet/StyleSheet';
+import {ImageStyle} from 'react-native/Libraries/StyleSheet/StyleSheet';
 
 export type DeliveryName = 'FEDex' | 'USPSCOM' | 'DHL';
 export type ShippingStatus = 'Cancel' | 'Received' | 'Shipping' | 'Delivered';
@@ -62,11 +62,11 @@ export interface Delivery {
 }
 
 export interface PaymentMethod {
-  cardName: string;
+  cardHolder: string;
   cardNumber: string;
   expireDate: Date;
   cvv: number;
-  isDefault: boolean;
+  defaultPayment: boolean;
 }
 
 export interface Cart {
@@ -122,7 +122,7 @@ export interface Setting {
 }
 export enum Role {
   user = 'user',
-  admin = 'admin'
+  admin = 'admin',
 }
 export interface User {
   id: number;

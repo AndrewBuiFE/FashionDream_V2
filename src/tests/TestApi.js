@@ -1,9 +1,9 @@
+import axios from 'axios';
 import React from 'react';
 import {ScrollView, Text, TouchableOpacity} from 'react-native';
-import {CommonApi} from '../controllers/apis/Api';
+import Api from '../controllers/apis/Api';
 import {AppColors} from '../shared/constants/AppColors';
 const TestApiScreen = () => {
-  const api = new CommonApi();
   return (
     <ScrollView
       style={{
@@ -16,7 +16,7 @@ const TestApiScreen = () => {
       <TouchableOpacity
         title="Log in"
         onPress={async () => {
-          api.logIn({
+          Api.logIn({
             email: 'buiviethoang12062000@gmail.com',
             password: 'Rbfatman123',
           });
@@ -40,10 +40,63 @@ const TestApiScreen = () => {
           alignItems: 'center',
         }}
         onPress={async () => {
-          api.getAllProduct();
+          Api.getAllProduct();
         }}
         children={
           <Text style={{color: 'white', fontSize: 20}}>GET ALL PRODUCT</Text>
+        }
+      />
+      <TouchableOpacity
+        title="Get all payment cards"
+        style={{
+          width: 375,
+          height: 50,
+          backgroundColor: 'blue',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+        onPress={async () => {
+          Api.createPaymentCard();
+        }}
+        children={
+          <Text style={{color: 'white', fontSize: 20}}>
+            GET ALL PAYMENT CARDS
+          </Text>
+        }
+      />
+      <TouchableOpacity
+        title="Create a payment card"
+        style={{
+          width: 375,
+          height: 50,
+          backgroundColor: 'blue',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+        onPress={async () => {
+          // Api.createPaymentCard({
+          //   cardHolder: 'DFJKDJFD',
+          //   cardNumber: 1234453243532438,
+          //   cvv: 12839,
+          //   defaultPayment: false,
+          //   expireDate: '2000-06-12',
+          // });
+          await axios({
+            method: 'post',
+            url: 'http://192.168.0.103:3000/payment-method/create',
+            data: {
+              cardHolder: 'DFJKDJFD',
+              cardNumber: 1234453243532438,
+              cvv: 12839,
+              defaultPayment: false,
+              expireDate: '2000-06-12',
+            },
+          }).then(result => console.log(result));
+        }}
+        children={
+          <Text style={{color: 'white', fontSize: 20}}>
+            CREATE A PAYMENT CARD
+          </Text>
         }
       />
     </ScrollView>
