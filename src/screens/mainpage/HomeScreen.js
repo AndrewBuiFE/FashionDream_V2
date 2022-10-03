@@ -12,6 +12,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import CodePush from 'react-native-code-push';
 import {copilot, CopilotStep, walkthroughable} from 'react-native-copilot';
 import {useDispatch, useSelector} from 'react-redux';
 import {PRODUCT, SECTION} from '../../assets/data';
@@ -23,6 +24,7 @@ import {AppColors} from '../../shared/constants/AppColors';
 import {AppText} from '../../shared/constants/AppGlobal';
 import {AppImages} from '../../shared/constants/AppImages';
 import {ScreenName} from '../../shared/constants/ScreenName';
+import Utils from '../../shared/helpers/Utils';
 const PARALLAX_HEADER_HEIGHT = 536;
 const STICKY_HEADER_HEIGHT = 196;
 /**
@@ -43,6 +45,7 @@ const HomeScreen = props => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const {products, pagination} = useSelector(state => state.product);
+  const {codepushDeploymentKey} = useSelector(state => state.system);
   const ScrollViewRef = useRef();
   // rendering functions
   const renderItem = useCallback(
@@ -190,6 +193,38 @@ const HomeScreen = props => {
       props.copilotEvents.off('stop');
     };
   }, []);
+  // codepush
+  useEffect(() => {
+    if (codepushDeploymentKey && codepushDeploymentKey.length > 0) {
+      CodePush.sync(
+        {
+          updateDialog: true,
+          installMode: CodePush.InstallMode.IMMEDIATE,
+          deploymentKey: codepushDeploymentKey,
+        },
+        status => {
+          switch (status) {
+            case CodePush.SyncStatus.DOWNLOADING_PACKAGE:
+              Utils.toast('Downloading...');
+              break;
+            case CodePush.SyncStatus.INSTALLING_UPDATE:
+              Utils.toast('Installing...');
+              break;
+            case CodePush.SyncStatus.UPDATE_INSTALLED:
+              Utils.toast('Installed');
+              break;
+            default:
+              break;
+          }
+        },
+        ({receivedBytes, totalBytes}) => {
+          Utils.toast(
+            `Downloading...${Math.round((receivedBytes * 100) / totalBytes)}%`,
+          );
+        },
+      );
+    }
+  }, [codepushDeploymentKey]);
   return (
     <ParallaxScrollView
       backgroundColor="black"

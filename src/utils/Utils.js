@@ -1,4 +1,5 @@
 import {is} from 'immutable';
+import CodePush from 'react-native-code-push';
 import {useSelector} from 'react-redux';
 import {createSelector, createSelectorCreator, defaultMemoize} from 'reselect';
 
@@ -21,3 +22,11 @@ export function useFashionDreamSelector(selector = state => state) {
     ),
   );
 }
+
+export const getCodePushVersion = async () => {
+  var metadata = await CodePush.getUpdateMetadata();
+  if (metadata) {
+    return metadata.label;
+  }
+  return '';
+};

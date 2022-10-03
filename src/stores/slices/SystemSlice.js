@@ -8,6 +8,7 @@ export const initialState = {
   loadingLanguage: false,
   accessToken: '',
   refreshToken: '',
+  codepushDeploymentKey: null,
 };
 const SystemSlice = createSlice({
   name: tag,
@@ -47,6 +48,12 @@ const SystemSlice = createSlice({
       return {
         ...state,
         language: action.payload,
+      };
+    },
+    setCodepushDeploymentKey(state, action) {
+      return {
+        ...state,
+        codepushDeploymentKey: action.payload,
       };
     },
   },

@@ -12,6 +12,7 @@ import com.facebook.soloader.SoLoader;
 import com.fashiondreamv2.newarchitecture.MainApplicationReactNativeHost;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import com.microsoft.codepush.react.CodePush;
 import com.rnfs.RNFSPackage;
 
 public class MainApplication extends Application implements ReactApplication {
@@ -37,6 +38,10 @@ public class MainApplication extends Application implements ReactApplication {
         protected String getJSMainModuleName() {
           return "index";
         }
+          @Override
+          protected String getJSBundleFile() {
+              return CodePush.getJSBundleFile();
+          }
       };
 
   private final ReactNativeHost mNewArchitectureNativeHost =

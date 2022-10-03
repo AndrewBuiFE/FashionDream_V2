@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react';
 import {I18nextProvider} from 'react-i18next';
+import CodePush from 'react-native-code-push';
 import {enableScreens} from 'react-native-screens';
 import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
@@ -11,6 +12,7 @@ import {persistor, store} from './src/stores/configureStore';
 enableScreens();
 // var localNotificationService = new LocalNotificationService();
 var fcmService = new FCMService();
+let codePushOptions = {checkFrequency: CodePush.CheckFrequency.MANUAL};
 const App: () => Node = () => {
   useEffect(() => {
     // fcm service
@@ -46,4 +48,4 @@ const App: () => Node = () => {
   );
 };
 
-export default App;
+export default CodePush(codePushOptions)(App);

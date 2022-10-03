@@ -1,6 +1,10 @@
 import {Dimensions} from 'react-native';
 import {AppColors} from './AppColors';
 
+export const GeneralConfig = {
+  firstRun: true,
+  codePushDeploymentKey: '',
+};
 export const AppText = {
   largeTitle: {
     color: AppColors.primaryText,
@@ -63,8 +67,4 @@ export const AppText = {
 export const DeviceConstant = {
   screenWidth: Dimensions.get('screen').width,
   screenHeight: Dimensions.get('screen').height,
-};
-
-export const GeneralConfig = {
-  firstRun: true,
 };
