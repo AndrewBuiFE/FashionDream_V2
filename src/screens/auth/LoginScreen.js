@@ -37,6 +37,7 @@ const LoginScreen = () => {
       console.log('[Signing in...]');
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
+      console.log('User info: ', userInfo);
       dispatch(setAppLogin(true));
       // Create a Google credential with the token
       const googleCredential = auth.GoogleAuthProvider.credential(
