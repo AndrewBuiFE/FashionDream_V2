@@ -9,7 +9,7 @@ const AppAuthen = () => {
   const tag = 'AppAuthen';
   const dispatch = useDispatch();
   const {accessToken} = useSelector(state => state.system);
-  console.log('Access token: ', accessToken);
+  // console.log('Access token: ', accessToken);
   const {
     pagination: {filter: productFilter},
   } = useSelector(

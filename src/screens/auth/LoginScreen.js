@@ -1,7 +1,12 @@
 /* eslint-disable no-shadow */
+import auth from '@react-native-firebase/auth';
+import {
+  GoogleSignin,
+  statusCodes,
+} from '@react-native-google-signin/google-signin';
 import {useNavigation} from '@react-navigation/native';
 import {Formik} from 'formik';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {useDispatch} from 'react-redux';
 import * as Yup from 'yup';
@@ -17,13 +22,72 @@ import {AppText} from '../../shared/constants/AppGlobal';
 import {AppIcons} from '../../shared/constants/AppIcons';
 import {ScreenName} from '../../shared/constants/ScreenName';
 import Utils from '../../shared/helpers/Utils';
-import {setAppAccessToken} from '../../stores/slices/SystemSlice';
-
+import {
+  setAppAccessToken,
+  setAppLogin,
+  setUserInfo,
+} from '../../stores/slices/SystemSlice';
 const LoginScreen = () => {
   // hooks
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  // common vars
+  // utitlity function
+  var ggSignin = async () => {
+    try {
+      console.log('[Signing in...]');
+      await GoogleSignin.hasPlayServices();
+      const userInfo = await GoogleSignin.signIn();
+      dispatch(setAppLogin(true));
+      // Create a Google credential with the token
+      const googleCredential = auth.GoogleAuthProvider.credential(
+        userInfo.idToken,
+      );
+      // Sign-in the user with the credential
+      const userSignIn = await auth().signInWithCredential(googleCredential);
+      dispatch(setUserInfo(userSignIn.additionalUserInfo));
+    } catch (error) {
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        // user cancelled the login flow
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+        // operation (e.g. sign in) is in progress already
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        // play services not available or outdated
+      } else {
+        // some other error happened
+      }
+    }
+  };
+  var signOut = async () => {
+    try {
+      await GoogleSignin.revokeAccess();
+      await GoogleSignin.signOut();
+      dispatch(setAppLogin(false));
+      dispatch(setUserInfo({}));
+      console.log('[Signing out...]');
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  // function onAuthStateChanged(user) {
+  //   dispatch(setUserInfo(user));
+  //   if (user) {
+  //     dispatch
+  //   }
+  // }
+
+  // effect
+  useEffect(() => {
+    GoogleSignin.configure({
+      scopes: ['email'], // what API you want to access on behalf of the user, default is email and profile
+      webClientId:
+        '1018660133102-u8pqahdogjrh2us1tv28e8j7cjn3u5np.apps.googleusercontent.com', // client ID of type WEB for your server (needed to verify user ID and offline access)
+      offlineAccess: true, // if you want to access Google API on behalf of the user FROM YOUR SERVER
+    });
+  }, []);
+  // useEffect(() => {
+  //   const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+  //   return subscriber; // unsubscribe on unmount
+  // }, []);
   return (
     <View style={styles.container}>
       <HeaderComponent
@@ -143,11 +207,20 @@ const LoginScreen = () => {
           <Text style={AppText.primaryText}>Or login with social account</Text>
         </View>
         <View style={styles.socialSection}>
-          <CircleButton isSocialButton icon={AppIcons.google} />
+          <CircleButton
+            isSocialButton
+            icon={AppIcons.google}
+            onButtonPress={() => {
+              ggSignin();
+            }}
+          />
           <CircleButton
             isSocialButton
             icon={AppIcons.facebook}
             customStyle={{marginLeft: 16}}
+            onButtonPress={() => {
+              signOut();
+            }}
           />
         </View>
       </View>

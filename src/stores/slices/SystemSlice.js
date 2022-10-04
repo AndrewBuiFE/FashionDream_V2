@@ -9,6 +9,8 @@ export const initialState = {
   accessToken: '',
   refreshToken: '',
   codepushDeploymentKey: null,
+  appLogin: false,
+  userInfo: [],
 };
 const SystemSlice = createSlice({
   name: tag,
@@ -56,8 +58,25 @@ const SystemSlice = createSlice({
         codepushDeploymentKey: action.payload,
       };
     },
+    setAppLogin(state, action) {
+      return {
+        ...state,
+        appLogin: action.payload,
+      };
+    },
+    setUserInfo(state, action) {
+      return {
+        ...state,
+        userInfo: action.payload,
+      };
+    },
   },
 });
 export default SystemSlice.reducer;
-export const {setAppState, setAppFirstRun, setAppAccessToken} =
-  SystemSlice.actions;
+export const {
+  setAppState,
+  setAppFirstRun,
+  setAppAccessToken,
+  setAppLogin,
+  setUserInfo,
+} = SystemSlice.actions;

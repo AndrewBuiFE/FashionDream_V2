@@ -1,5 +1,6 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
+import LoginScreen from '../screens/auth/LoginScreen';
 import PaymentCardScreen from '../screens/checkout/PaymentCardScreen';
 import ShippingAddressScreen from '../screens/checkout/ShippingAddressScreen';
 import MyOrderScreen from '../screens/profile/MyOrderScreen';
@@ -15,7 +16,7 @@ import TestScreen from '../tests/TestScreen';
 const Stack = createNativeStackNavigator();
 const ProfileNavigator = () => {
   return (
-    <Stack.Navigator initialRouteName={ScreenName.testScreen}>
+    <Stack.Navigator initialRouteName={ScreenName.loginScreen}>
       <Stack.Screen
         name={ScreenName.testScreen}
         component={TestScreen}
@@ -91,6 +92,14 @@ const ProfileNavigator = () => {
       <Stack.Screen
         name={ScreenName.reviewScreen}
         component={ReviewScreen}
+        options={{
+          headerShown: false,
+          title: '',
+        }}
+      />
+      <Stack.Screen
+        name={ScreenName.loginScreen}
+        component={LoginScreen}
         options={{
           headerShown: false,
           title: '',

@@ -9,13 +9,21 @@
     "test": "jest",
     "lint": "eslint . --fix",
     "postinstall": "patch-package",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "CodePush:ios": "appcenter CodePush release-react -a Fortune-Ikechi/MeatBallApp -d Production",
+    "CodePush:android": "appcenter CodePush release-react -a Fortune-Ikechi/MeatBallApp-Android -d Production",
+    "codepush:android:production": " appcenter codepush release-react -a efy.com.vn/EFY-ID -d Production --sourcemap-output index.android.map",
+    "codepush:android:staging": " appcenter codepush release-react -a efy.com.vn/EFY-ID -d Staging --sourcemap-output index.android.map",
+    "codepush:ios:production": " appcenter codepush release-react -a efy.com.vn/EFY-ID-1 -d Production --sourcemap-output index.ios.map",
+    "codepush:ios:staging": " appcenter codepush release-react -a efy.com.vn/EFY-ID-1 -d Staging --sourcemap-output index.ios.map"
   },
   "dependencies": {
     "@alessiocancian/react-native-actionsheet": "^3.1.2",
     "@react-native-async-storage/async-storage": "^1.17.9",
     "@react-native-firebase/app": "^15.6.0",
+    "@react-native-firebase/auth": "^15.7.0",
     "@react-native-firebase/messaging": "^15.6.0",
+    "@react-native-google-signin/google-signin": "^8.0.0",
     "@react-navigation/bottom-tabs": "^6.3.2",
     "@react-navigation/native": "^6.0.11",
     "@react-navigation/native-stack": "^6.7.0",
