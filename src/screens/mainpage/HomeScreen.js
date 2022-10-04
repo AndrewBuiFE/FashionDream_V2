@@ -1,7 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {useNavigation} from '@react-navigation/native';
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {
+  Alert,
+  BackHandler,
   FlatList,
   ImageBackground,
   RefreshControl,
@@ -10,6 +12,9 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import CodePush from 'react-native-code-push';
+import {copilot, CopilotStep, walkthroughable} from 'react-native-copilot';
+import {useDispatch, useSelector} from 'react-redux';
 import {PRODUCT, SECTION} from '../../assets/data';
 import DividerComponent from '../../components/DividerComponent';
 import ProductItemComponent from '../../components/ProductItemComponent';
@@ -19,14 +24,17 @@ import {AppColors} from '../../shared/constants/AppColors';
 import {AppText} from '../../shared/constants/AppGlobal';
 import {AppImages} from '../../shared/constants/AppImages';
 import {ScreenName} from '../../shared/constants/ScreenName';
+import Utils from '../../shared/helpers/Utils';
 const PARALLAX_HEADER_HEIGHT = 536;
 const STICKY_HEADER_HEIGHT = 196;
-
 /**
  * @author Hoang
  * @decription Main screen. Display after logging in
  */
-const HomeScreen = () => {
+const HomeScreen = props => {
+  // common vars
+  const WalkthroughableText = walkthroughable(Text);
+  const WalkthroughableView = walkthroughable(View);
   // common hooks
   const [productsFavorite, setProductsFavorite] = useState(
     PRODUCT.map(product => {
@@ -35,7 +43,10 @@ const HomeScreen = () => {
   );
   const [refresh, setRefresh] = useState(true);
   const navigation = useNavigation();
-
+  const dispatch = useDispatch();
+  const {products, pagination} = useSelector(state => state.product);
+  const {codepushDeploymentKey} = useSelector(state => state.system);
+  const ScrollViewRef = useRef();
   // rendering functions
   const renderItem = useCallback(
     /**
@@ -105,14 +116,30 @@ const HomeScreen = () => {
             }}>
             Fashion sale
           </Text>
-          <RadiusButton
-            title="Check"
-            type="redButton"
-            buttonCustomStyle={{width: 160, marginLeft: 15, marginTop: 18}}
-            onButtonPress={() => {
-              navigation.navigate(ScreenName.shopNavigator);
-            }}
-          />
+          <CopilotStep
+            name="checkButton"
+            order={1}
+            text="Press here to see new features"
+            active={false}>
+            {/* <RadiusButton
+              title="Check"
+              type="redButton"
+              buttonCustomStyle={{width: 160, marginLeft: 15, marginTop: 18}}
+              onButtonPress={() => {
+                navigation.navigate(ScreenName.shopNavigator);
+              }}
+            /> */}
+            <WalkthroughableView>
+              <RadiusButton
+                title="Check"
+                type="redButton"
+                buttonCustomStyle={{width: 160, marginLeft: 15, marginTop: 18}}
+                onButtonPress={() => {
+                  navigation.navigate(ScreenName.shopNavigator);
+                }}
+              />
+            </WalkthroughableView>
+          </CopilotStep>
         </ImageBackground>
       </View>
     );
@@ -121,7 +148,6 @@ const HomeScreen = () => {
     return (
       <View
         style={{
-          height: 196,
           width: '100%',
         }}>
         <ImageBackground
@@ -134,6 +160,71 @@ const HomeScreen = () => {
       </View>
     );
   }, []);
+
+  // effect
+  const handleStepChange = step => {
+    //Handler, in case we want to handle the step change
+    console.log(`Current step is: ${step.name}`);
+  };
+  const backAction = () => {
+    Alert.alert('Exit App?', 'Do you want to exit this app?', [
+      {
+        text: 'Cancel',
+        onPress: () => null,
+        style: 'cancel',
+      },
+      {
+        text: 'Exit',
+        onPress: () => BackHandler.exitApp(),
+      },
+    ]);
+    return true;
+  };
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', backAction);
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', backAction);
+    };
+  }, []);
+  useEffect(() => {
+    props.copilotEvents.on('step change', handleStepChange);
+    props.start(false, ScrollViewRef.current);
+    return () => {
+      props.copilotEvents.off('stop');
+    };
+  }, []);
+  // codepush
+  useEffect(() => {
+    if (codepushDeploymentKey && codepushDeploymentKey.length > 0) {
+      CodePush.sync(
+        {
+          updateDialog: true,
+          installMode: CodePush.InstallMode.IMMEDIATE,
+          deploymentKey: codepushDeploymentKey,
+        },
+        status => {
+          switch (status) {
+            case CodePush.SyncStatus.DOWNLOADING_PACKAGE:
+              Utils.toast('Downloading...');
+              break;
+            case CodePush.SyncStatus.INSTALLING_UPDATE:
+              Utils.toast('Installing...');
+              break;
+            case CodePush.SyncStatus.UPDATE_INSTALLED:
+              Utils.toast('Installed');
+              break;
+            default:
+              break;
+          }
+        },
+        ({receivedBytes, totalBytes}) => {
+          Utils.toast(
+            `Downloading...${Math.round((receivedBytes * 100) / totalBytes)}%`,
+          );
+        },
+      );
+    }
+  }, [codepushDeploymentKey]);
   return (
     <ParallaxScrollView
       backgroundColor="black"
@@ -145,7 +236,8 @@ const HomeScreen = () => {
         flex: 1,
       }}
       renderForeground={renderStickyForeGround}
-      renderStickyHeader={renderStickHeader}>
+      renderStickyHeader={renderStickHeader}
+      ref={ScrollViewRef.current}>
       {SECTION.map((section, index) => {
         return (
           <View style={{marginTop: 40, marginLeft: 16}} key={index}>
@@ -156,16 +248,27 @@ const HomeScreen = () => {
                   {section.description}
                 </Text>
               </View>
-              <TouchableOpacity style={{marginRight: 14}}>
-                <Text
-                  style={[AppText.tinyTitle, {color: AppColors.primaryText}]}>
-                  View all
-                </Text>
-              </TouchableOpacity>
+              <CopilotStep
+                name={`View all ${index}`}
+                order={index + 2}
+                text="View all products here"
+                active={false}>
+                <WalkthroughableView>
+                  <TouchableOpacity style={{marginRight: 14}}>
+                    <Text
+                      style={[
+                        AppText.tinyTitle,
+                        {color: AppColors.primaryText},
+                      ]}>
+                      View all
+                    </Text>
+                  </TouchableOpacity>
+                </WalkthroughableView>
+              </CopilotStep>
             </View>
             <View style={{marginTop: 22}}>
               <FlatList
-                data={PRODUCT}
+                data={products}
                 horizontal
                 // refreshControl={renderRefresh}
                 showsHorizontalScrollIndicator={false}
@@ -181,5 +284,12 @@ const HomeScreen = () => {
     </ParallaxScrollView>
   );
 };
-export default HomeScreen;
+
+export default copilot({
+  animated: true,
+  overlay: 'svg',
+  stopOnOutsideClick: true,
+  // backdropColor: 'red',
+  verticalOffset: 0,
+})(HomeScreen);
 const styles = StyleSheet.create({});

@@ -1,6 +1,17 @@
-import React from 'react';
-import {Image, Text, TouchableOpacity, View} from 'react-native';
-import {AppText} from '../shared/constants/AppGlobal';
+import _ from 'lodash';
+import React, {useRef} from 'react';
+import {
+  Animated,
+  Easing,
+  Image,
+  Text,
+  TextInput,
+  TouchableHighlight,
+  View,
+} from 'react-native';
+import {AppColors} from '../shared/constants/AppColors';
+import {AppText, DeviceConstant} from '../shared/constants/AppGlobal';
+import {AppIcons} from '../shared/constants/AppIcons';
 
 /**
  * @author hoang
@@ -8,11 +19,12 @@ import {AppText} from '../shared/constants/AppGlobal';
  * @typedef Prop
  * @property {string=} title
  * @property {'large' | 'medium'} type
- * @property {import('react-native').StyleProp<import('react-native').ImageStyle>=} leftIcon
- * @property {import('react-native').StyleProp<import('react-native').ImageStyle>=} rightIcon
  * @property {import('react-native').StyleProp<import('react-native').ViewStyle>=} customViewStyle
- * @property {()=> void=} onLeftIconPress
- * @property {()=> void=} onRightIconPress
+ * @property {import('react-native').ImageStyle=} leftIcon
+ * @property {import('react-native').ImageStyle=} rightIcon
+ * @property {Function=} onLeftIconPress
+ * @property {Function=} onRightIconPress
+ * @property {'search'} customAction
  * @param {Prop} props
  */
 export default function HeaderComponent(props) {
@@ -21,31 +33,74 @@ export default function HeaderComponent(props) {
     type,
     leftIcon,
     rightIcon,
-    customViewStyle,
     onLeftIconPress,
     onRightIconPress,
+    customViewStyle,
+    customAction,
   } = props;
+  // hooks
+  const inputBoxTranslateX = useRef(
+    new Animated.Value(DeviceConstant.screenWidth),
+  ).current;
+  const backButtonOpacity = useRef(new Animated.Value(0)).current;
+  const inputRef = useRef();
+  // functions
+  const onFocus = () => {
+    const inputBoxConfig = Animated.timing(inputBoxTranslateX, {
+      toValue: 0,
+      duration: 200,
+      easing: Easing.inOut(Easing.ease),
+      useNativeDriver: true,
+    });
+    const backButtonConfig = Animated.timing(backButtonOpacity, {
+      duration: 200,
+      toValue: 1,
+      easing: Easing.inOut(Easing.ease),
+      useNativeDriver: true,
+    });
+    inputBoxConfig.start();
+    backButtonConfig.start();
+  };
+  const onBlur = () => {
+    const inputBoxConfig = Animated.timing(inputBoxTranslateX, {
+      toValue: DeviceConstant.screenWidth,
+      duration: 200,
+      easing: Easing.inOut(Easing.ease),
+      useNativeDriver: true,
+    });
+    const backButtonConfig = Animated.timing(backButtonOpacity, {
+      duration: 200,
+      toValue: 1,
+      easing: Easing.inOut(Easing.ease),
+      useNativeDriver: true,
+    });
+    inputBoxConfig.start();
+    backButtonConfig.start();
+  };
   return type == 'medium' ? (
-    <View
+    <Animated.View
       style={{
         flexDirection: 'row',
         width: '100%',
         height: 44,
-        paddingHorizontal: 8,
+        // paddingHorizontal: 8,
         alignItems: 'center',
         justifyContent: 'space-between',
         ...customViewStyle,
       }}>
-      <TouchableOpacity
-        onPress={onLeftIconPress}
+      <TouchableHighlight
+        activeOpacity={1}
+        underlayColor={'gray'}
+        onPress={_.isFunction(onLeftIconPress) ? onLeftIconPress : null}
         style={{
-          width: 24,
-          height: 24,
+          width: 44,
+          height: 44,
+          borderRadius: 50,
           justifyContent: 'center',
           alignItems: 'center',
         }}>
         <Image source={leftIcon} style={{}} />
-      </TouchableOpacity>
+      </TouchableHighlight>
       <View style={{flex: 1, paddingHorizontal: 10}}>
         <Text
           style={[AppText.mediumTitle, {textAlign: 'center'}]}
@@ -53,54 +108,170 @@ export default function HeaderComponent(props) {
           {title}
         </Text>
       </View>
-      <TouchableOpacity
-        onPress={onRightIconPress}
+      <TouchableHighlight
+        activeOpacity={1}
+        underlayColor={'gray'}
+        onPress={
+          _.isFunction(onRightIconPress)
+            ? onRightIconPress
+            : _.isString(customAction) && customAction === 'search'
+            ? onFocus
+            : null // add other actions later
+        }
         style={{
-          width: 24,
-          height: 24,
+          width: 44,
+          height: 44,
+          borderRadius: 50,
           justifyContent: 'center',
           alignItems: 'center',
         }}>
         <Image source={rightIcon} />
-      </TouchableOpacity>
-    </View>
+      </TouchableHighlight>
+      <Animated.View
+        style={{
+          transform: [
+            {
+              translateX: inputBoxTranslateX,
+            },
+          ],
+          height: 44,
+          flexDirection: 'row',
+          position: 'absolute',
+          alignItems: 'center',
+          backgroundColor: 'gray',
+          width: DeviceConstant.screenWidth,
+        }}>
+        <Animated.View style={{opacity: backButtonOpacity}}>
+          <TouchableHighlight
+            activeOpacity={1}
+            underlayColor={'#ccd0d5'}
+            onPress={onBlur}
+            style={{
+              width: 44,
+              height: 44,
+              borderRadius: 50,
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginRight: 5,
+            }}>
+            <Image source={AppIcons.back_arrow} />
+          </TouchableHighlight>
+        </Animated.View>
+        <TextInput
+          ref={inputRef}
+          placeholder="Search"
+          clearButtonMode="always"
+          style={{
+            flex: 1,
+            height: 40,
+            backgroundColor: AppColors.lightDark,
+            borderRadius: 16,
+            paddingHorizontal: 16,
+            fontSize: 16,
+          }}
+        />
+      </Animated.View>
+    </Animated.View>
   ) : (
-    <View style={{height: 96, width: '100%', ...customViewStyle}}>
-      <View
+    <Animated.View
+      style={{
+        height: 96,
+        width: '100%',
+        ...customViewStyle,
+      }}>
+      <Animated.View
         style={{
           flexDirection: 'row',
           width: '100%',
           height: 44,
-          paddingHorizontal: 8,
+          // paddingHorizontal: 8,
           alignItems: 'center',
           justifyContent: 'space-between',
         }}>
-        <TouchableOpacity
-          onPress={onLeftIconPress}
+        <TouchableHighlight
+          activeOpacity={1}
+          underlayColor={'gray'}
+          onPress={_.isFunction(onLeftIconPress) ? onLeftIconPress : null}
           style={{
-            width: 24,
-            height: 24,
+            width: 44,
+            height: 44,
+            borderRadius: 50,
             justifyContent: 'center',
             alignItems: 'center',
           }}>
           <Image source={leftIcon} style={{}} />
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={onRightIconPress}
+        </TouchableHighlight>
+        <TouchableHighlight
+          activeOpacity={1}
+          underlayColor={'gray'}
+          onPress={
+            _.isFunction(onRightIconPress)
+              ? onRightIconPress
+              : _.isString(customAction) && customAction === 'search'
+              ? onFocus
+              : null // add other actions later
+          }
           style={{
-            width: 24,
-            height: 24,
+            width: 44,
+            height: 44,
+            borderRadius: 50,
             justifyContent: 'center',
             alignItems: 'center',
           }}>
           <Image source={rightIcon} />
-        </TouchableOpacity>
-      </View>
+        </TouchableHighlight>
+        <Animated.View
+          style={{
+            transform: [
+              {
+                translateX: inputBoxTranslateX,
+              },
+            ],
+            height: 44,
+            flexDirection: 'row',
+            position: 'absolute',
+            alignItems: 'center',
+            backgroundColor: 'gray',
+            width: DeviceConstant.screenWidth,
+          }}>
+          <Animated.View style={{opacity: backButtonOpacity}}>
+            <TouchableHighlight
+              activeOpacity={1}
+              underlayColor={'#ccd0d5'}
+              onPress={onBlur}
+              style={{
+                width: 44,
+                height: 44,
+                borderRadius: 50,
+                flexDirection: 'row',
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginRight: 5,
+              }}>
+              <Image source={AppIcons.back_arrow} />
+            </TouchableHighlight>
+          </Animated.View>
+          <TextInput
+            ref={inputRef}
+            placeholder="Search"
+            clearButtonMode="always"
+            style={{
+              flex: 1,
+              height: 40,
+              backgroundColor: AppColors.lightDark,
+              borderRadius: 16,
+              paddingHorizontal: 16,
+              fontSize: 16,
+            }}
+          />
+        </Animated.View>
+      </Animated.View>
       <View style={{marginTop: 18, paddingLeft: 14}}>
         <Text style={[AppText.largeTitle]} numberOfLines={1}>
           {title}
         </Text>
       </View>
-    </View>
+    </Animated.View>
   );
 }

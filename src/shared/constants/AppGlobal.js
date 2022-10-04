@@ -1,6 +1,10 @@
 import {Dimensions} from 'react-native';
 import {AppColors} from './AppColors';
 
+export const GeneralConfig = {
+  firstRun: true,
+  codePushDeploymentKey: '',
+};
 export const AppText = {
   largeTitle: {
     color: AppColors.primaryText,
@@ -36,7 +40,7 @@ export const AppText = {
   mediumTitle: {
     color: AppColors.primaryText,
     fontFamily: 'Metropolis',
-    fontWeight: '650',
+    // fontWeight: '700',
     fontSize: 18,
     lineHeight: 22,
   },

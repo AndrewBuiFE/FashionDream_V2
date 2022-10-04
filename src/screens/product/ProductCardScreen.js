@@ -29,8 +29,14 @@ const SLIDER_WIDTH = 275;
 /**
  * @author Hoang
  * @description ProductCardScreen
+ *
  */
 const ProductCardScreen = props => {
+  // common used var
+  /**
+   * @type {import('../../models/types/index.d').Product}
+   */
+  const product = props?.route?.params?.product;
   // common hooks
   const navigation = useNavigation();
   const goBack = navigation.goBack;
@@ -51,11 +57,7 @@ const ProductCardScreen = props => {
       return product.isFavorited;
     }),
   );
-  // common used var
-  /**
-   * @type {import('../../models/types/index.d').Product}
-   */
-  const product = props?.route?.params?.product;
+  const [favoriteStatus, setFavorite] = useState(false);
 
   // common functions
   const dismissModal = () => {
@@ -330,9 +332,14 @@ const ProductCardScreen = props => {
           <CircleButton
             type="darkButton"
             size="small"
-            icon={AppIcons.heart_inactive}
+            icon={
+              favoriteStatus ? AppIcons.heart_active : AppIcons.heart_inactive
+            }
             iconStyle={{width: 13, height: 12}}
             customStyle={{}}
+            onButtonPress={() => {
+              setFavorite(currentStatus => !currentStatus);
+            }}
           />
         </View>
         <View style={{paddingHorizontal: 16}}>

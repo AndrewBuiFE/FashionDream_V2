@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {ScrollView, Text} from 'react-native';
-import {PRODUCT, PROMO_CODE} from '../assets/data';
+import {PROMO_CODE} from '../assets/data';
 import CartItem from '../components/CartItem';
 import CheckBox from '../components/CheckBox';
 import CircleButton from '../components/CircleButton';
@@ -9,6 +9,7 @@ import DemoComponent from '../components/DemoComponent';
 import ConfirmDialog, {
   ConfirmDialogRef,
 } from '../components/dialog/ConfirmDialog';
+import RenderLoading from '../components/dialog/RenderLoading';
 import DividerComponent from '../components/DividerComponent';
 import EditTextComponent from '../components/EditTextComponent';
 import FilterComponent from '../components/FilterComponent';
@@ -16,9 +17,9 @@ import HeaderComponent from '../components/HeaderComponent';
 import LabelComponent from '../components/LabelComponent';
 import Modalheader from '../components/ModalHeader';
 import PickerComponent from '../components/PickerComponent';
-import ProductItemComponent from '../components/ProductItemComponent';
 import PromoCode from '../components/PromoCode';
 import RadiusButton from '../components/RadiusButton';
+import ReviewComponent from '../components/ReviewComponent';
 import SearchBar from '../components/SearchBar';
 import StarComponent from '../components/StarComponent';
 import TagComponent from '../components/TagComponent';
@@ -27,6 +28,7 @@ import ActionSheet from '../screens/modals/ActionSheet';
 import {AppColors} from '../shared/constants/AppColors';
 import {DeviceConstant} from '../shared/constants/AppGlobal';
 import {AppIcons} from '../shared/constants/AppIcons';
+import TestApiScreen from './TestApi';
 const TestComponent = () => {
   const [text, setText] = useState('');
   return (
@@ -36,6 +38,7 @@ const TestComponent = () => {
         backgroundColor: 'black',
         alignItems: 'center',
       }}>
+      <TestApiScreen />
       <DividerComponent />
       <Text>Radius button</Text>
       <RadiusButton
@@ -141,7 +144,7 @@ const TestComponent = () => {
       />
       <DividerComponent />
       <Text>Color</Text>
-      <ProductItemComponent product={PRODUCT[0]} isHorizontal />
+      {/* <ProductItemComponent product={PRODUCT[0]} isHorizontal /> */}
       <DividerComponent />
       <Text>Color</Text>
       <StarComponent quantity={5} size="small" />
@@ -171,7 +174,14 @@ const TestComponent = () => {
       <Text>Promo code</Text>
       <PromoCode promo={PROMO_CODE[0]} />
       <DividerComponent />
+      <Text>Review</Text>
+      <ReviewComponent />
+      <DividerComponent />
       <ActionSheet />
+      <DividerComponent />
+      <RenderLoading />
+      <DividerComponent />
+      {/* <WebViewDemo /> */}
     </ScrollView>
   );
 };

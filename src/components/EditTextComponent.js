@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Image, Text, TextInput, View} from 'react-native';
+import {TextInputMask} from 'react-native-masked-text';
 import {AppColors} from '../shared/constants/AppColors';
 import {AppText} from '../shared/constants/AppGlobal';
 import {AppIcons} from '../shared/constants/AppIcons';
@@ -11,7 +12,9 @@ import {AppIcons} from '../shared/constants/AppIcons';
  * @property {string=} inputLabel
  * @property {string} inputText
  * @property {string=} alertText
+ * @property {'normal' | 'credit-card' | 'datetime' | 'other'} type
  * @property {import('react-native').StyleProp<import('react-native').ImageStyle>} rightIcon
+ * @property {import('react-native').KeyboardTypeOptions} keyboardType
  * @property {boolean=} isAlerting
  * @property {boolean=} isShowRightIcon
  * @property {boolean} isShowLabel
@@ -26,8 +29,10 @@ export default function EditTextComponent(props) {
     inputText,
     inputLabel,
     alertText,
+    keyboardType,
     placeholder,
     isAlerting,
+    type = 'normal',
     isShowRightIcon,
     rightIcon,
     isShowLabel,
@@ -35,6 +40,7 @@ export default function EditTextComponent(props) {
     onTextBlur,
     onTextEdit,
   } = props;
+  const [text, setText] = useState('');
   return (
     <View>
       <View
@@ -60,20 +66,39 @@ export default function EditTextComponent(props) {
               {inputLabel}
             </Text>
           ) : null}
-          <TextInput
-            numberOfLines={1}
-            value={inputText}
-            placeholder={placeholder}
-            style={[
-              AppText.primaryText,
-              {
-                paddingVertical: 0,
-                paddingLeft: 0,
-              },
-            ]}
-            onChangeText={onTextEdit}
-            onBlur={onTextBlur}
-          />
+          {type === 'normal' ? (
+            <TextInput
+              numberOfLines={1}
+              value={inputText}
+              placeholder={placeholder}
+              style={[
+                AppText.primaryText,
+                {
+                  paddingVertical: 0,
+                  paddingLeft: 0,
+                },
+              ]}
+              onChangeText={onTextEdit}
+              onBlur={onTextBlur}
+              keyboardType={keyboardType}
+            />
+          ) : (
+            <TextInputMask
+              type={type}
+              options={{
+                format: 'DD/MM/YYYY',
+              }}
+              value={inputText}
+              onChangeText={onTextEdit}
+              style={[
+                AppText.primaryText,
+                {
+                  paddingVertical: 0,
+                  paddingLeft: 0,
+                },
+              ]}
+            />
+          )}
         </View>
         {isShowRightIcon ? (
           <View style={{marginRight: 21}}>

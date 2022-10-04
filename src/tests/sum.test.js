@@ -1,9 +1,8 @@
-const sum = require('./sum');
+const sum = require('./test');
 
 test('adds 1 + 2 to equal 3', () => {
   expect(sum(1, 2)).toBe(3);
 });
-
 test('null', () => {
   const n = null;
   expect(n).toBeNull();
@@ -40,5 +39,5 @@ test('compiling android goes as expected', () => {
 
   // You can also use the exact error message or a regexp
   expect(() => compileAndroidCode()).toThrow('you are using the wrong JDK');
-  expect(() => compileAndroidCode()).toThrow(/JK/);
+  expect(() => compileAndroidCode()).toThrow(/JDK/);
 });

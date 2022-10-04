@@ -1,7 +1,8 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
-import React from 'react';
-import {Image, Platform} from 'react-native';
+import React, {useEffect, useRef} from 'react';
+import {AppState, Image, Platform} from 'react-native';
+import {useDispatch} from 'react-redux';
 import ConfirmDialog, {
   ConfirmDialogRef,
 } from '../components/dialog/ConfirmDialog';
@@ -10,6 +11,7 @@ import ActionSheet from '../screens/modals/ActionSheet';
 import {AppColors} from '../shared/constants/AppColors';
 import {AppIcons} from '../shared/constants/AppIcons';
 import {ScreenName} from '../shared/constants/ScreenName';
+import {setAppState} from '../stores/slices/SystemSlice';
 import CartNavigator from './CartNavigator';
 import FavoriteNavigator from './FavoriteNavigator';
 import HomeNavigator from './HomeNavigator';
@@ -34,9 +36,23 @@ const TabIcons = {
     icon: [AppIcons.profile_active, AppIcons.profile_inactive],
   },
 };
+const tabHiddenRoutes = [ScreenName.loginScreen, ScreenName.introScreen];
 const AppNavigator = () => {
   // const {t, i18n} = useTranslation('i18n');
-
+  const appState = useRef(AppState.currentState);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const subscription = AppState.addEventListener('change', nextAppState => {
+      appState.current = nextAppState;
+      dispatch(setAppState(appState.current));
+      console.log('Appstate: ', appState.current);
+    });
+    return () => {
+      // clean up code. Run first when compiler reach useEffect.
+      // Anytime component unmount => Call this return first.
+      subscription.remove();
+    };
+  });
   return (
     <NavigationContainer>
       <Tab.Navigator
@@ -64,6 +80,7 @@ const AppNavigator = () => {
             shadowOffset: {width: 0, height: -4},
             shadowRadius: 20,
             elevation: 2,
+            // display: tabHiddenRoutes.includes(routeName) ? 'none' : 'flex',
           },
           tabBarItemStyle: {
             backgroundColor: AppColors.primaryBackground,
@@ -85,9 +102,9 @@ const AppNavigator = () => {
         <Tab.Screen
           name={ScreenName.homeNavigator}
           component={HomeNavigator}
-          options={{
+          options={({route}) => ({
             tabBarLabel: 'Home',
-          }}
+          })}
         />
         <Tab.Screen
           name={ScreenName.shopNavigator}

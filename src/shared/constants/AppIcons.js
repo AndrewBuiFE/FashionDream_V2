@@ -43,4 +43,7 @@ export const AppIcons = {
   // checkout
   chip: require('../../assets/icons/chip.png'),
   help: require('../../assets/icons/help.png'),
+  // review
+  thumb_up: require('../../assets/icons/thumb_up.png'),
+  camera: require('../../assets/icons/camera.png'),
 };

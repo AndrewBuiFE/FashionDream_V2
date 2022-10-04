@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1018660133102",
+    "project_id": "fashiondream-d4049",
+    "storage_bucket": "fashiondream-d4049.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1018660133102:android:e44caf6a1ec6cff1913bff",
+        "android_client_info": {
+          "package_name": "com.fashiondreamv2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1018660133102-9jjd5fjoahhq6iiakcodhaq8h2fvo140.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fashiondreamv2",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "1018660133102-u8pqahdogjrh2us1tv28e8j7cjn3u5np.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCmM72adn5NmRphd2rQRY0umEM3YsLaS-k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1018660133102-u8pqahdogjrh2us1tv28e8j7cjn3u5np.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -10,7 +10,7 @@ import {AppText} from '../../shared/constants/AppGlobal';
 export const ScaleToastRef = createRef();
 
 export const ToastDuration = {
-  SHORT: 2500,
+  SHORT: 2000,
   LONG: 4000,
 };
 
@@ -42,7 +42,7 @@ export default function ScaleToast() {
     <Modal
       animationType="fade"
       visible={showing}
-      transparent={false}
+      transparent={true}
       focusable={false}
       onRequestClose={() => false}
       statusBarTranslucent
@@ -50,14 +50,18 @@ export default function ScaleToast() {
       <TouchableOpacity
         activeOpacity={1}
         onPress={() => setShowing(false)}
-        style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
         <View
           style={[
             {
               bottom: '10%',
               position: 'absolute',
               borderRadius: 20,
-              backgroundColor: 'rgba(0,0,0,0.8)',
+              backgroundColor: AppColors.lightDark,
               justifyContent: 'center',
               alignItems: 'center',
               flexShrink: 1,

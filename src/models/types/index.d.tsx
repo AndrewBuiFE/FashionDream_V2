@@ -1,19 +1,39 @@
-import { ImageStyle } from 'react-native/Libraries/StyleSheet/StyleSheet';
+import {ImageStyle} from 'react-native/Libraries/StyleSheet/StyleSheet';
 
 export type DeliveryName = 'FEDex' | 'USPSCOM' | 'DHL';
 export type ShippingStatus = 'Cancel' | 'Received' | 'Shipping' | 'Delivered';
 export interface Product {
-  image: Array<ImageStyle>;
-  discountPercent: number;
-  star: number;
-  comment: number;
-  description: string;
-  brand: string;
+  // id: number;
+  // user: User[];
+  // title: string;
+  // description: string;
+  // originalPrice: number;
+  // quantity: number;
+  // image: Array<ImageStyle>;
+  // discountPercent: number;
+  // star: number;
+  // comment: number;
+  // brand: string;
+  // isFavorited: boolean;
+  // timeCreated: Date;
+  // isAvailable: boolean;
+  id: number;
   title: string;
-  originalPrice: number;
-  isFavorited: boolean;
-  timeCreated: Date;
-  isAvailable: boolean;
+  metaTitle: string;
+  slug: string;
+  description: string;
+  price: number;
+  discount: number;
+  quantity: number;
+  content: string;
+  brand: string;
+  image: ProductImage[];
+  review: Review[];
+}
+
+export interface ProductImage {
+  id: number;
+  imageURL: string;
 }
 
 export interface PromoCode {
@@ -42,11 +62,11 @@ export interface Delivery {
 }
 
 export interface PaymentMethod {
-  cardName: string;
+  cardHolder: string;
   cardNumber: string;
   expireDate: Date;
   cvv: number;
-  isDefault: boolean;
+  defaultPayment: boolean;
 }
 
 export interface Cart {
@@ -76,12 +96,17 @@ export interface Order {
 }
 
 export interface Review {
-  star: number;
-  dayReview: Date;
+  // rating: number;
+  // publishedAt: Date;
+  // content: string;
+  // isHelpful: boolean;
+  // photos: ImageStyle[];
+  // reviewer: User;
+  // title: string;
+  title: string;
+  rating: number;
   content: string;
-  isHelpful: boolean;
-  photos: ImageStyle[];
-  reviewer: User;
+  user: User;
 }
 
 export interface Notification {
@@ -95,8 +120,19 @@ export interface Setting {
   password: string;
   notification: Notification;
 }
-
+export enum Role {
+  user = 'user',
+  admin = 'admin',
+}
 export interface User {
+  id: number;
+  name: string;
+  phone: number;
+  email: string;
+  hashedPassword: string;
+  role: Role;
+  registeredAt: Date;
+  lastLogin: Date;
   order: Order[];
   shippingAddr: ShippingAddress[];
   paymentMethod: PaymentMethod[];

@@ -11,4 +11,8 @@ export const AppImages = {
   dhl: require('../../assets/images/dhl.png'),
   usps: require('../../assets/images/usps.png'),
   bags: require('../../assets/images/bags.png'),
+  visual_search: require('../../assets/images/visual_search.png'),
+  first_intro: require('../../assets/images/img_onboarding_1.png'),
+  second_intro: require('../../assets/images/img_onboarding_2.png'),
+  third_intro: require('../../assets/images/img_onboarding_3.png'),
 };
