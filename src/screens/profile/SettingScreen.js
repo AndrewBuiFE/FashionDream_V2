@@ -1,28 +1,58 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
-import {Switch, Text, TouchableOpacity, View} from 'react-native';
+import {ScrollView, Switch, Text, TouchableOpacity, View} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
+import ButtonSwitch from '../../components/ButtonSwitch';
 import DividerComponent from '../../components/DividerComponent';
 import EditTextComponent from '../../components/EditTextComponent';
 import HeaderComponent from '../../components/HeaderComponent';
 import {AppColors} from '../../shared/constants/AppColors';
 import {AppText} from '../../shared/constants/AppGlobal';
 import {AppIcons} from '../../shared/constants/AppIcons';
+import {setAppLanguage} from '../../stores/slices/SystemSlice';
+import {Language} from '../../types/system';
 import ChangePasswordModal from '../modals/ChangePasswordModal';
 const NOTIFICATION = ['Sales', 'New arrivals', 'Delivery status changes'];
 const SettingScreen = () => {
   // hooks
   const navigation = useNavigation();
   const goBack = navigation.goBack;
+  const dispatch = useDispatch();
+  const {language} = useSelector(state => state.system);
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
   const [isModalVisible, setVisible] = useState(false);
-
+  const [buttonType, setButtonType] = useState(
+    language === Language.en ? false : true,
+  );
   // utility functions
   const dismissModal = () => {
     setVisible(false);
   };
+  const handleLanguageInput = () => {
+    switch (language) {
+      case Language.vn:
+        return {
+          languageToChange: Language.en,
+        };
+      case Language.en:
+        return {
+          languageToChange: Language.vn,
+        };
+      default:
+        return {
+          languageToChange: Language.en,
+        };
+    }
+  };
+  const toggleButtonType = () => {
+    setButtonType(!buttonType);
+    dispatch(setAppLanguage(handleLanguageInput().languageToChange));
+  };
   return (
-    <View style={{flex: 1, backgroundColor: AppColors.primaryBackground}}>
+    <ScrollView
+      style={{flex: 1, backgroundColor: AppColors.primaryBackground}}
+      showsVerticalScrollIndicator={false}>
       <ChangePasswordModal
         dismissModal={dismissModal}
         isModalVisible={isModalVisible}
@@ -101,8 +131,16 @@ const SettingScreen = () => {
             />
           </View>
         ))}
+        <Text style={[AppText.primaryText, {fontWeight: '650'}]}>Language</Text>
+        <ButtonSwitch
+          leftTitle="Vietnamese"
+          rightTitle="English"
+          buttonType={buttonType}
+          toggleButtonType={toggleButtonType}
+          customStyle={{marginVertical: 23}}
+        />
       </View>
-    </View>
+    </ScrollView>
   );
 };
 export default SettingScreen;

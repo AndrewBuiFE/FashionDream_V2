@@ -16,7 +16,7 @@ import TestScreen from '../tests/TestScreen';
 const Stack = createNativeStackNavigator();
 const ProfileNavigator = () => {
   return (
-    <Stack.Navigator initialRouteName={ScreenName.loginScreen}>
+    <Stack.Navigator initialRouteName={ScreenName.profileScreen}>
       <Stack.Screen
         name={ScreenName.testScreen}
         component={TestScreen}

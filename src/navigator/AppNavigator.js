@@ -1,8 +1,9 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
 import React, {useEffect, useRef} from 'react';
+import {useTranslation} from 'react-i18next';
 import {AppState, Image, Platform} from 'react-native';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import ConfirmDialog, {
   ConfirmDialogRef,
 } from '../components/dialog/ConfirmDialog';
@@ -38,9 +39,11 @@ const TabIcons = {
 };
 const tabHiddenRoutes = [ScreenName.loginScreen, ScreenName.introScreen];
 const AppNavigator = () => {
-  // const {t, i18n} = useTranslation('i18n');
+  const {t, i18n} = useTranslation('fashion');
+  const {language} = useSelector(state => state.system);
   const appState = useRef(AppState.currentState);
   const dispatch = useDispatch();
+  console.log('Language: ', language);
   useEffect(() => {
     const subscription = AppState.addEventListener('change', nextAppState => {
       appState.current = nextAppState;
@@ -53,6 +56,9 @@ const AppNavigator = () => {
       subscription.remove();
     };
   });
+  useEffect(() => {
+    i18n.changeLanguage(language);
+  }, [language, i18n]);
   return (
     <NavigationContainer>
       <Tab.Navigator
@@ -103,35 +109,35 @@ const AppNavigator = () => {
           name={ScreenName.homeNavigator}
           component={HomeNavigator}
           options={({route}) => ({
-            tabBarLabel: 'Home',
+            tabBarLabel: t('BOTTOM_TAB')?.home,
           })}
         />
         <Tab.Screen
           name={ScreenName.shopNavigator}
           component={ShopNavigator}
           options={{
-            tabBarLabel: 'Shop',
+            tabBarLabel: t('BOTTOM_TAB')?.shop,
           }}
         />
         <Tab.Screen
           name={ScreenName.cartNavigator}
           component={CartNavigator}
           options={{
-            tabBarLabel: 'Bag',
+            tabBarLabel: t('BOTTOM_TAB')?.bag,
           }}
         />
         <Tab.Screen
           name={ScreenName.favoriteNavigator}
           component={FavoriteNavigator}
           options={{
-            tabBarLabel: 'Favorites',
+            tabBarLabel: t('BOTTOM_TAB')?.favorite,
           }}
         />
         <Tab.Screen
           name={ScreenName.profileNavigator}
           component={ProfileNavigator}
           options={{
-            tabBarLabel: 'Profile',
+            tabBarLabel: t('BOTTOM_TAB')?.profile,
           }}
         />
       </Tab.Navigator>

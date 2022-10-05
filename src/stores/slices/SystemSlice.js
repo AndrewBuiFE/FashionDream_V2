@@ -34,7 +34,7 @@ const SystemSlice = createSlice({
         accessToken: action.payload,
       };
     },
-    changeLanguage(state, action) {
+    setAppLanguage(state, action) {
       return {
         ...state,
         language: action.payload,
@@ -79,4 +79,5 @@ export const {
   setAppAccessToken,
   setAppLogin,
   setUserInfo,
+  setAppLanguage,
 } = SystemSlice.actions;

@@ -9,10 +9,10 @@ i18n
     compatibilityJSON: 'v3',
     resources: {
       vi: {
-        strings: strings_vi,
+        fashion: strings_vi,
       },
       en: {
-        strings: strings_en,
+        fashion: strings_en,
       },
     },
     lng: 'vi',
