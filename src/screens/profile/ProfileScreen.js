@@ -1,6 +1,7 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
-import {Image, Text, View} from 'react-native';
+import {Image, ScrollView, Text, View} from 'react-native';
+import {useSelector} from 'react-redux';
 import DividerComponent from '../../components/DividerComponent';
 import HeaderComponent from '../../components/HeaderComponent';
 import PickerComponent from '../../components/PickerComponent';
@@ -12,8 +13,14 @@ import {ScreenName} from '../../shared/constants/ScreenName';
 const ProfileScreen = () => {
   // common hooks
   const navigation = useNavigation();
+  /**
+   * @type {{userInfo: import('../../types/system').UserInfo}}
+   */
+  const {userInfo} = useSelector(state => state.system);
   return (
-    <View style={{flex: 1, backgroundColor: AppColors.primaryBackground}}>
+    <ScrollView
+      style={{flex: 1, backgroundColor: AppColors.primaryBackground}}
+      showsVerticalScrollIndicator={false}>
       <HeaderComponent
         type="large"
         title="My profile"
@@ -23,7 +30,12 @@ const ProfileScreen = () => {
       <View style={{flexDirection: 'row', marginHorizontal: 16, marginTop: 24}}>
         <View style={{width: 64, height: 64}}>
           <Image
-            source={AppImages.man_1}
+            source={
+              typeof userInfo.profile.picture === 'string' &&
+              userInfo.profile.picture.startsWith('http')
+                ? {uri: userInfo.profile.picture}
+                : AppImages.man_1
+            }
             style={{
               width: '100%',
               aspectRatio: 1,
@@ -33,14 +45,25 @@ const ProfileScreen = () => {
           />
         </View>
         <View style={{marginLeft: 18}}>
-          <Text style={AppText.mediumTitle}>Bui Viet Hoang</Text>
+          <Text style={AppText.mediumTitle}>
+            {`${userInfo?.profile?.given_name} ${userInfo?.profile?.family_name}`}
+          </Text>
           <Text
             style={[AppText.primaryText, {color: AppColors.smallTitleText}]}>
-            buiviethoang12062000@gmail.com
+            {userInfo?.profile?.email}
           </Text>
         </View>
       </View>
       <DividerComponent height={28} />
+      <PickerComponent
+        title="General"
+        description="General user info"
+        customStyle={{height: 72}}
+        onPickerPress={() => {
+          navigation.navigate(ScreenName.generalScreen);
+        }}
+      />
+      <DividerComponent height={5} />
       <PickerComponent
         title="My orders"
         description="Already have 12 orders"
@@ -88,7 +111,8 @@ const ProfileScreen = () => {
           navigation.navigate(ScreenName.settingScreen);
         }}
       />
-    </View>
+      <DividerComponent height={25} />
+    </ScrollView>
   );
 };
 export default ProfileScreen;

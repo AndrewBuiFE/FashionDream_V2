@@ -31,4 +31,5 @@ export const ScreenName = {
   introScreen: 'IntroScreen',
   testScreen: 'TestScreen',
   testApi: 'TestApi',
+  generalScreen: 'GeneralScreen',
 };

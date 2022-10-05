@@ -2,8 +2,28 @@ import {Dimensions} from 'react-native';
 import {AppColors} from './AppColors';
 
 export const GeneralConfig = {
+  maxHomeProductItems: 20,
   firstRun: true,
-  codePushDeploymentKey: '',
+  ignoreGetConfig: false,
+  showIntro: true,
+  isPro: false,
+  showCopilot: {
+    newFeedScreen: true,
+    voiceSpeed: true,
+    readerSpeed: true,
+  },
+  version: '',
+  codePushVersion: '',
+  token: '',
+  urlPrivacyPolicy:
+    'https://speechin.htcsoftware.net/url_privacy_policy_ios.php',
+  urlTerms: 'https://speechin.htcsoftware.net/url_terms_ios.php',
+  urlHelp: 'https://speechin.htcsoftware.net/url_help_ios.php',
+  emailFeedback: 'support@visearch.net',
+  timeIntervalAskUserUpgrade: 5 * 24 * 60 * 60, // seconds between ask user upgrade app
+  timeIntervalAskUserResubscription: 1 * 24 * 60 * 60, // seconds between ask user resubscription app
+  timeIntervalAskUserUpdate: 1 * 24 * 60 * 60, // seconds between ask user update app
+  codepushDeploymentKey: 'urNOtDhE5oh1BIJDiMCPOEKIAxWHD5lvYc6Al',
 };
 export const AppText = {
   largeTitle: {

@@ -9,11 +9,11 @@ import DemoComponent from '../components/DemoComponent';
 import ConfirmDialog, {
   ConfirmDialogRef,
 } from '../components/dialog/ConfirmDialog';
-import RenderLoading from '../components/dialog/RenderLoading';
 import DividerComponent from '../components/DividerComponent';
 import EditTextComponent from '../components/EditTextComponent';
 import FilterComponent from '../components/FilterComponent';
 import HeaderComponent from '../components/HeaderComponent';
+import WebViewDemo from '../components/ihoadon/WebViewDemo';
 import LabelComponent from '../components/LabelComponent';
 import Modalheader from '../components/ModalHeader';
 import PickerComponent from '../components/PickerComponent';
@@ -179,9 +179,11 @@ const TestComponent = () => {
       <DividerComponent />
       <ActionSheet />
       <DividerComponent />
-      <RenderLoading />
+      <Text>Render Loading</Text>
+      {/* <RenderLoading /> */}
       <DividerComponent />
-      {/* <WebViewDemo /> */}
+      <Text>Web view</Text>
+      <WebViewDemo />
     </ScrollView>
   );
 };

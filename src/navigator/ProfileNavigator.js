@@ -3,6 +3,7 @@ import React from 'react';
 import LoginScreen from '../screens/auth/LoginScreen';
 import PaymentCardScreen from '../screens/checkout/PaymentCardScreen';
 import ShippingAddressScreen from '../screens/checkout/ShippingAddressScreen';
+import GeneralScreen from '../screens/profile/GeneralScreen';
 import MyOrderScreen from '../screens/profile/MyOrderScreen';
 import OrderDetailScreen from '../screens/profile/OrderDetailScreen';
 import ProfileScreen from '../screens/profile/ProfileScreen';
@@ -100,6 +101,14 @@ const ProfileNavigator = () => {
       <Stack.Screen
         name={ScreenName.loginScreen}
         component={LoginScreen}
+        options={{
+          headerShown: false,
+          title: '',
+        }}
+      />
+      <Stack.Screen
+        name={ScreenName.generalScreen}
+        component={GeneralScreen}
         options={{
           headerShown: false,
           title: '',

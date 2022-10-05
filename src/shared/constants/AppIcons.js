@@ -46,4 +46,12 @@ export const AppIcons = {
   // review
   thumb_up: require('../../assets/icons/thumb_up.png'),
   camera: require('../../assets/icons/camera.png'),
+  // general info
+  contact: require('../../assets/icons/ic_mail.png'),
+  ic_share: require('../../assets/icons/ic_share.png'),
+  privacy_policy: require('../../assets/icons/ic_privacy.png'),
+  term: require('../../assets/icons/ic_term.png'),
+  restore: require('../../assets/icons/ic_restore.png'),
+  ic_rate: require('../../assets/icons/ic_star.png'),
+  ic_help: require('../../assets/icons/ic_help.png'),
 };

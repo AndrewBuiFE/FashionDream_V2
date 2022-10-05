@@ -1,5 +1,6 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
+import LoginScreen from '../screens/auth/LoginScreen';
 import FavoriteScreen from '../screens/favorite/FavoriteScreen';
 import FilterModals from '../screens/modals/FiltersModal';
 import TakePhotoScreen from '../screens/visualsearch/TakePhotoScreen';
@@ -9,7 +10,7 @@ import {ScreenName} from '../shared/constants/ScreenName';
 const Stack = createNativeStackNavigator();
 const FavoriteNavigator = () => {
   return (
-    <Stack.Navigator initialRouteName={ScreenName.visualSearchScreen}>
+    <Stack.Navigator initialRouteName={ScreenName.loginScreen}>
       <Stack.Screen
         name={ScreenName.favoriteScreen}
         component={FavoriteScreen}
@@ -37,6 +38,14 @@ const FavoriteNavigator = () => {
       <Stack.Screen
         name={ScreenName.takePhotoScreen}
         component={TakePhotoScreen}
+        options={{
+          headerShown: false,
+          title: '',
+        }}
+      />
+      <Stack.Screen
+        name={ScreenName.loginScreen}
+        component={LoginScreen}
         options={{
           headerShown: false,
           title: '',
