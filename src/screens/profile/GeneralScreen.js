@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import FastImage from 'react-native-fast-image';
 import {useSelector} from 'react-redux';
 import HeaderComponent from '../../components/HeaderComponent';
 import {AppColors} from '../../shared/constants/AppColors';
@@ -49,7 +50,7 @@ const GeneralScreen = () => {
                 borderRadius: 100,
                 borderColor: '#888caf',
               }}>
-              <Image
+              <FastImage
                 source={
                   typeof userInfo.profile.picture === 'string' &&
                   userInfo.profile.picture.startsWith('http')

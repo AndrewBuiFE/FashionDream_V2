@@ -4,4 +4,5 @@
     <string name="appCenterAnalytics_whenToEnableAnalytics" moduleConfig="true" translatable="false">ALWAYS_SEND</string>
     <string moduleConfig="true" name="CodePushDeploymentKey">WrNeXm72U89m5oKwehU_V-oHJ-mzXrxnx4_Cb</string>
     <string name="facebook_app_id">513203473490458</string>
+    <string name="facebook_client_token">30e4deffd67e4e810e59f290ebe2339b</string>
 </resources>
