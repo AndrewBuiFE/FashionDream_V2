@@ -7130,6 +7130,16 @@ react-native-image-picker@4.7.0:
   resolved "https://registry.yarnpkg.com/react-native-image-picker/-/react-native-image-picker-4.7.0.tgz#ec9c72f90dce5bdfea4d22f6f1274bb3748101de"
   integrity sha512-JOXkMmzRnjMvmnzeWSeVeEZFWo0xx7LRl1wP57V/GPpUkeHiShAP0qWzg/sTLSSK9CQU4PW74PeoPiYE85lX7Q==
 
+react-native-in-app-review@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/react-native-in-app-review/-/react-native-in-app-review-4.1.1.tgz#d7ad1b82be6e3cfebf5fa43dbcd79f5a4b5bc367"
+  integrity sha512-kuZNKvawD9rICR8SEKSMRB1Ws5RjjyQScxVg/57dK8Yrx/CeVqSL5jJUJ1Nhl/MMxwP5XJ/keFcjTb2YRMglQw==
+
+react-native-mail@^6.1.1:
+  version "6.1.1"
+  resolved "https://registry.yarnpkg.com/react-native-mail/-/react-native-mail-6.1.1.tgz#f1b1f8034c84d2510a93e4a2a795f0db5a13595e"
+  integrity sha512-pTs180wwyh7hN/iyTC9SfOX579U4YhDlHOLxi47IGvhPJENqO/QFdBq+wWKxyhNqdQuVSy+LoeIxLreWnIeYmg==
+
 react-native-masked-text@^1.13.0:
   version "1.13.0"
   resolved "https://registry.yarnpkg.com/react-native-masked-text/-/react-native-masked-text-1.13.0.tgz#533fde8c45ccbaa1d6b0df30bf19b84b4ace3de3"
@@ -7157,6 +7167,11 @@ react-native-parallax-scroll-view@^0.21.3:
   integrity sha512-oVbZPijNGYGcpU2z7k/ZOOnl0vYxch7qtVvaJpH4+wLVnEP49NC2diCzjFGz8PE0yEcgyeTdkpdUK8RTD3QEew==
   dependencies:
     prop-types "^15.6.0"
+
+react-native-permissions@^3.6.1:
+  version "3.6.1"
+  resolved "https://registry.yarnpkg.com/react-native-permissions/-/react-native-permissions-3.6.1.tgz#73adcc1cef8cd57a9ef167b4507405f4ff5749c4"
+  integrity sha512-fzPpPQXeD34inUccqtoResSwYubfrwUguP4qrVUUv8+KSMjYSaHGoS5HaIJLZHlN9gO+TvLJZ2L5ZljTsb6qnQ==
 
 react-native-push-notification@^8.1.1:
   version "8.1.1"

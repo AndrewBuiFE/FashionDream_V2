@@ -12,9 +12,11 @@ import FastImage from 'react-native-fast-image';
 import {useSelector} from 'react-redux';
 import HeaderComponent from '../../components/HeaderComponent';
 import {AppColors} from '../../shared/constants/AppColors';
-import {GeneralConfig} from '../../shared/constants/AppGlobal';
+import {AppConfig} from '../../shared/constants/AppGlobal';
 import {AppIcons} from '../../shared/constants/AppIcons';
 import {AppImages} from '../../shared/constants/AppImages';
+import {ScreenName} from '../../shared/constants/ScreenName';
+import {handleShare, sendEmailContact} from '../../utils/Utils';
 const GeneralScreen = () => {
   // common hooks
   const navigation = useNavigation();
@@ -93,7 +95,7 @@ const GeneralScreen = () => {
                 borderTopRightRadius: 10,
               }}
               onPress={() => {
-                // sendEmailContactUs();
+                sendEmailContact();
               }}>
               <Image source={AppIcons.contact} style={styles.iconButton} />
               <Text style={styles.title}>Contact Support</Text>
@@ -102,8 +104,7 @@ const GeneralScreen = () => {
               style={{
                 ...styles.button,
               }}
-              // onPress={() => handleShare()}
-            >
+              onPress={() => handleShare()}>
               <Image source={AppIcons.ic_share} style={styles.iconButton} />
               <Text style={styles.title}>Share the app</Text>
             </TouchableOpacity>
@@ -112,10 +113,10 @@ const GeneralScreen = () => {
                 ...styles.button,
               }}
               onPress={() => {
-                // props.navigation.navigate(ScreenNames.webView, {
-                //   url: appConfig.UrlPrivacyPolicy,
-                //   title: 'Privacy Policy',
-                // });
+                navigation.navigate(ScreenName.webViewScreen, {
+                  url: AppConfig.urlPrivacyPolicy,
+                  title: 'Privacy Policy',
+                });
               }}>
               <Image
                 style={styles.iconButton}
@@ -128,10 +129,10 @@ const GeneralScreen = () => {
                 ...styles.button,
               }}
               onPress={() => {
-                // props.navigation.navigate(ScreenNames.webView, {
-                //   url: appConfig.UrlTerms,
-                //   title: 'Terms of Service',
-                // });
+                navigation.navigate(ScreenName.webViewScreen, {
+                  url: AppConfig.urlTerms,
+                  title: 'Terms of Service',
+                });
               }}>
               <Image style={styles.iconButton} source={AppIcons.term} />
               <Text style={styles.title}>Term of Service</Text>
@@ -141,7 +142,7 @@ const GeneralScreen = () => {
                 ...styles.button,
               }}
               onPress={() => {
-                // rateApp();
+                // reviewApp();
               }}>
               <Image style={styles.iconButton} source={AppIcons.ic_rate} />
               <Text style={styles.title}>Rate App</Text>
@@ -153,10 +154,10 @@ const GeneralScreen = () => {
                 borderBottomRightRadius: 10,
               }}
               onPress={() => {
-                // props.navigation.navigate(ScreenNames.webView, {
-                //   url: appConfig.UrlHelp,
-                //   title: 'Help',
-                // });
+                navigation.navigate(ScreenName.webViewScreen, {
+                  url: AppConfig.urlHelp,
+                  title: 'Help',
+                });
               }}>
               <Image style={styles.iconButton} source={AppIcons.ic_help} />
               <Text style={styles.title}>Help</Text>
@@ -172,7 +173,7 @@ const GeneralScreen = () => {
             <Text
               style={
                 styles.title
-              }>{`V-${GeneralConfig.version}-${GeneralConfig.codePushVersion}`}</Text>
+              }>{`V-${AppConfig.version}-${AppConfig.codePushVersion}`}</Text>
           </View>
         </View>
       </View>

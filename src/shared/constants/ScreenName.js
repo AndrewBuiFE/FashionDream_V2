@@ -32,4 +32,5 @@ export const ScreenName = {
   testScreen: 'TestScreen',
   testApi: 'TestApi',
   generalScreen: 'GeneralScreen',
+  webViewScreen: 'WebViewScreen',
 };

@@ -2,12 +2,12 @@ import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {Alert, ImageBackground, Text, View} from 'react-native';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import {check, PERMISSIONS, RESULTS} from 'react-native-permissions';
 import HeaderComponent from '../../components/HeaderComponent';
 import RadiusButton from '../../components/RadiusButton';
 import {AppColors} from '../../shared/constants/AppColors';
 import {AppIcons} from '../../shared/constants/AppIcons';
 import {AppImages} from '../../shared/constants/AppImages';
-import {ScreenName} from '../../shared/constants/ScreenName';
 var RNFS = require('react-native-fs');
 const VisualSearchScreen = () => {
   const navigation = useNavigation();
@@ -27,6 +27,7 @@ const VisualSearchScreen = () => {
         path: 'images',
       },
     };
+    checkPermission();
     launchCamera(options, response => {
       if (response.didCancel) {
         console.log('User cancelled image picker');
@@ -99,6 +100,36 @@ const VisualSearchScreen = () => {
       }
     });
   };
+  const checkPermission = () => {
+    check(PERMISSIONS.IOS.LOCATION_ALWAYS)
+      .then(result => {
+        switch (result) {
+          case RESULTS.UNAVAILABLE:
+            console.log(
+              'This feature is not available (on this device / in this context)',
+            );
+            break;
+          case RESULTS.DENIED:
+            console.log(
+              'The permission has not been requested / is denied but requestable',
+            );
+            break;
+          case RESULTS.LIMITED:
+            console.log('The permission is limited: some actions are possible');
+            break;
+          case RESULTS.GRANTED:
+            console.log('The permission is granted');
+            break;
+          case RESULTS.BLOCKED:
+            console.log('The permission is denied and not requestable anymore');
+            break;
+        }
+      })
+      .catch(error => {
+        // …
+      });
+  };
+
   return (
     <View style={{flex: 1, backgroundColor: AppColors.primaryBackground}}>
       <HeaderComponent

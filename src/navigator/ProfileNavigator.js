@@ -8,6 +8,7 @@ import MyOrderScreen from '../screens/profile/MyOrderScreen';
 import OrderDetailScreen from '../screens/profile/OrderDetailScreen';
 import ProfileScreen from '../screens/profile/ProfileScreen';
 import SettingScreen from '../screens/profile/SettingScreen';
+import WebViewScreen from '../screens/profile/WebViewScreen';
 import ReviewScreen from '../screens/review/ReviewScreen';
 import {ScreenName} from '../shared/constants/ScreenName';
 import TestApiScreen from '../tests/TestApi';
@@ -109,6 +110,14 @@ const ProfileNavigator = () => {
       <Stack.Screen
         name={ScreenName.generalScreen}
         component={GeneralScreen}
+        options={{
+          headerShown: false,
+          title: '',
+        }}
+      />
+      <Stack.Screen
+        name={ScreenName.webViewScreen}
+        component={WebViewScreen}
         options={{
           headerShown: false,
           title: '',

@@ -1,7 +1,7 @@
 import {Dimensions} from 'react-native';
 import {AppColors} from './AppColors';
 
-export const GeneralConfig = {
+export const AppConfig = {
   maxHomeProductItems: 20,
   firstRun: true,
   ignoreGetConfig: false,
