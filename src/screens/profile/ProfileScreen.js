@@ -44,14 +44,27 @@ const ProfileScreen = () => {
             }}
           />
         </View>
-        <View style={{marginLeft: 18}}>
+        <View
+          style={{
+            marginLeft: 18,
+            justifyContent: 'center',
+          }}>
           <Text style={AppText.mediumTitle}>
-            {`${userInfo?.profile?.given_name} ${userInfo?.profile?.family_name}`}
+            {userInfo?.profile?.given_name && userInfo?.profile?.family_name
+              ? `${userInfo?.profile?.given_name} ${userInfo?.profile?.family_name}`
+              : 'Log In'}
           </Text>
-          <Text
-            style={[AppText.primaryText, {color: AppColors.smallTitleText}]}>
-            {userInfo?.profile?.email}
-          </Text>
+          {!userInfo?.profile?.email ? null : (
+            <Text
+              style={{
+                color: '#888CAF',
+                paddingLeft: 5,
+                fontSize: 14,
+                fontFamily: 'Metropolis',
+              }}>
+              {userInfo?.profile?.email}
+            </Text>
+          )}
         </View>
       </View>
       <DividerComponent height={28} />

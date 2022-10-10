@@ -32,7 +32,8 @@ const CartScreen = () => {
   const shift = useRef(new Animated.Value(0)).current;
   const navigation = useNavigation();
   const [finalCode, setFinalCode] = useState('');
-  const {accessToken} = useSelector(state => state.system);
+  const {accessToken, appLogin, userInfo} = useSelector(state => state.system);
+  console.log('Access token: ', accessToken);
   // common functions
   const dismissModal = () => {
     showPromoModal(false);
@@ -84,10 +85,10 @@ const CartScreen = () => {
   //   };
   // }, []);
   useEffect(() => {
-    if (!accessToken) {
-      navigation.navigate(ScreenName.loginScreen);
+    if (!appLogin || userInfo.length == 0 || accessToken.length === 0) {
+      navigation.navigate(ScreenName.loginScreen, {canGoBack: false});
     }
-  }, [accessToken]);
+  }, [appLogin, userInfo, navigation, accessToken]);
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : null}

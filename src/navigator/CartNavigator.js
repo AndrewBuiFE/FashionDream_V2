@@ -1,5 +1,6 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
+import LoginScreen from '../screens/auth/LoginScreen';
 import CartScreen from '../screens/cart/CartScreen';
 import CheckoutScreen from '../screens/checkout/CheckoutScreen';
 import PaymentCardScreen from '../screens/checkout/PaymentCardScreen';
@@ -37,6 +38,14 @@ const CartNavigator = () => {
       <Stack.Screen
         name={ScreenName.shippingAddressScreen}
         component={ShippingAddressScreen}
+        options={{
+          headerShown: false,
+          title: '',
+        }}
+      />
+      <Stack.Screen
+        name={ScreenName.loginScreen}
+        component={LoginScreen}
         options={{
           headerShown: false,
           title: '',

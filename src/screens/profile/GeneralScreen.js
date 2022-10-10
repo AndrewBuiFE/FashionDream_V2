@@ -1,5 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
-import React, {useCallback} from 'react';
+import {random, range} from 'lodash';
+import React, {useCallback, useEffect} from 'react';
 import {
   Image,
   ScrollView,
@@ -10,6 +11,7 @@ import {
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import {useSelector} from 'react-redux';
+import {VictoryBar, VictoryChart} from 'victory-native';
 import HeaderComponent from '../../components/HeaderComponent';
 import {AppColors} from '../../shared/constants/AppColors';
 import {AppConfig} from '../../shared/constants/AppGlobal';
@@ -17,17 +19,31 @@ import {AppIcons} from '../../shared/constants/AppIcons';
 import {AppImages} from '../../shared/constants/AppImages';
 import {ScreenName} from '../../shared/constants/ScreenName';
 import {handleShare, sendEmailContact} from '../../utils/Utils';
+
 const GeneralScreen = () => {
   // common hooks
   const navigation = useNavigation();
   const goBack = navigation.goBack;
-  /**
-   * @type {{userInfo: import('../../types/system').UserInfo}}
-   */
-  const {userInfo} = useSelector(state => state.system);
+  const {userInfo, appLogin, accessToken} = useSelector(state => state.system);
   // utility functions
   const keyExtractor = useCallback(item => item.id, []);
+  function getData() {
+    const bars = random(6, 10);
+    return range(bars).map(bar => {
+      return {x: bar + 1, y: random(2, 10)};
+    });
+  }
   // rendering functions
+  useEffect(() => {
+    if (!appLogin || userInfo.length == 0 || accessToken.length === 0) {
+      navigation.navigate(ScreenName.loginScreen, {canGoBack: false});
+    }
+  }, [appLogin, userInfo, navigation, accessToken]);
+  // useEffect(() => {
+  //   setInterval(() => {
+  //     setData(getData());
+  //   }, 3000);
+  // });
   return (
     <ScrollView style={{flex: 1, backgroundColor: AppColors.primaryBackground}}>
       <HeaderComponent
@@ -77,6 +93,26 @@ const GeneralScreen = () => {
               )}
             </View>
           </TouchableOpacity>
+          <View>
+            <VictoryChart domainPadding={{x: 20}} animate={{duration: 500}}>
+              <VictoryBar
+                data={getData()}
+                style={{
+                  data: {fill: 'tomato', width: 12},
+                }}
+                animate={{
+                  onExit: {
+                    duration: 1000,
+                    before: () => ({
+                      _y: 0,
+                      fill: 'orange',
+                      label: 'BYE',
+                    }),
+                  },
+                }}
+              />
+            </VictoryChart>
+          </View>
           <View
             style={{
               marginBottom: 16,

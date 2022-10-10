@@ -27,7 +27,13 @@ import {
   setAppLogin,
   setUserInfo,
 } from '../../stores/slices/SystemSlice';
-const LoginScreen = () => {
+/**
+ * @param  {{canGoBack: boolean}} props
+ *
+ */
+const LoginScreen = props => {
+  // var
+  let {canGoBack} = props;
   // hooks
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -89,15 +95,24 @@ const LoginScreen = () => {
   //   const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
   //   return subscriber; // unsubscribe on unmount
   // }, []);
+  useEffect(() => {
+    navigation.addListener('beforeRemove', e => {
+      e.preventDefault();
+    });
+  }, [navigation]);
   return (
     <View style={styles.container}>
       <HeaderComponent
         type="large"
-        leftIcon={AppIcons.back_arrow}
+        leftIcon={canGoBack ? AppIcons.back_arrow : null}
         title="Login"
-        onLeftIconPress={() => {
-          Utils.goBack(navigation);
-        }}
+        onLeftIconPress={
+          canGoBack
+            ? () => {
+                Utils.goBack(navigation);
+              }
+            : null
+        }
       />
       <View style={{paddingHorizontal: 16}}>
         <Formik

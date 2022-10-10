@@ -10,7 +10,7 @@ import {ScreenName} from '../shared/constants/ScreenName';
 const Stack = createNativeStackNavigator();
 const FavoriteNavigator = () => {
   return (
-    <Stack.Navigator initialRouteName={ScreenName.visualSearchScreen}>
+    <Stack.Navigator initialRouteName={ScreenName.favoriteScreen}>
       <Stack.Screen
         name={ScreenName.favoriteScreen}
         component={FavoriteScreen}

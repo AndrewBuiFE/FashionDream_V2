@@ -1,6 +1,7 @@
 import {useNavigation} from '@react-navigation/native';
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {FlatList, RefreshControl, View} from 'react-native';
+import {useSelector} from 'react-redux';
 import {PRODUCT, SORT_TITLE, TYPE} from '../../assets/data';
 import DividerComponent from '../../components/DividerComponent';
 import FilterComponent from '../../components/FilterComponent';
@@ -28,6 +29,7 @@ const FavoriteScreen = props => {
   const [layout, changeLayout] = useState(true); // true - horizontal, false - vertical
   const [isModalVisible, showModal] = useState(false);
   const [modalActiveIndex, setActiveIndex] = useState(0);
+  const {accessToken, appLogin, userInfo} = useSelector(state => state.system);
   // utility function
   const dismissModal = () => {
     showModal(false);
@@ -77,6 +79,11 @@ const FavoriteScreen = props => {
     },
     [layout],
   );
+  useEffect(() => {
+    if (!appLogin || userInfo.length == 0 || accessToken.length === 0) {
+      navigation.navigate(ScreenName.loginScreen, {canGoBack: false});
+    }
+  }, [appLogin, userInfo, navigation, accessToken]);
   return (
     <View style={{flex: 1, backgroundColor: AppColors.primaryBackground}}>
       <SortModal
