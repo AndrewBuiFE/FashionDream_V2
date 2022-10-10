@@ -54,9 +54,9 @@ const GeneralScreen = () => {
               }}>
               <FastImage
                 source={
-                  typeof userInfo.profile.picture === 'string' &&
-                  userInfo.profile.picture.startsWith('http')
-                    ? {uri: userInfo.profile.picture}
+                  typeof userInfo?.profile?.picture === 'string' &&
+                  userInfo?.profile?.picture.startsWith('http')
+                    ? {uri: userInfo?.profile?.picture}
                     : AppImages.man_1
                 }
                 style={{

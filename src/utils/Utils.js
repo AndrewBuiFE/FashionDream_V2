@@ -3,9 +3,9 @@ import {Alert, Share} from 'react-native';
 import CodePush from 'react-native-code-push';
 import InAppReview from 'react-native-in-app-review';
 import Mailer from 'react-native-mail';
+import * as RNPermission from 'react-native-permissions';
 import {useSelector} from 'react-redux';
 import {createSelector, createSelectorCreator, defaultMemoize} from 'reselect';
-
 const createImmuableSelector = createSelectorCreator(defaultMemoize, is);
 /**
  * @template T
@@ -137,4 +137,19 @@ export const reviewApp = () => {
       // Check table for errors and code number that can return in catch.
       console.log(error);
     });
+};
+/**
+ *
+ * @param {RNPermission.Permission} permission
+ * @returns
+ */
+export const requestPermission = async permission => {
+  let status = await RNPermission.check(permission);
+  if (status == RNPermission.RESULTS.DENIED) {
+    status = await RNPermission.request(permission);
+  }
+  return (
+    status == RNPermission.RESULTS.GRANTED ||
+    status == RNPermission.RESULTS.LIMITED
+  );
 };

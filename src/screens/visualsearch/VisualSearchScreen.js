@@ -1,19 +1,20 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
-import {Alert, ImageBackground, Text, View} from 'react-native';
+import {Alert, ImageBackground, Platform, Text, View} from 'react-native';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import {check, PERMISSIONS, RESULTS} from 'react-native-permissions';
+import {PERMISSIONS} from 'react-native-permissions';
 import HeaderComponent from '../../components/HeaderComponent';
 import RadiusButton from '../../components/RadiusButton';
 import {AppColors} from '../../shared/constants/AppColors';
 import {AppIcons} from '../../shared/constants/AppIcons';
 import {AppImages} from '../../shared/constants/AppImages';
+import {requestPermission} from '../../utils/Utils';
 var RNFS = require('react-native-fs');
 const VisualSearchScreen = () => {
   const navigation = useNavigation();
   const goBack = navigation.goBack;
   // functions
-  const onCameraOpen = () => {
+  const onCameraOpen = async () => {
     let options = {
       title: 'Select Image',
       customButtons: [
@@ -27,7 +28,10 @@ const VisualSearchScreen = () => {
         path: 'images',
       },
     };
-    checkPermission();
+    let canOpen = await checkPermission();
+    if (!canOpen) {
+      return;
+    }
     launchCamera(options, response => {
       if (response.didCancel) {
         console.log('User cancelled image picker');
@@ -100,34 +104,12 @@ const VisualSearchScreen = () => {
       }
     });
   };
-  const checkPermission = () => {
-    check(PERMISSIONS.IOS.LOCATION_ALWAYS)
-      .then(result => {
-        switch (result) {
-          case RESULTS.UNAVAILABLE:
-            console.log(
-              'This feature is not available (on this device / in this context)',
-            );
-            break;
-          case RESULTS.DENIED:
-            console.log(
-              'The permission has not been requested / is denied but requestable',
-            );
-            break;
-          case RESULTS.LIMITED:
-            console.log('The permission is limited: some actions are possible');
-            break;
-          case RESULTS.GRANTED:
-            console.log('The permission is granted');
-            break;
-          case RESULTS.BLOCKED:
-            console.log('The permission is denied and not requestable anymore');
-            break;
-        }
-      })
-      .catch(error => {
-        // …
-      });
+  const checkPermission = async () => {
+    let isGranted =
+      Platform.OS === 'ios'
+        ? true
+        : await requestPermission(PERMISSIONS.ANDROID.CAMERA);
+    return isGranted;
   };
 
   return (
